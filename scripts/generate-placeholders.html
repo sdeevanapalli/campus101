@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Campus Image Placeholder Generator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            background: #f5f5f5;
+        }
+        .campus-card {
+            background: white;
+            border-radius: 8px;
+            padding: 20px;
+            margin: 20px 0;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        .placeholder {
+            width: 600px;
+            height: 400px;
+            margin: 10px 0;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 24px;
+            font-weight: bold;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+        }
+        .hyderabad { background: linear-gradient(135deg, #3B82F6, #06B6D4); }
+        .goa { background: linear-gradient(135deg, #10B981, #14B8A6); }
+        .pilani { background: linear-gradient(135deg, #F59E0B, #EF4444); }
+        .instructions {
+            background: #E3F2FD;
+            padding: 15px;
+            border-radius: 5px;
+            margin: 20px 0;
+        }
+    </style>
+</head>
+<body>
+    <h1>BITS Campus Placeholder Images</h1>
+    
+    <div class="instructions">
+        <h3>Instructions:</h3>
+        <p>Right-click on each image below and "Save As" to download placeholder images for your campus guide.</p>
+        <p>Save them in the <code>public/images/</code> directory with the exact filenames shown.</p>
+    </div>
+
+    <div class="campus-card">
+        <h2>Hyderabad Campus</h2>
+        <canvas class="placeholder hyderabad" id="hyderabad-campus" width="600" height="400"></canvas>
+        <p>Save as: <code>hyderabad-campus.jpg</code></p>
+        
+        <canvas class="placeholder hyderabad" id="hyderabad-1" width="600" height="400"></canvas>
+        <p>Save as: <code>hyderabad-1.jpg</code></p>
+        
+        <canvas class="placeholder hyderabad" id="hyderabad-2" width="600" height="400"></canvas>
+        <p>Save as: <code>hyderabad-2.jpg</code></p>
+        
+        <canvas class="placeholder hyderabad" id="hyderabad-3" width="600" height="400"></canvas>
+        <p>Save as: <code>hyderabad-3.jpg</code></p>
+        
+        <canvas class="placeholder hyderabad" id="hyderabad-4" width="600" height="400"></canvas>
+        <p>Save as: <code>hyderabad-4.jpg</code></p>
+        
+        <canvas class="placeholder hyderabad" id="hyderabad-5" width="600" height="400"></canvas>
+        <p>Save as: <code>hyderabad-5.jpg</code></p>
+    </div>
+
+    <div class="campus-card">
+        <h2>Goa Campus</h2>
+        <canvas class="placeholder goa" id="goa-campus" width="600" height="400"></canvas>
+        <p>Save as: <code>goa-campus.jpg</code></p>
+        
+        <canvas class="placeholder goa" id="goa-1" width="600" height="400"></canvas>
+        <p>Save as: <code>goa-1.jpg</code></p>
+        
+        <canvas class="placeholder goa" id="goa-2" width="600" height="400"></canvas>
+        <p>Save as: <code>goa-2.jpg</code></p>
+        
+        <canvas class="placeholder goa" id="goa-3" width="600" height="400"></canvas>
+        <p>Save as: <code>goa-3.jpg</code></p>
+        
+        <canvas class="placeholder goa" id="goa-4" width="600" height="400"></canvas>
+        <p>Save as: <code>goa-4.jpg</code></p>
+        
+        <canvas class="placeholder goa" id="goa-5" width="600" height="400"></canvas>
+        <p>Save as: <code>goa-5.jpg</code></p>
+    </div>
+
+    <div class="campus-card">
+        <h2>Pilani Campus</h2>
+        <canvas class="placeholder pilani" id="pilani-campus" width="600" height="400"></canvas>
+        <p>Save as: <code>pilani-campus.jpg</code></p>
+        
+        <canvas class="placeholder pilani" id="pilani-1" width="600" height="400"></canvas>
+        <p>Save as: <code>pilani-1.jpg</code></p>
+        
+        <canvas class="placeholder pilani" id="pilani-2" width="600" height="400"></canvas>
+        <p>Save as: <code>pilani-2.jpg</code></p>
+        
+        <canvas class="placeholder pilani" id="pilani-3" width="600" height="400"></canvas>
+        <p>Save as: <code>pilani-3.jpg</code></p>
+        
+        <canvas class="placeholder pilani" id="pilani-4" width="600" height="400"></canvas>
+        <p>Save as: <code>pilani-4.jpg</code></p>
+        
+        <canvas class="placeholder pilani" id="pilani-5" width="600" height="400"></canvas>
+        <p>Save as: <code>pilani-5.jpg</code></p>
+    </div>
+
+    <script>
+        // Generate placeholder images with text
+        const campuses = {
+            'hyderabad': { color1: '#3B82F6', color2: '#06B6D4', name: 'BITS Hyderabad' },
+            'goa': { color1: '#10B981', color2: '#14B8A6', name: 'BITS Goa' },
+            'pilani': { color1: '#F59E0B', color2: '#EF4444', name: 'BITS Pilani' }
+        };
+
+        Object.keys(campuses).forEach(campus => {
+            const config = campuses[campus];
+            
+            // Main campus image
+            const mainCanvas = document.getElementById(`${campus}-campus`);
+            const mainCtx = mainCanvas.getContext('2d');
+            const mainGradient = mainCtx.createLinearGradient(0, 0, 600, 400);
+            mainGradient.addColorStop(0, config.color1);
+            mainGradient.addColorStop(1, config.color2);
+            mainCtx.fillStyle = mainGradient;
+            mainCtx.fillRect(0, 0, 600, 400);
+            mainCtx.fillStyle = 'white';
+            mainCtx.font = 'bold 32px Arial';
+            mainCtx.textAlign = 'center';
+            mainCtx.fillText(config.name, 300, 180);
+            mainCtx.font = '20px Arial';
+            mainCtx.fillText('Campus Overview', 300, 220);
+
+            // Hero images 1-5
+            for (let i = 1; i <= 5; i++) {
+                const canvas = document.getElementById(`${campus}-${i}`);
+                const ctx = canvas.getContext('2d');
+                const gradient = ctx.createLinearGradient(0, 0, 600, 400);
+                gradient.addColorStop(0, config.color1);
+                gradient.addColorStop(1, config.color2);
+                ctx.fillStyle = gradient;
+                ctx.fillRect(0, 0, 600, 400);
+                ctx.fillStyle = 'white';
+                ctx.font = 'bold 28px Arial';
+                ctx.textAlign = 'center';
+                ctx.fillText(config.name, 300, 180);
+                ctx.font = '18px Arial';
+                ctx.fillText(`Hero Image ${i}`, 300, 220);
+            }
+        });
+
+        // Add download functionality
+        document.querySelectorAll('canvas').forEach(canvas => {
+            canvas.addEventListener('contextmenu', function(e) {
+                e.preventDefault();
+                const link = document.createElement('a');
+                link.download = canvas.id + '.jpg';
+                link.href = canvas.toDataURL('image/jpeg', 0.8);
+                link.click();
+            });
+        });
+    </script>
+</body>
+</html>
