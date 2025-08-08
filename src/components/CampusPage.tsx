@@ -278,78 +278,118 @@ const CampusPage: React.FC<CampusPageProps> = ({ campusData }) => {
 
       case 'map':
         return (
-          <div className="bg-white dark:bg-gray-900 rounded-xl shadow-lg overflow-hidden">
-            <div className="p-6 border-b border-gray-200 dark:border-gray-700">
-              <h2 className="text-2xl font-bold text-gray-800 dark:text-white mb-4 flex items-center">
-                <Map size={24} className="mr-3 text-blue-600" />
-                Campus Map
-              </h2>
-            </div>
-            
-            <div className="flex flex-col lg:flex-row h-[600px]">
-              {/* Map */}
-              <div className="flex-1 relative">
-                <MapContainer
-                  center={campusData.mapCenter}
-                  zoom={16}
-                  style={{ height: '100%', width: '100%' }}
-                  className="rounded-b-xl lg:rounded-none"
-                >
-                  <TileLayer
-                    attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-                    url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-                  />
-                  {campusData.locations.map((location) => (
-                    <Marker
+          <div className="bg-white dark:bg-gray-900 rounded-xl shadow-lg p-6">
+            <h2 className="text-2xl font-bold text-gray-800 dark:text-white mb-4 flex items-center">
+              <MapPin size={24} className="mr-3 text-blue-600" />
+              Campus Navigation
+            </h2>
+            <p className="mb-6 text-sm sm:text-base text-gray-700 dark:text-gray-300">
+              Explore BITS Hyderabad campus locations with interactive map and quick directions.
+            </p>
+
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+              {/* Left side - Location buttons and info */}
+              <div className="space-y-4">
+                {/* Location Selection Buttons */}
+                <div className="grid grid-cols-2 gap-2 mb-4">
+                  {campusData.locations.map((location, index) => (
+                    <button
                       key={location.id}
-                      position={[location.lat, location.lng]}
-                      eventHandlers={{
-                        click: () => setSelectedLocation(location),
-                      }}
+                      onClick={() => setSelectedLocation(location)}
+                      className={`p-3 rounded-lg text-left transition-all duration-300 transform hover:scale-105 ${
+                        selectedLocation?.id === location.id
+                          ? 'bg-blue-600 text-white shadow-lg'
+                          : 'bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-700'
+                      }`}
+                      style={{ animationDelay: `${index * 0.05}s` }}
                     >
+                      <div className="font-medium text-sm">{location.name}</div>
+                    </button>
+                  ))}
+                </div>
+
+                {/* Selected Location Info */}
+                {selectedLocation && (
+                  <div className="bg-gray-50 dark:bg-gray-800 rounded-lg p-4 border dark:border-gray-700 transition-all duration-500">
+                    <h3 className="text-lg font-semibold mb-2 text-gray-800 dark:text-white flex items-center">
+                      <MapPin size={18} className="mr-2 text-blue-600" />
+                      {selectedLocation.name}
+                    </h3>
+                    {selectedLocation.desc && (
+                      <p className="text-sm text-gray-700 dark:text-gray-300 mb-4 leading-relaxed">
+                        {selectedLocation.desc}
+                      </p>
+                    )}
+                    <a
+                      href={`https://www.google.com/maps/search/?api=1&query=${selectedLocation.lat},${selectedLocation.lng}`}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="inline-flex items-center space-x-2 bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition-all duration-300 text-sm font-medium transform hover:scale-105 active:scale-95"
+                    >
+                      <MapPin size={16} />
+                      <span>Open in Google Maps</span>
+                    </a>
+                  </div>
+                )}
+              </div>
+
+              {/* Right side - Map Preview */}
+              <div className="h-96 lg:h-full min-h-[400px]">
+                <div className="w-full h-full rounded-lg overflow-hidden border dark:border-gray-700 shadow-lg">
+                  <MapContainer
+                    center={[selectedLocation.lat, selectedLocation.lng]}
+                    zoom={18}
+                    scrollWheelZoom={true}
+                    className="w-full h-full z-0"
+                    key={selectedLocation.id}
+                  >
+                    {/* <ChangeView center={[selectedLocation.lat, selectedLocation.lng]} /> */}
+                    <TileLayer
+                      attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+                      url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+                    />
+                    <Marker position={[selectedLocation.lat, selectedLocation.lng]}>
                       <Popup>
-                        <div className="p-2">
-                          <h3 className="font-semibold text-gray-800">{location.name}</h3>
-                          {location.desc && (
-                            <p className="text-sm text-gray-600 mt-1">{location.desc}</p>
+                        <div className="text-center">
+                          <strong className="text-lg">{selectedLocation.name}</strong>
+                          {selectedLocation.desc && (
+                            <>
+                              <br />
+                              <span className="text-sm text-gray-600">{selectedLocation.desc}</span>
+                            </>
                           )}
                         </div>
                       </Popup>
                     </Marker>
-                  ))}
-                </MapContainer>
-              </div>
-
-              {/* Location List */}
-              <div className="lg:w-80 bg-gray-50 dark:bg-gray-800 p-4 overflow-y-auto">
-                <h3 className="font-semibold text-gray-800 dark:text-white mb-4">Locations</h3>
-                <div className="grid grid-cols-2 lg:grid-cols-1 gap-2">
-                  {campusData.locations.map((location) => (
-                    <a
-                      key={location.id}
-                      href="#"
-                      onClick={(e) => {
-                        e.preventDefault();
-                        setSelectedLocation(location);
-                      }}
-                      className={`p-3 rounded-lg border transition-all duration-200 hover:shadow-md ${
-                        selectedLocation?.id === location.id
-                          ? 'bg-blue-100 dark:bg-blue-900 border-blue-300 dark:border-blue-700'
-                          : 'bg-white dark:bg-gray-700 border-gray-200 dark:border-gray-600 hover:bg-gray-50 dark:hover:bg-gray-600'
-                      }`}
-                    >
-                      <div className="text-xs font-medium text-gray-700 dark:text-gray-300 mb-1">
-                        {location.name}
-                      </div>
-                      <div className="text-xs text-blue-600 dark:text-blue-400 flex items-center justify-center">
-                        <MapPin size={12} className="mr-1" />
-                        View
-                      </div>
-                    </a>
-                  ))}
+                  </MapContainer>
                 </div>
               </div>
             </div>
+
+            {/* Quick Access Cards */}
+            {/* <div className="mt-6 pt-6 border-t border-gray-200 dark:border-gray-700">
+              <h3 className="text-lg font-semibold text-gray-800 dark:text-white mb-4">Quick Access</h3>
+              <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3">
+                {campusData.locations.map((location, index) => (
+                  <a
+                    key={location.id}
+                    href={`https://www.google.com/maps/search/?api=1&query=${location.lat},${location.lng}`}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="bg-gradient-to-r from-blue-50 to-blue-100 dark:from-blue-900 dark:to-blue-800 p-3 rounded-lg text-center hover:from-blue-100 hover:to-blue-200 dark:hover:from-blue-800 dark:hover:to-blue-700 transition-all duration-300 border border-blue-200 dark:border-blue-700 transform hover:scale-105"
+                    style={{ animationDelay: `${index * 0.05}s` }}
+                  >
+                    <div className="text-xs font-medium text-gray-700 dark:text-gray-300 mb-1">
+                      {location.name}
+                    </div>
+                    <div className="text-xs text-blue-600 dark:text-blue-400 flex items-center justify-center">
+                      <MapPin size={12} className="mr-1" />
+                      View
+                    </div>
+                  </a>
+                ))}
+              </div>
+            </div> */}
           </div>
         );
 
