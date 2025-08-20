@@ -12,7 +12,7 @@ const LandingPage = () => {
       name: "BITS Pilani, Hyderabad Campus",
       location: "Hyderabad, Telangana",
       description: "Modern tech hub with state-of-the-art facilities and vibrant student life",
-      image: "https://images.unsplash.com/photo-1562774053-701939374585?w=800&h=600&fit=crop",
+      image: "/bitsh.jpg",
       link: "/hyderabad",
       color: "from-blue-500 to-cyan-500",
       stats: { students: "3,000+", facilities: "50+", clubs: "40+" }
@@ -21,7 +21,7 @@ const LandingPage = () => {
       name: "BITS Pilani, K. K. Birla Goa Campus", 
       location: "Zuarinagar, Goa",
       description: "Coastal paradise offering academic excellence with beachside serenity",
-      image: "https://images.unsplash.com/photo-1571068316344-75bc76f77890?w=800&h=600&fit=crop", 
+      image: "/bitsg.jpeg", 
       link: "/goa",
       color: "from-emerald-500 to-teal-500",
       stats: { students: "2,500+", facilities: "40+", clubs: "35+" }
@@ -30,7 +30,7 @@ const LandingPage = () => {
       name: "BITS Pilani",
       location: "Pilani, Rajasthan", 
       description: "Historic flagship campus where tradition meets innovation",
-      image: "https://images.unsplash.com/photo-1541339907198-e08756dedf3f?w=800&h=600&fit=crop",
+      image: "/bitsp.jpg",
       link: "/pilani",
       color: "from-orange-500 to-red-500", 
       stats: { students: "4,000+", facilities: "60+", clubs: "50+" }
