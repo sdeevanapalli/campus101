@@ -2,21 +2,62 @@
 <html lang="en" class="dark">
   <head>
     <!-- Google tag (gtag.js) -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-KD1WLMW3ZG"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-
-  gtag('config', 'G-9EG5HKKXP1');
-</script>
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-KD1WLMW3ZG"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-9EG5HKKXP1');
+    </script>
+    
     <meta charset="UTF-8" />
     <link rel="icon" type="image/svg+xml" href="/vite.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Campus101 - BITS Hyderabad</title>
+    <meta name="description" content="Comprehensive campus guide for BITS Pilani campuses - Hyderabad, Goa, and Pilani. Find facilities, maps, timings, and everything you need for campus life." />
+    <meta name="keywords" content="BITS Pilani, campus guide, Hyderabad campus, Goa campus, Pilani campus, student life, campus facilities" />
+    <meta name="author" content="Campus101 Team" />
+    
+    <!-- PWA Meta Tags -->
+    <meta name="theme-color" content="#1e293b" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+    <meta name="apple-mobile-web-app-title" content="Campus101" />
+    
+    <!-- Open Graph Tags -->
+    <meta property="og:title" content="Campus101 - BITS Campus Guide" />
+    <meta property="og:description" content="Your complete guide to BITS Pilani campuses with interactive maps, facility timings, and student resources." />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://campus101.vercel.app" />
+    <meta property="og:image" content="/og-image.jpg" />
+    
+    <!-- Twitter Card Tags -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Campus101 - BITS Campus Guide" />
+    <meta name="twitter:description" content="Your complete guide to BITS Pilani campuses with interactive maps, facility timings, and student resources." />
+    <meta name="twitter:image" content="/og-image.jpg" />
+    
+    <title>Campus101 - Complete BITS Campus Guide</title>
+    
+    <!-- Preload critical resources -->
+    <link rel="preload" href="/src/index.css" as="style" />
+    <link rel="preload" href="/src/main.tsx" as="script" />
+    
+    <!-- Manifest for PWA -->
+    <link rel="manifest" href="/manifest.json" />
   </head>
   <body>
     <div id="root"></div>
     <script type="module" src="/src/main.tsx"></script>
+    
+    <!-- Service Worker for PWA -->
+    <script>
+      if ('serviceWorker' in navigator) {
+        window.addEventListener('load', () => {
+          navigator.serviceWorker.register('/sw.js')
+            .then(registration => console.log('SW registered'))
+            .catch(error => console.log('SW registration failed'));
+        });
+      }
+    </script>
   </body>
 </html>
