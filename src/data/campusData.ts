@@ -507,7 +507,7 @@ export const campusData: Record<string, CampusData> = {
       },
       { 
         name: 'Nescafe', 
-        timing: '10:00 PM - 02:00 AM', 
+        timing: 'TBA', 
         category: 'food',
         rating: 4.3,
         reviews: 56,
