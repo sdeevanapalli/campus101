@@ -400,8 +400,7 @@ export const campusData: Record<string, CampusData> = {
       },
       { 
         name: 'Pleasant', 
-        timing: 'Closed for Summer Term', 
-        closed: true, 
+        timing: '12:30PM - 03:30PM & 07:00 PM - 11:00 PM',
         category: 'food',
         rating: 4.2,
         reviews: 78,
@@ -418,8 +417,7 @@ export const campusData: Record<string, CampusData> = {
       },
       { 
         name: 'Agra Chat', 
-        timing: 'Closed for Summer Term', 
-        closed: true, 
+        timing: '04:00 PM - 10:00 PM',
         category: 'food',
         rating: 4.0,
         reviews: 34,
@@ -501,8 +499,7 @@ export const campusData: Record<string, CampusData> = {
       },
       { 
         name: 'Wich Please and SFC', 
-        timing: 'Closed for Summer Term', 
-        closed: true, 
+        timing: '05:00 PM - 02:00 AM', 
         category: 'food',
         rating: 4.1,
         reviews: 34,
@@ -510,8 +507,7 @@ export const campusData: Record<string, CampusData> = {
       },
       { 
         name: 'Nescafe', 
-        timing: 'Closed for Summer Term', 
-        closed: true, 
+        timing: '10:00 PM - 02:00 AM', 
         category: 'food',
         rating: 4.3,
         reviews: 56,
