@@ -868,10 +868,10 @@ export const campusData: Record<string, CampusData> = {
   }
     ],
     messTimings: [
-      ['Breakfast:', '7:00 AM - 9:00 AM'],
-      ['Lunch:', '12:30 PM - 2:30 PM'],
-      ['Snacks:', '4:00 PM - 6:00 PM'],
-      ['Dinner:', '7:00 PM - 9:00 PM']
+      ['Breakfast:', '07:30 AM - 09:30 AM'],
+      ['Lunch:', '12:00 PM - 02:30 PM'],
+      ['Snacks:', '05:00 PM - 06:00 PM'],
+      ['Dinner:', '07:30 PM - 09:30 PM']
     ],
     emergencyContacts: [
       { name: 'Security', phone: '9876543210' },
@@ -982,10 +982,10 @@ export const campusData: Record<string, CampusData> = {
       }
     ],
     messTimings: [
-      ['Breakfast:', '7:30 AM - 9:30 AM'],
-      ['Lunch:', '12:00 PM - 2:00 PM'],
-      ['Snacks:', '4:30 PM - 6:00 PM'],
-      ['Dinner:', '7:30 PM - 9:30 PM']
+      ['Breakfast:', '07:30 AM - 09:30 AM'],
+      ['Lunch:', '12:00 PM - 02:00 PM'],
+      ['Snacks:', '04:30 PM - 06:00 PM'],
+      ['Dinner:', '7:30 PM - 09:30 PM']
     ],
     emergencyContacts: [
       { name: 'Security', phone: '9876543210' },
