@@ -174,9 +174,9 @@ const LandingPage = () => {
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
             {[
               { icon: "🗺️", title: "Interactive Maps", desc: "Detailed campus maps with location markers" },
-              { icon: "🕒", title: "Facility Timings", desc: "Up-to-date schedules for all campus services" },
-              { icon: "📞", title: "Emergency Contacts", desc: "Important numbers and contact information" },
-              { icon: "🍽️", title: "Mess Menus", desc: "Dining schedules and food outlet information" }
+              { icon: "🍽️", title: "Vendor Timings", desc: "Up-to-date schedules for all campus vendors" },
+              { icon: "📞", title: "Warden Contacts", desc: "Contact Information for each Hostel" },
+              { icon: "🚌", title: "Auto Phone Numbers and Bus Numbers", desc: "Essential contact numbers for campus transport" }
             ].map((feature, index) => (
               <motion.div
                 key={feature.title}
