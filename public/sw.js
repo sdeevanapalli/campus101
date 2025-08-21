@@ -2,7 +2,6 @@ const CACHE_NAME = 'campus101-v1';
 const urlsToCache = [
   '/',
   '/index.html',
-  '/src/main.tsx',
   '/src/index.css',
   '/manifest.json'
 ];
