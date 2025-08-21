@@ -23,10 +23,62 @@ import {
   Info,
   MapPin,
   ArrowLeft,
+  Mail,
 } from 'lucide-react';
 
 import 'leaflet/dist/leaflet.css';
 import { CampusData } from '../data/campusData';
+
+const ContactCard: React.FC<{ name: string; phone: string; email: string; label?: string }> = ({
+  name,
+  phone,
+  email,
+  label
+}) => (
+  <div className="bg-gray-50 dark:bg-gray-800 rounded-lg p-4 hover:bg-gray-100 dark:hover:bg-gray-700 transition-all duration-300 transform hover:scale-102 hover:shadow-md">
+    <div className="flex justify-between items-center">
+      <div>
+        <h4 className="font-semibold text-gray-800 dark:text-white transition-colors duration-200">
+          {name}
+        </h4>
+        {label && (
+          <p className="text-sm text-gray-600 dark:text-gray-300 transition-colors duration-200">
+            {label}
+          </p>
+        )}
+      </div>
+      <div className="flex space-x-2">
+        <a
+          href={`tel:${phone}`}
+          className="bg-blue-600 text-white px-3 py-2 rounded-lg hover:bg-blue-700 transition-all duration-300 flex items-center space-x-1 transform hover:scale-105 active:scale-95"
+        >
+          <Phone size={16} className="transition-transform duration-200 hover:rotate-12" />
+          <span className="text-sm font-medium">Call</span>
+        </a>
+        <a
+          href={`mailto:${email}`}
+          className="bg-green-600 text-white px-3 py-2 rounded-lg hover:bg-green-700 transition-all duration-300 flex items-center space-x-1 transform hover:scale-105 active:scale-95"
+        >
+          <Mail size={16} className="transition-transform duration-200 hover:rotate-12" />
+          <span className="text-sm font-medium">Email</span>
+        </a>
+      </div>
+    </div>
+  </div>
+);
+
+const BusScheduleItem: React.FC<{ time: string; color: string }> = ({ time, color }) => (
+  <div className={`bg-white dark:bg-gray-800 p-2 rounded text-center font-medium transition-all duration-300 hover:shadow-md transform hover:scale-105 ${color} border-l-4 ${color === 'text-green-700 dark:text-green-200' ? 'border-green-500' : 'border-blue-500'}`}>
+    {time}
+  </div>
+);
+
+// Route Badge with bounce animation
+const RouteBadge: React.FC<{ route: string }> = ({ route }) => (
+  <span className="bg-blue-100 dark:bg-blue-800 text-blue-800 dark:text-blue-100 px-3 py-1 rounded-full text-sm font-medium transition-all duration-300 hover:bg-blue-200 dark:hover:bg-blue-700 transform hover:scale-110 cursor-default">
+    {route}
+  </span>
+);
 
 interface CampusPageProps {
   campusData: CampusData;
@@ -87,24 +139,7 @@ const CollapsibleSection: React.FC<CollapsibleSectionProps> = ({
   );
 };
 
-// Emergency Contact Card
-const EmergencyContactCard: React.FC<{ name: string; phone: string; label?: string }> = ({ name, phone, label }) => (
-  <div className="bg-red-50 dark:bg-red-900 p-4 rounded-lg border border-red-200 dark:border-red-700 transition-all duration-300 hover:shadow-md hover:scale-105">
-    <div className="flex justify-between items-center">
-      <div>
-        <h4 className="font-semibold text-gray-800 dark:text-white transition-colors duration-200">{name}</h4>
-        {label && <p className="text-sm text-gray-600 dark:text-gray-300 transition-colors duration-200">{label}</p>}
-      </div>
-      <a
-        href={`tel:${phone}`}
-        className="bg-red-600 text-white px-3 py-2 rounded-lg hover:bg-red-700 transition-all duration-300 flex items-center space-x-1 transform hover:scale-105 active:scale-95"
-      >
-        <Phone size={16} className="transition-transform duration-200 hover:rotate-12" />
-        <span className="text-sm font-medium">{phone}</span>
-      </a>
-    </div>
-  </div>
-);
+
 
 // Auto Driver Grid (if available)
 const AutoDriverGrid: React.FC<{ drivers: string[] }> = ({ drivers }) => {
@@ -143,7 +178,9 @@ const Sidebar: React.FC<{
     { icon: <Home size={20} />, label: 'Home', id: 'home' },
     { icon: <Utensils size={20} />, label: 'Mess Menu', id: 'mess' },
     { icon: <Map size={20} />, label: 'Map', id: 'map' },
+    { icon: <Info size={20} />, label: 'Warden Info', id: 'wardens' },
     { icon: <Info size={20} />, label: 'About', id: 'about' }
+
   ];
 
   const handleSectionClick = (sectionId: string) => {
@@ -255,15 +292,41 @@ const CampusPage: React.FC<CampusPageProps> = ({ campusData }) => {
               </div>
             </CollapsibleSection>
 
-            <CollapsibleSection title="Emergency Contacts" icon={<AlertTriangle size={24} />}>
-              <div className="space-y-3">
-                {campusData.emergencyContacts.map((contact, index) => (
-                  <EmergencyContactCard
-                    key={index}
-                    name={contact.name}
-                    phone={contact.phone}
-                    label={contact.label}
-                  />
+            <CollapsibleSection title="Food Outlet Phone Numbers" icon={<Phone size={24} />}>
+              <p className="mb-4 text-sm text-gray-700 dark:text-gray-300">Tap on a contact to call directly.</p>
+              <div className="grid grid-cols-1 gap-3">
+                {[
+                  ['Hotspot', '70133 34805'],
+                  ['Yummpy\'s', '93814 23625']
+                ].map(([name, phone], index) => (
+                  <a
+                    key={name}
+                    href={`tel:${phone}`}
+                    className="bg-blue-50 dark:bg-blue-900 p-3 rounded-lg border border-blue-200 dark:border-blue-700 hover:bg-blue-100 dark:hover:bg-blue-800 transition-all duration-300 transform hover:scale-102 hover:shadow-md"
+                    style={{ animationDelay: `${index * 0.1}s` }}
+                  >
+                    <div className="flex justify-between items-center">
+                      <span className="font-medium text-gray-800 dark:text-white">{name}</span>
+                      <span className="text-blue-600 dark:text-blue-400 font-mono">{phone}</span>
+                    </div>
+                  </a>
+                ))}
+              </div>
+            </CollapsibleSection>
+
+            <CollapsibleSection title="Warden Contact Info" icon={<User size={24} />}>
+              <div className="grid md:grid-cols-2 gap-4">
+                {[
+                  ['Prof. Kumar Pranav Narayan', '9010202882', 'pranav@hyderabad.bits-pilani.ac.in', 'Chief Warden & Warden (Vishwakarma Bhawan)'],
+                  ['Dr. Sounak Roy', '9010041783', 'sounak.roy@hyderabad.bits-pilani.ac.in', 'Warden (Vyas Bhavan)'],
+                  ['Dr. G R Sabareesh', '9010202832', 'sabareesh@hyderabad.bits-pilani.ac.in', 'Warden (Gandhi Bhavan)'],
+                  ['Dr. Onkar Kulkarni', '9010202813', 'onkar@hyderabad.bits-pilani.ac.in', 'Warden (Shankar Bhavan)'],
+                  ['Dr. Phaneendra Kiran Chaganti', '9010202831', 'cpkiran@hyderabad.bits-pilani.ac.in', 'Warden (Buddh Bhavan)'],
+                  ['Dr. Syed Ershad Ahmed', '9010202805', 'syed@hyderabad.bits-pilani.ac.in', 'Warden (Ram Bhavan)']
+                ].map(([name, phone, email, label], index) => (
+                  <div key={name} style={{ animationDelay: `${index * 0.1}s` }}>
+                    <ContactCard name={name} phone={phone} email={email} label={label} />
+                  </div>
                 ))}
               </div>
             </CollapsibleSection>
@@ -272,7 +335,68 @@ const CampusPage: React.FC<CampusPageProps> = ({ campusData }) => {
               <CollapsibleSection title="Auto Driver Numbers" icon={<Car size={24} />}>
                 <AutoDriverGrid drivers={campusData.autoDrivers} />
               </CollapsibleSection>
+                      
             )}
+
+            <CollapsibleSection title="212 Bus Schedule (BPHC ↔ Secunderabad)" icon={<Bus size={24} />}>
+              <div className="grid md:grid-cols-2 gap-6">
+                <div className="bg-green-50 dark:bg-green-900 p-4 rounded-lg border border-green-200 dark:border-green-700 transition-all duration-300 hover:shadow-md">
+                  <h3 className="font-semibold text-green-800 dark:text-green-300 mb-3 flex items-center">
+                    <MapPin size={16} className="mr-2 transition-transform duration-300 hover:bounce" />
+                    From BPHC
+                  </h3>
+                  <div className="space-y-2">
+                    {['9:00 AM', '10:00 AM', '2:00 PM', '5:00 PM', '6:00 PM'].map((time, index) => (
+                      <div key={time} style={{ animationDelay: `${index * 0.1}s` }}>
+                        <BusScheduleItem time={time} color="text-green-700 dark:text-green-200" />
+                      </div>
+                    ))}
+                  </div>
+                </div>
+                <div className="bg-blue-50 dark:bg-blue-900 p-4 rounded-lg border border-blue-200 dark:border-blue-700 transition-all duration-300 hover:shadow-md">
+                  <h3 className="font-semibold text-blue-800 dark:text-blue-300 mb-3 flex items-center">
+                    <MapPin size={16} className="mr-2 transition-transform duration-300 hover:bounce" />
+                    From Secunderabad
+                  </h3>
+                  <div className="space-y-2">
+                    {['7:50 AM', '8:50 AM', '12:45 PM', '4:00 PM', '5:00 PM'].map((time, index) => (
+                      <div key={time} style={{ animationDelay: `${index * 0.1}s` }}>
+                        <BusScheduleItem time={time} color="text-blue-700 dark:text-blue-200" />
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              </div>
+            </CollapsibleSection>
+
+            <CollapsibleSection title="Alternate Bus Routes" icon={<Bus size={24} />}>
+              <div className="bg-yellow-50 dark:bg-yellow-900 p-4 rounded-lg border border-yellow-200 dark:border-yellow-700 mb-4 transition-all duration-300 hover:shadow-md">
+                <div className="flex items-center mb-2">
+                  <AlertTriangle size={20} className="text-yellow-600 mr-2 transition-transform duration-300 hover:rotate-12" />
+                  <span className="font-semibold text-yellow-800 dark:text-yellow-300">Important Note</span>
+                </div>
+                <p className="text-yellow-700 dark:text-yellow-100 text-sm">
+                  Confirm with the conductor before boarding to ensure it stops at your destination.
+                </p>
+              </div>
+              <div className="bg-white dark:bg-gray-800 p-4 rounded-lg border border-gray-200 dark:border-gray-600 transition-all duration-300 hover:shadow-md">
+                <h3 className="font-semibold text-gray-800 dark:text-white mb-3">
+                  From Secunderabad to Thumkunta/Tandoor Junction:
+                </h3>
+                <div className="flex flex-wrap gap-2">
+                  {[
+                    '211A', '211B', '211C', '211DY', '212T',
+                    '212/564', '212/567', '212/568', '212/702',
+                    '564', '567', '568'
+                  ].map((route, index) => (
+                    <div key={route} style={{ animationDelay: `${index * 0.05}s` }}>
+                      <RouteBadge route={route} />
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </CollapsibleSection>
+
           </>
         );
 
@@ -392,6 +516,59 @@ const CampusPage: React.FC<CampusPageProps> = ({ campusData }) => {
             </div> */}
           </div>
         );
+      
+case 'wardens':
+  return (
+    <div className="bg-white dark:bg-gray-900 rounded-xl shadow-lg p-6">
+      <h2 className="text-2xl font-bold text-gray-800 dark:text-white mb-4 flex items-center">
+        <User size={24} className="mr-3 text-blue-600" />
+        Warden Contact List
+      </h2>
+      <p className="text-gray-700 dark:text-gray-300 mb-6">
+        Below is the updated list of wardens and caretakers for all hostels at {campusData.name}.
+      </p>
+
+      <div className="space-y-4">
+        {[
+          ['Prof. Kumar Pranav Narayan', '9010202882', 'pranav@hyderabad.bits-pilani.ac.in', 'Chief Warden & Warden (Vishwakarma Bhawan)'],
+          ['Dr. Sounak Roy', '9010041783', 'sounak.roy@hyderabad.bits-pilani.ac.in', 'Warden (Vyas Bhavan)'],
+          ['Dr. G R Sabareesh', '9010202832', 'sabareesh@hyderabad.bits-pilani.ac.in', 'Warden (Gandhi Bhavan)'],
+          ['Dr. Onkar Kulkarni', '9010202813', 'onkar@hyderabad.bits-pilani.ac.in', 'Warden (Shankar Bhavan)'],
+          ['Dr. Phaneendra Kiran Chaganti', '9010202831', 'cpkiran@hyderabad.bits-pilani.ac.in', 'Warden (Buddh Bhavan)'],
+          ['Dr. Syed Ershad Ahmed', '9010202805', 'syed@hyderabad.bits-pilani.ac.in', 'Warden (Ram Bhavan)'],
+          ['Dr. Arkamitra Kar', '8334934610', 'arkamitra.kar@hyderabad.bits-pilani.ac.in', 'Warden (Gautam & Malaviya Bhavan)'],
+          ['Dr. Subhash Goshal', '9705726162', 'ghosal@hyderabad.bits-pilani.ac.in', 'Warden (Krishna Bhavan)'],
+          ['Dr. Thota Nagaraju', '9052901073', 'nagaraju@hyderabad.bits-pilani.ac.in', 'Warden (Valmiki Bhavan)'],
+          ['Dr. Swathi Biswas', '9010202848', 'swati.biswas@hyderabad.bits-pilani.ac.in', 'Warden (Meera Bhavan, Girls)']
+          // 👉 continue full dataset here
+        ].map(([name, phone, email, label]) => (
+          <div
+            key={name}
+            className="flex flex-col sm:flex-row sm:items-center sm:justify-between bg-gray-50 dark:bg-gray-800 rounded-lg p-4 shadow-sm"
+          >
+            <div className="mb-2 sm:mb-0">
+              <h4 className="font-semibold text-gray-800 dark:text-white">{name}</h4>
+              <p className="text-sm text-gray-600 dark:text-gray-300">{label}</p>
+            </div>
+            <div className="flex space-x-2">
+              <a
+                href={`tel:${phone}`}
+                className="bg-blue-600 text-white px-3 py-1.5 rounded-md text-sm hover:bg-blue-700 transition"
+              >
+                Call
+              </a>
+              <a
+                href={`mailto:${email}`}
+                className="bg-green-600 text-white px-3 py-1.5 rounded-md text-sm hover:bg-green-700 transition"
+              >
+                Email
+              </a>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  );
 
       case 'about':
         return (
