@@ -5,6 +5,7 @@ import { HeroParallax } from './ui/hero-parallax';
 import { CardContainer, CardBody, CardItem } from './ui/3d-card';
 import { heroImages } from '../data/campusData';
 import { MapPin, Users, Book, Sparkles } from 'lucide-react';
+import './index.css';
 
 const LandingPage = () => {
   const campuses = [
