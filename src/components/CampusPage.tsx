@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect } from 'react';
+import React, { useState, useRef, useEffect, useMemo } from 'react';
 import { MapContainer, TileLayer, Marker, Popup, useMap } from 'react-leaflet';
 import L from 'leaflet';
 import { Link } from 'react-router-dom';
@@ -24,10 +24,12 @@ import {
   MapPin,
   ArrowLeft,
   Mail,
+  Search,
 } from 'lucide-react';
 
 import 'leaflet/dist/leaflet.css';
 import { CampusData } from '../data/campusData';
+
 
 const ContactCard: React.FC<{ name: string; phone: string; email: string; label?: string }> = ({
   name,
@@ -82,6 +84,14 @@ const RouteBadge: React.FC<{ route: string }> = ({ route }) => (
 
 interface CampusPageProps {
   campusData: CampusData;
+}
+interface Warden {
+  name: string;
+  phone: string;
+  email?: string;
+  bhavan?: string;
+  type?: 'Boys' | 'Girls';
+  role?: string;
 }
 
 // Collapsible Section with smooth animations
@@ -510,57 +520,53 @@ case 'wardens':
         Warden Contact List
       </h2>
       <p className="text-gray-700 dark:text-gray-300 mb-6">
-        Below is the updated list of wardens and caretakers for all hostels at {campusData.name}.
+        Below is the updated list of wardens for {campusData.name}.
       </p>
-
       <div className="space-y-4">
-        {[
-          ['Prof. Kumar Pranav Narayan', '9010202882', 'pranav@hyderabad.bits-pilani.ac.in', 'Chief Warden & Warden (Vishwakarma Bhawan)'],
-          ['Dr. Sounak Roy', '9010041783', 'sounak.roy@hyderabad.bits-pilani.ac.in', 'Warden (Vyas Bhavan)'],
-          ['Dr. G R Sabareesh', '9010202832', 'sabareesh@hyderabad.bits-pilani.ac.in', 'Warden (Gandhi Bhavan)'],
-          ['Dr. Onkar Kulkarni', '9010202813', 'onkar@hyderabad.bits-pilani.ac.in', 'Warden (Shankar Bhavan)'],
-          ['Dr. Phaneendra Kiran Chaganti', '9010202831', 'cpkiran@hyderabad.bits-pilani.ac.in', 'Warden (Buddh Bhavan)'],
-          ['Dr. Syed Ershad Ahmed', '9010202805', 'syed@hyderabad.bits-pilani.ac.in', 'Warden (Ram Bhavan)'],
-          ['Dr. Arkamitra Kar', '8334934610', 'arkamitra.kar@hyderabad.bits-pilani.ac.in', 'Warden (Gautam & Malaviya Bhavan)'],
-          ['Dr. Subhash Goshal', '9705726162', 'ghosal@hyderabad.bits-pilani.ac.in', 'Warden (Krishna Bhavan)'],
-          ['Dr. Thota Nagaraju', '9052901073', 'nagaraju@hyderabad.bits-pilani.ac.in', 'Warden (Valmiki Bhavan)'],
-          ['Dr. Swathi Biswas', '9010202848', 'swati.biswas@hyderabad.bits-pilani.ac.in', 'Warden (Meera Bhavan, Girls)']
-          // 👉 continue full dataset here
-        ].map(([name, phone, email, label]) => (
-          <div
-            key={name}
-            className="flex flex-col sm:flex-row sm:items-center sm:justify-between bg-gray-50 dark:bg-gray-800 rounded-lg p-4 shadow-sm"
-          >
-            <div className="mb-2 sm:mb-0">
-              <h4 className="font-semibold text-gray-800 dark:text-white">{name}</h4>
-              <p className="text-sm text-gray-600 dark:text-gray-300">{label}</p>
+        {campusData.warden && campusData.warden.length > 0 ? (
+          campusData.warden.map((warden, index) => (
+            <div
+              key={`${warden.name}-${index}`}
+              className="flex flex-col sm:flex-row sm:items-center sm:justify-between bg-gray-50 dark:bg-gray-800 rounded-lg p-4 shadow-sm"
+            >
+              <div className="mb-2 sm:mb-0">
+                <h4 className="font-semibold text-gray-800 dark:text-white">{warden.name}</h4>
+                {warden.bhavan && (
+                  <p className="text-sm text-gray-600 dark:text-gray-400">{warden.bhavan}</p>
+                )}
+              </div>
+              <div className="flex space-x-2">
+                <a
+                  href={`tel:${warden.phone}`}
+                  className="bg-blue-600 text-white px-3 py-1.5 rounded-md text-sm hover:bg-blue-700 transition"
+                >
+                  Call
+                </a>
+                {warden.email && (
+                  <a
+                    href={`mailto:${warden.email}`}
+                    className="bg-green-600 text-white px-3 py-1.5 rounded-md text-sm hover:bg-green-700 transition"
+                  >
+                    Email
+                  </a>
+                )}
+              </div>
             </div>
-            <div className="flex space-x-2">
-              <a
-                href={`tel:${phone}`}
-                className="bg-blue-600 text-white px-3 py-1.5 rounded-md text-sm hover:bg-blue-700 transition"
-              >
-                Call
-              </a>
-              <a
-                href={`mailto:${email}`}
-                className="bg-green-600 text-white px-3 py-1.5 rounded-md text-sm hover:bg-green-700 transition"
-              >
-                Email
-              </a>
-            </div>
+          ))
+        ) : (
+          <div className="text-center py-8">
+            <p className="text-gray-500 dark:text-gray-400">No warden information available for this campus.</p>
           </div>
-        ))}
+        )}
       </div>
     </div>
   );
-
       case 'about':
         return (
           <div className="bg-white dark:bg-gray-900 rounded-xl shadow-lg p-6">
             <h2 className="text-2xl font-bold text-gray-800 dark:text-white mb-4 flex items-center">
               <Info size={24} className="mr-3 text-blue-600" />
-              About Campus Guide
+              About Campus101
             </h2>
             <div className="space-y-4 text-gray-700 dark:text-gray-300">
               <p>
@@ -632,7 +638,7 @@ case 'wardens':
             </button>
             <div className="transform transition-all duration-500 hover:scale-105">
               <h1 className="text-xl md:text-2xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-white to-blue-100">
-                Campus Guide
+                Campus101
               </h1>
               <p className="text-blue-100 dark:text-orange-100 text-sm md:text-base transition-colors duration-300">
                 {campusData.name}
