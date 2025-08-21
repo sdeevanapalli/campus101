@@ -49,3 +49,4 @@ self.addEventListener('activate', event => {
     )
   );
 });
+

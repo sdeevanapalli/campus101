@@ -31,11 +31,11 @@ export const HeroParallax = ({
   const springConfig = { stiffness: 300, damping: 30, bounce: 100 };
 
   const translateX = useSpring(
-    useTransform(scrollYProgress, [0, 1], [0, 1000]),
+    useTransform(scrollYProgress, [0, 1], [100, 0]),
     springConfig
   );
   const translateXReverse = useSpring(
-    useTransform(scrollYProgress, [0, 1], [0, -1000]),
+    useTransform(scrollYProgress, [0, 1], [-100, 0]),
     springConfig
   );
   const rotateX = useSpring(
@@ -136,6 +136,9 @@ export const ProductCard = ({
       whileHover={{
         y: -20,
       }}
+      initial={{ opacity: 0 }}
+      whileInView={{ opacity: 1 }}
+      transition={{ duration: 0.5 }}
       key={product.title}
       className="group/product h-96 w-[30rem] relative flex-shrink-0"
     >
