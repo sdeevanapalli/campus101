@@ -314,22 +314,7 @@ const CampusPage: React.FC<CampusPageProps> = ({ campusData }) => {
               </div>
             </CollapsibleSection>
 
-            <CollapsibleSection title="Warden Contact Info" icon={<User size={24} />}>
-              <div className="grid md:grid-cols-2 gap-4">
-                {[
-                  ['Prof. Kumar Pranav Narayan', '9010202882', 'pranav@hyderabad.bits-pilani.ac.in', 'Chief Warden & Warden (Vishwakarma Bhawan)'],
-                  ['Dr. Sounak Roy', '9010041783', 'sounak.roy@hyderabad.bits-pilani.ac.in', 'Warden (Vyas Bhavan)'],
-                  ['Dr. G R Sabareesh', '9010202832', 'sabareesh@hyderabad.bits-pilani.ac.in', 'Warden (Gandhi Bhavan)'],
-                  ['Dr. Onkar Kulkarni', '9010202813', 'onkar@hyderabad.bits-pilani.ac.in', 'Warden (Shankar Bhavan)'],
-                  ['Dr. Phaneendra Kiran Chaganti', '9010202831', 'cpkiran@hyderabad.bits-pilani.ac.in', 'Warden (Buddh Bhavan)'],
-                  ['Dr. Syed Ershad Ahmed', '9010202805', 'syed@hyderabad.bits-pilani.ac.in', 'Warden (Ram Bhavan)']
-                ].map(([name, phone, email, label], index) => (
-                  <div key={name} style={{ animationDelay: `${index * 0.1}s` }}>
-                    <ContactCard name={name} phone={phone} email={email} label={label} />
-                  </div>
-                ))}
-              </div>
-            </CollapsibleSection>
+            
 
             {campusData.autoDrivers && (
               <CollapsibleSection title="Auto Driver Numbers" icon={<Car size={24} />}>
