@@ -1322,26 +1322,26 @@ export const heroImages = [
   {
     title: "Hyderabad Campus",
     link: "/hyderabad",
-    thumbnail: "https://images.unsplash.com/photo-1562774053-701939374585?w=800&h=600&fit=crop"
+    thumbnail: "/bitsh_audi.webp"
   },
   {
     title: "Goa Campus",
     link: "/goa",
-    thumbnail: "https://images.unsplash.com/photo-1541339907198-e08756dedf3f?w=800&h=600&fit=crop"
+    thumbnail: "/bitsg_done.webp"
   },
   {
     title: "Pilani Campus",
     link: "/pilani",
-    thumbnail: "https://images.unsplash.com/photo-1571068316344-75bc76f77890?w=800&h=600&fit=crop"
+    thumbnail: "/bitsp_clock.webp"
   },
   {
-    title: "BITS Auditorium",
-    link: "/auditorium",
-    thumbnail: "https://images.unsplash.com/photo-1523050854058-8df90110c9a1?w=800&h=600&fit=crop"
+    title: "BITS HYD",
+    link: "/hyderabad",
+    thumbnail: "/bitsh_workshop.webp"
   },
   {
-    title: "BITS Campus View",
-    link: "/campus",
-    thumbnail: "https://images.unsplash.com/photo-1497366216548-37526070297c?w=800&h=600&fit=crop"
+    title: "BITS Goa Dome",
+    link: "/goa",
+    thumbnail: "/bitsg_dome.webp"
   }
 ];
