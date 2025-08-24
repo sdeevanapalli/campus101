@@ -1340,7 +1340,7 @@ export const heroImages = [
     thumbnail: "/bitsh_workshop.webp"
   },
   {
-    title: "BITS Goa Dome",
+    title: "BITS Goa",
     link: "/goa",
     thumbnail: "/bitsg_dome.webp"
   }
