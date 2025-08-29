@@ -52,6 +52,7 @@ export interface CampusData {
   autoDrivers?: string[];
   busRoutes?: Array<{ route: string; times: string[] }>;
   warden?: Array<{ name: string; phone: string; email: string; bhavan:string; type?: 'Boys' | 'Girls'; role?: string }>;
+  goacabs?: Array<{ name: string; vehicle: string; phone: Array<string>; }>;
   events: Event[];
   reviews: Review[];
   stats: {
@@ -1192,7 +1193,186 @@ export const campusData: Record<string, CampusData> = {
         author: 'Maria G.',
         date: '2024-01-20'
       }
-    ]
+    ],
+    goacabs: [
+  {
+    "name": "Kalidas Naik/Ramdas",
+    "phone": [
+      "9890211087",
+      "9822809226"
+    ],
+    "vehicle": "WAGONR"
+  },
+  {
+    "name": "Nelish/Riya taxi",
+    "phone": [
+      "9765081213"
+    ],
+    "vehicle": "4 wheeler/Baleno"
+  },
+  {
+    "name": "Hemant",
+    "phone": [
+      "9822177493"
+    ],
+    "vehicle": "6 seater corola altis"
+  },
+  {
+    "name": "Anil",
+    "phone": [
+      "9130855154",
+      "8805209030"
+    ],
+    "vehicle": "Wagonr"
+  },
+  {
+    "name": "Gonzalez(John)",
+    "phone": [
+      "9823139989"
+    ],
+    "vehicle": "BUS(17 seater)"
+  },
+  {
+    "name": "Sunny",
+    "phone": [
+      "7757973665"
+    ],
+    "vehicle": "swift dzire"
+  },
+  {
+    "name": "Ashok",
+    "phone": [
+      "9689087766"
+    ],
+    "vehicle": "traveller(20 seater), eco(6 seater)"
+  },
+  {
+    "name": "Sunil Rathore",
+    "phone": [
+      "8668229736"
+    ],
+    "vehicle": "sumo(9 seater)"
+  },
+  {
+    "name": "Hussain A",
+    "phone": [
+      "8208901429"
+    ],
+    "vehicle": "4 seater, wagonr/dzire"
+  },
+  {
+    "name": "Chaitanya",
+    "phone": [
+      "9637088689"
+    ],
+    "vehicle": "hatchback/swift vxi"
+  },
+  {
+    "name": "Imitaz",
+    "phone": [
+      "9834872026"
+    ],
+    "vehicle": "DZIRE(NIGHT),ERTIGA(DAY+NIGHT)"
+  },
+  {
+    "name": "Vishal",
+    "phone": [
+      "7888219141"
+    ],
+    "vehicle": "ertiga(6 seater)"
+  },
+  {
+    "name": "ananth",
+    "phone": [
+      "8484000582"
+    ],
+    "vehicle": "ertiga 6 seater/ wagonr(small)"
+  },
+  {
+    "name": "Hanumanta",
+    "phone": [
+      "9096012310"
+    ],
+    "vehicle": "5 seater maruti baleno"
+  },
+  {
+    "name": "Dilwar Khan",
+    "phone": [
+      "7507861713"
+    ],
+    "vehicle": "Swift Dzire"
+  },
+  {
+    "name": "Maruti",
+    "phone": [
+      "9763154839"
+    ],
+    "vehicle": " (ertiga,dzire) , innova"
+  },
+  {
+    "name": "Praveen",
+    "phone": [
+      "8208062388"
+    ],
+    "vehicle": "(4+ 1seater)baleno"
+  },
+  {
+    "name": "Gopal ",
+    "phone": [
+      "9767635373"
+    ],
+    "vehicle": "ERTIGA(6 SEATER)"
+  },
+  {
+    "name": "Umakant Naik",
+    "phone": [
+      "9890362468"
+    ],
+    "vehicle": "Swift Dzire"
+  },
+  {
+    "name": "Shabeer ",
+    "phone": [
+      "9588449274"
+    ],
+    "vehicle": "4 seater Sedan(swift dzire)"
+  },
+  {
+    "name": "Prakash",
+    "phone": [
+      "8530613831"
+    ],
+    "vehicle": "4 seater"
+  },
+  {
+    "name": "Mahboob Khan ",
+    "phone": [
+      "9021580773"
+    ],
+    "vehicle": "4 seater"
+  },
+  {
+    "name": "Santosh bhai ",
+    "phone": [
+      "9766422291"
+    ],
+    "vehicle": "4 seater (Dzire/Wagonr)"
+  },
+  {
+    "name": "Anil Naik",
+    "phone": [
+      "9823998831"
+    ],
+    "vehicle": "4 seater"
+  },
+  {
+    "name": "Ramesh Naik",
+    "phone": [
+      "9890695214"
+    ],
+    "vehicle": "Ertiga"
+  }
+],
   },
   pilani: {
     name: "BITS Pilani, Pilani Campus",

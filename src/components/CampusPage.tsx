@@ -184,10 +184,14 @@ const Sidebar: React.FC<{
   onSectionChange,
   campusName
 }) => {
+  // Add Goa Cabs button only for Goa campus
   const menuItems = [
     { icon: <Home size={20} />, label: 'Home', id: 'home' },
     { icon: <Map size={20} />, label: 'Map', id: 'map' },
     { icon: <Info size={20} />, label: 'Warden Info', id: 'wardens' },
+    ...(campusName.toLowerCase().includes('goa') ? [
+      { icon: <Car size={20} />, label: 'Goa Cabs', id: 'goacabs' }
+    ] : []),
     { icon: <Info size={20} />, label: 'About', id: 'about' }
 
   ];
@@ -377,6 +381,60 @@ const CampusPage: React.FC<CampusPageProps> = ({ campusData }) => {
           </>
         );
 
+      case 'goacabs':
+        if (campusData.slug === 'goa' && campusData.goacabs && campusData.goacabs.length > 0) {
+          return (
+            <div className="bg-white dark:bg-gray-900 rounded-xl shadow-lg p-6">
+              <h2 className="text-2xl font-bold text-gray-800 dark:text-white mb-4 flex items-center">
+                <Car size={24} className="mr-3 text-blue-600" />
+                Goa Campus Cabs
+              </h2>
+              <p className="text-gray-700 dark:text-gray-300 mb-6">Reliable cab contacts for BITS Goa campus. Tap to call.</p>
+              <div className="space-y-4">
+                {campusData.goacabs.map((cab, idx) => (
+                  <div key={idx} className="flex flex-col sm:flex-row sm:items-center sm:justify-between bg-gray-50 dark:bg-gray-800 rounded-lg p-4 shadow-sm">
+                    <div className="mb-2 sm:mb-0">
+                      <h4 className="font-semibold text-gray-800 dark:text-white">{cab.name}</h4>
+                      <p className="text-sm text-gray-600 dark:text-gray-400">{cab.vehicle}</p>
+                    </div>
+                    <div className="flex space-x-2">
+                      {Array.isArray(cab.phone)
+                        ? cab.phone.map((phoneNum, i) => (
+                            <a
+                              key={i}
+                              href={`tel:${phoneNum}`}
+                              className="bg-blue-600 text-white px-3 py-1.5 rounded-md text-sm hover:bg-blue-700 transition flex items-center space-x-1"
+                            >
+                              <Phone size={16} />
+                              <span>+91 {phoneNum}</span>
+                            </a>
+                          ))
+                        : (
+                          <a
+                            href={`tel:${cab.phone}`}
+                            className="bg-blue-600 text-white px-3 py-1.5 rounded-md text-sm hover:bg-blue-700 transition flex items-center space-x-1"
+                          >
+                            <Phone size={16} />
+                            <span>Call {cab.phone}</span>
+                          </a>
+                        )}
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+          );
+        } else {
+          return (
+            <div className="bg-white dark:bg-gray-900 rounded-xl shadow-lg p-6 text-center">
+              <h2 className="text-2xl font-bold text-gray-800 dark:text-white mb-4 flex items-center justify-center">
+                <Car size={24} className="mr-3 text-blue-600" />
+                Goa Campus Cabs
+              </h2>
+              <p className="text-gray-500 dark:text-gray-400">Cab information is only available for BITS Goa campus.</p>
+            </div>
+          );
+        }
       case 'map':
         return (
           <div className="bg-white dark:bg-gray-900 rounded-xl shadow-lg p-6">
@@ -494,55 +552,55 @@ const CampusPage: React.FC<CampusPageProps> = ({ campusData }) => {
           </div>
         );
       
-case 'wardens':
-  return (
-    <div className="bg-white dark:bg-gray-900 rounded-xl shadow-lg p-6">
-      <h2 className="text-2xl font-bold text-gray-800 dark:text-white mb-4 flex items-center">
-        <User size={24} className="mr-3 text-blue-600" />
-        Warden Contact List
-      </h2>
-      <p className="text-gray-700 dark:text-gray-300 mb-6">
-        Below is the updated list of wardens for {campusData.name}.
-      </p>
-      <div className="space-y-4">
-        {campusData.warden && campusData.warden.length > 0 ? (
-          campusData.warden.map((warden, index) => (
-            <div
-              key={`${warden.name}-${index}`}
-              className="flex flex-col sm:flex-row sm:items-center sm:justify-between bg-gray-50 dark:bg-gray-800 rounded-lg p-4 shadow-sm"
-            >
-              <div className="mb-2 sm:mb-0">
-                <h4 className="font-semibold text-gray-800 dark:text-white">{warden.name}</h4>
-                {warden.bhavan && (
-                  <p className="text-sm text-gray-600 dark:text-gray-400">{warden.bhavan}</p>
-                )}
-              </div>
-              <div className="flex space-x-2">
-                <a
-                  href={`tel:${warden.phone}`}
-                  className="bg-blue-600 text-white px-3 py-1.5 rounded-md text-sm hover:bg-blue-700 transition"
-                >
-                  Call
-                </a>
-                {warden.email && (
-                  <a
-                    href={`mailto:${warden.email}`}
-                    className="bg-green-600 text-white px-3 py-1.5 rounded-md text-sm hover:bg-green-700 transition"
+      case 'wardens':
+        return (
+          <div className="bg-white dark:bg-gray-900 rounded-xl shadow-lg p-6">
+            <h2 className="text-2xl font-bold text-gray-800 dark:text-white mb-4 flex items-center">
+              <User size={24} className="mr-3 text-blue-600" />
+              Warden Contact List
+            </h2>
+            <p className="text-gray-700 dark:text-gray-300 mb-6">
+              Below is the updated list of wardens for {campusData.name}.
+            </p>
+            <div className="space-y-4">
+              {campusData.warden && campusData.warden.length > 0 ? (
+                campusData.warden.map((warden, index) => (
+                  <div
+                    key={`${warden.name}-${index}`}
+                    className="flex flex-col sm:flex-row sm:items-center sm:justify-between bg-gray-50 dark:bg-gray-800 rounded-lg p-4 shadow-sm"
                   >
-                    Email
-                  </a>
-                )}
-              </div>
+                    <div className="mb-2 sm:mb-0">
+                      <h4 className="font-semibold text-gray-800 dark:text-white">{warden.name}</h4>
+                      {warden.bhavan && (
+                        <p className="text-sm text-gray-600 dark:text-gray-400">{warden.bhavan}</p>
+                      )}
+                    </div>
+                    <div className="flex space-x-2">
+                      <a
+                        href={`tel:${warden.phone}`}
+                        className="bg-blue-600 text-white px-3 py-1.5 rounded-md text-sm hover:bg-blue-700 transition"
+                      >
+                        Call
+                      </a>
+                      {warden.email && (
+                        <a
+                          href={`mailto:${warden.email}`}
+                          className="bg-green-600 text-white px-3 py-1.5 rounded-md text-sm hover:bg-green-700 transition"
+                        >
+                          Email
+                        </a>
+                      )}
+                    </div>
+                  </div>
+                ))
+              ) : (
+                <div className="text-center py-8">
+                  <p className="text-gray-500 dark:text-gray-400">No warden information available for this campus.</p>
+                </div>
+              )}
             </div>
-          ))
-        ) : (
-          <div className="text-center py-8">
-            <p className="text-gray-500 dark:text-gray-400">No warden information available for this campus.</p>
           </div>
-        )}
-      </div>
-    </div>
-  );
+        );
       case 'about':
         return (
           <div className="bg-white dark:bg-gray-900 rounded-xl shadow-lg p-6">
