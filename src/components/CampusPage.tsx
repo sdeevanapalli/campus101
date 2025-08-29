@@ -186,7 +186,6 @@ const Sidebar: React.FC<{
 }) => {
   const menuItems = [
     { icon: <Home size={20} />, label: 'Home', id: 'home' },
-    { icon: <Utensils size={20} />, label: 'Mess Menu', id: 'mess' },
     { icon: <Map size={20} />, label: 'Map', id: 'map' },
     { icon: <Info size={20} />, label: 'Warden Info', id: 'wardens' },
     { icon: <Info size={20} />, label: 'About', id: 'about' }
