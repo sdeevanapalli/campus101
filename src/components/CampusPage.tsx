@@ -271,23 +271,6 @@ const CampusPage: React.FC<CampusPageProps> = ({ campusData }) => {
       case 'home':
         return (
           <>
-            <CollapsibleSection title="Mess Timings" icon={<Utensils size={24} />}>
-              <div className="bg-green-50 dark:bg-green-900 p-4 rounded-lg border border-green-200 dark:border-green-700 transition-all duration-300 hover:shadow-md">
-                <h3 className="font-semibold text-green-800 dark:text-green-300 mb-3 flex items-center">
-                  <Clock size={16} className="mr-2 transition-transform duration-300 hover:rotate-180" />
-                  Mess Timings
-                </h3>
-                <div className="space-y-2 text-sm">
-                  {campusData.messTimings.map(([meal, time], index) => (
-                    <div key={meal} className="flex justify-between transition-all duration-300 hover:bg-green-100 dark:hover:bg-green-800 p-2 rounded" style={{ animationDelay: `${index * 0.1}s` }}>
-                      <span className="font-medium">{meal}</span>
-                      <span>{time}</span>
-                    </div>
-                  ))}
-                </div>
-              </div>
-            </CollapsibleSection>
-
             <CollapsibleSection title="Food Outlets & Timings" icon={<Store size={24} />}>
               <div className="space-y-3 text-sm">
                 {campusData.outlets.map((outlet, index) => (

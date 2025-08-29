@@ -49,7 +49,6 @@ export interface CampusData {
   mapCenter: [number, number];
   locations: Location[];
   outlets: Outlet[];
-  messTimings: Array<[string, string]>;
   autoDrivers?: string[];
   busRoutes?: Array<{ route: string; times: string[] }>;
   warden?: Array<{ name: string; phone: string; email: string; bhavan:string; type?: 'Boys' | 'Girls'; role?: string }>;
@@ -521,12 +520,6 @@ export const campusData: Record<string, CampusData> = {
         reviews: 67,
         description: 'Main campus cafeteria'
       }
-    ],
-    messTimings: [
-      ['Breakfast:', '07:30 AM - 9:30 AM'],
-      ['Lunch:', '12:00 PM - 2:00 PM'],
-      ['Snacks:', '04:30 PM - 06:00 PM'],
-      ['Dinner:', '7:30 PM - 09:30 PM']
     ],
     autoDrivers: [
   '96035 11629', '98481 65044', '99484 83171', '90000 92037',
@@ -1170,12 +1163,6 @@ export const campusData: Record<string, CampusData> = {
     description: 'Local business'
   }
     ],
-    messTimings: [
-      ['Breakfast:', '07:30 AM - 09:30 AM'],
-      ['Lunch:', '12:00 PM - 02:30 PM'],
-      ['Snacks:', '05:00 PM - 06:00 PM'],
-      ['Dinner:', '07:30 PM - 09:30 PM']
-    ],
     autoDrivers: [
       'Goa Driver 1 - 9876543210',
       'Goa Driver 2 - 9876543211'
@@ -1208,7 +1195,7 @@ export const campusData: Record<string, CampusData> = {
     ]
   },
   pilani: {
-    name: "BITS Pilani",
+    name: "BITS Pilani, Pilani Campus",
     slug: "pilani",
     description: "Historic flagship campus where tradition meets innovation, offering the complete BITS experience.",
     image: "https://images.unsplash.com/photo-1541339907198-e08756dedf3f?w=800&h=600&fit=crop",
@@ -1278,12 +1265,6 @@ export const campusData: Record<string, CampusData> = {
         popular: true,
         description: 'Popular hangout spot with great food'
       }
-    ],
-    messTimings: [
-      ['Breakfast:', '07:30 AM - 09:30 AM'],
-      ['Lunch:', '12:00 PM - 02:00 PM'],
-      ['Snacks:', '04:30 PM - 06:00 PM'],
-      ['Dinner:', '7:30 PM - 09:30 PM']
     ],
     autoDrivers: [
       'Pilani Driver 1 - 9876543210',
