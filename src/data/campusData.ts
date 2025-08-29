@@ -520,6 +520,14 @@ export const campusData: Record<string, CampusData> = {
         rating: 4.0,
         reviews: 67,
         description: 'Main campus cafeteria'
+      },
+      { 
+        name: 'Domino\'s Pizza', 
+        timing: '11:00 AM - 11:00 PM', 
+        category: 'food',
+        rating: 4.0,
+        reviews: 67,
+        description: 'Main campus cafeteria'
       }
     ],
     autoDrivers: [
