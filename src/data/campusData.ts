@@ -51,7 +51,7 @@ export interface CampusData {
   outlets: Outlet[];
   autoDrivers?: string[];
   busRoutes?: Array<{ route: string; times: string[] }>;
-  warden?: Array<{ name: string; phone: string; email: string; bhavan:string; type?: 'Boys' | 'Girls'; role?: string }>;
+  warden?: Array<{ name: string; phone: Array<string>; email: string; bhavan:string; type?: 'Boys' | 'Girls'; role?: string }>;
   goacabs?: Array<{ name: string; vehicle: string; phone: Array<string>; }>;
   events: Event[];
   reviews: Review[];
@@ -602,170 +602,170 @@ export const campusData: Record<string, CampusData> = {
       }
     ],
     warden: [
-  {
-    name: 'Prof. Kumar Pranav Narayan',
-    phone: '9010202882',
-    email: 'pranav@hyderabad.bits-pilani.ac.in',
-    bhavan: 'Vishwakarma Bhawan (Chief Warden)',
-    type: 'Boys'
-  },
-  {
-    name: 'Dr. Sounak Roy',
-    phone: '9010041783',
-    email: 'sounak.roy@hyderabad.bits-pilani.ac.in',
-    bhavan: 'Vyas Bhavan',
-    type: 'Boys'
-  },
-  {
-    name: 'Dr. G R Sabareesh',
-    phone: '9010202832',
-    email: 'sabareesh@hyderabad.bits-pilani.ac.in',
-    bhavan: 'Gandhi Bhavan',
-    type: 'Boys'
-  },
-  {
-    name: 'Dr. Onkar Kulkarni',
-    phone: '9010202813',
-    email: 'onkar@hyderabad.bits-pilani.ac.in',
-    bhavan: 'Shankar Bhawan',
-    type: 'Boys'
-  },
-  {
-    name: 'Dr. Phaneendra Kiran Chaganti',
-    phone: '9010202831',
-    email: 'cpkiran@hyderabad.bits-pilani.ac.in',
-    bhavan: 'Buddh Bhawan',
-    type: 'Boys'
-  },
-  {
-    name: 'Dr. Syed Ershad Ahmed',
-    phone: '9010202805',
-    email: 'syed@hyderabad.bits-pilani.ac.in',
-    bhavan: 'Ram Bhawan',
-    type: 'Boys'
-  },
-  {
-    name: 'Dr. Arkamitra Kar',
-    phone: '8334934610',
-    email: 'arkamitra.kar@hyderabad.bits-pilani.ac.in',
-    bhavan: 'Gautam & Malaviya Bhavan',
-    type: 'Boys'
-  },
+    {
+      name: 'Prof. Kumar Pranav Narayan',
+      phone: ['9010202882'],
+      email: 'pranav@hyderabad.bits-pilani.ac.in',
+      bhavan: 'Vishwakarma Bhawan (Chief Warden)',
+      type: 'Boys'
+    },
+    {
+      name: 'Dr. Sounak Roy',
+      phone: ['9010041783'],
+      email: 'sounak.roy@hyderabad.bits-pilani.ac.in',
+      bhavan: 'Vyas Bhavan',
+      type: 'Boys'
+    },
+    {
+      name: 'Dr. G R Sabareesh',
+      phone: ['9010202832'],
+      email: 'sabareesh@hyderabad.bits-pilani.ac.in',
+      bhavan: 'Gandhi Bhavan',
+      type: 'Boys'
+    },
+    {
+      name: 'Dr. Onkar Kulkarni',
+      phone: ['9010202813'],
+      email: 'onkar@hyderabad.bits-pilani.ac.in',
+      bhavan: 'Shankar Bhawan',
+      type: 'Boys'
+    },
+    {
+      name: 'Dr. Phaneendra Kiran Chaganti',
+      phone: ['9010202831'],
+      email: 'cpkiran@hyderabad.bits-pilani.ac.in',
+      bhavan: 'Buddh Bhawan',
+      type: 'Boys'
+    },
+    {
+      name: 'Dr. Syed Ershad Ahmed',
+      phone: ['9010202805'],
+      email: 'syed@hyderabad.bits-pilani.ac.in',
+      bhavan: 'Ram Bhawan',
+      type: 'Boys'
+    },
+    {
+      name: 'Dr. Arkamitra Kar',
+      phone: ['8334934610'],
+      email: 'arkamitra.kar@hyderabad.bits-pilani.ac.in',
+      bhavan: 'Gautam & Malaviya Bhavan',
+      type: 'Boys'
+    },
   {
     name: 'Dr. Subhash Goshal',
-    phone: '9705726162',
+    phone: ['9705726162'],
     email: 'ghosal@hyderabad.bits-pilani.ac.in',
     bhavan: 'Krishna Bhawan',
     type: 'Boys'
   },
   {
     name: 'Dr Thota Nagaraju',
-    phone: '9052901073',
+    phone: ['9052901073'],
     email: 'nagaraju@hyderabad.bits-pilani.ac.in',
     bhavan: 'Valmiki Bhawan',
     type: 'Boys'
   },
   {
     name: 'Dr. Swathi Biswas',
-    phone: '9010202848',
+    phone: ['9010202848'],
     email: 'swati.biswas@hyderabad.bits-pilani.ac.in',
     bhavan: 'Meera Bhawan',
     type: 'Girls'
   },
   {
     name: 'Dr. D.Purnima',
-    phone: '9010202833',
+    phone: ['9010202833'],
     email: 'dpurnima@hyderabad.bits-pilani.ac.in',
     bhavan: 'Malaviya Bhawan',
     type: 'Girls'
   },
   {
     name: 'Dr. Nitin Kotkunde',
-    phone: '9010451444',
+    phone: ['9010451444'],
     email: 'nitink@hyderabad.bits-pilani.ac.in',
     bhavan: 'Valmiki Bhawan',
     type: 'Boys'
   },
   {
     name: 'Dr. Santosh Mohapatra',
-    phone: '9160796502',
+    phone: ['9160796502'],
     email: 'santosh@hyderabad.bits-pilani.ac.in',
     bhavan: 'Vyas Bhawan',
     type: 'Boys'
   },
   {
     name: 'Dr. Mohan S C',
-    phone: '8096725644',
+    phone: ['8096725644'],
     email: 'mohansc@hyderabad.bits-pilani.ac.in',
     bhavan: 'Gandhi Bhawan',
     type: 'Boys'
   },
   {
     name: 'Dr. Vivek Sharma',
-    phone: '9650131560',
+    phone: ['9650131560'],
     email: 'viveksharma@hyderabad.bits-pilani.ac.in',
     bhavan: 'Shankar Bhawan',
     type: 'Boys'
   },
   {
     name: 'Dr. Pranesh Bhargava',
-    phone: '7988228215',
+    phone: ['7988228215'],
     email: 'pranesh@hyderabad.bits-pilani.ac.in',
     bhavan: 'Buddh Bhawan',
     type: 'Boys'
   },
   {
     name: 'Dr. Satish Kumar Dubey',
-    phone: '7036734387',
+    phone: ['7036734387'],
     email: 'satishdubey@hyderabad.bits-pilani.ac.in',
     bhavan: 'Ram Bhawan',
     type: 'Boys'
   },
   {
     name: 'Dr. Jagan Mohan J',
-    phone: '9951225780',
+    phone: ['9951225780'],
     email: 'manishkumar@hyderabad.bits-pilani.ac.in',
     bhavan: 'Gautam Bhawan',
     type: 'Boys'
   },
   {
     name: 'Dr. Manish Kumar',
-    phone: '8184836465',
+    phone: ['8184836465'],
     email: 'alivelu@hyderabad.bits-pilani.ac.in',
     bhavan: 'Krishna Bhawan',
     type: 'Boys'
   },
   {
     name: 'Dr. T S L Radhika',
-    phone: '9848141337',
+    phone: ['9848141337'],
     email: 'radhikatsl@hyderabad.bits-pilani.ac.in',
     bhavan: 'Meera Bhawan',
     type: 'Girls'
   },
   {
     name: 'Dr. Alivelu Manga Parimi',
-    phone: '9676533763',
+    phone: ['9676533763'],
     email: 'alivelu@hyderabad.bits-pilani.ac.in',
     bhavan: 'Malaviya Bhawan',
     type: 'Girls'
   },
   {
     name: 'Dr. Shaikshavali Chitraganti',
-    phone: '7993724109',
+    phone: ['7993724109'],
     email: 'shaik@hyderabad.bits-pilani.ac.in',
     bhavan: 'Vishwakarma Bhawan Part I',
     type: 'Boys'
   },
   {
     name: 'Dr. Piyush Khandelia',
-    phone: '9121784714',
+    phone: ['9121784714'],
     email: 'piyush.khandelia@hyderabad.bits-pilani.ac.in',
     bhavan: 'Vishwakarma Bhawan Part II',
     type: 'Boys'
   },
   {
     name: 'Mr.Haridas',
-    phone: '9010202854',
+    phone: ['9010202854'],
     email: 'haridas@hyderabad.bits-pilani.ac.in',
     bhavan: 'Krishna, Ram, Shanker Bhawan',
     type: 'Boys',
@@ -773,7 +773,7 @@ export const campusData: Record<string, CampusData> = {
   },
   {
     name: 'Mr.Santhosh',
-    phone: '9010202835',
+    phone: ['9010202835'],
     email: 'santhosh@hyderabad.bits-pilani.ac.in',
     bhavan: 'Gandhi, Buddh, Vyas',
     type: 'Boys',
@@ -781,7 +781,7 @@ export const campusData: Record<string, CampusData> = {
   },
   {
     name: 'Ms.Anitha',
-    phone: '9010202834',
+    phone: ['9010202834'],
     email: 'anitha@hyderabad.bits-pilani.ac.in',
     bhavan: 'Malaviya Bhawan',
     type: 'Girls',
@@ -789,7 +789,7 @@ export const campusData: Record<string, CampusData> = {
   },
   {
     name: 'Mrs.L.Vijitha',
-    phone: '9666360799',
+    phone: ['9666360799'],
     email: 'vijitha@hyderabad.bits-pilani.ac.in',
     bhavan: 'Meera Bhawan',
     type: 'Girls',
@@ -797,7 +797,7 @@ export const campusData: Record<string, CampusData> = {
   },
   {
     name: 'Mr. Khaja Moinuddin',
-    phone: '7674933646',
+    phone: ['7674933646'],
     email: 'khaja@hyderabad.bits-pilani.ac.in',
     bhavan: 'Valmiki & Gautam Bhawan',
     type: 'Boys',
@@ -805,7 +805,7 @@ export const campusData: Record<string, CampusData> = {
   },
   {
     name: 'K Srinivaslu',
-    phone: '9133014014',
+    phone: ['9133014014'],
     email: 'sreenuks@hyderabad.bits-pilani.ac.in',
     bhavan: 'Vishwakarma Bhawan',
     type: 'Boys',
@@ -813,7 +813,7 @@ export const campusData: Record<string, CampusData> = {
   },
   {
     name: 'Sanjay Saikia',
-    phone: '9912318419',
+    phone: ['9912318419'],
     email: 'saikiasanjay@hyderabad.bits-pilani.ac.in',
     bhavan: 'Valmiki and Goutham Bhawan',
     type: 'Boys',
@@ -821,7 +821,7 @@ export const campusData: Record<string, CampusData> = {
   },
   {
     name: 'Jugal',
-    phone: '9010202815',
+    phone: ['9010202815'],
     email: 'jugal@hyderabad.bits-pilani.ac.in',
     bhavan: 'Vishwakarma Bhawan',
     type: 'Boys',
@@ -829,7 +829,7 @@ export const campusData: Record<string, CampusData> = {
   },
   {
     name: 'Basanth',
-    phone: '7660069230',
+    phone: ['7660069230'],
     email: 'basantha@hyderabad.bits-pilani.ac.in',
     bhavan: 'Vyas and Shankar',
     type: 'Boys',
@@ -837,7 +837,7 @@ export const campusData: Record<string, CampusData> = {
   },
   {
     name: 'Paras',
-    phone: '9010743272',
+    phone: ['9010743272'],
     email: 'parash@hyderabad.bits-pilani.ac.in',
     bhavan: 'Valmiki and Goutham bhawan',
     type: 'Boys',
@@ -845,7 +845,7 @@ export const campusData: Record<string, CampusData> = {
   },
   {
     name: 'Devaji',
-    phone: '9951144753',
+    phone: ['9951144753'],
     email: 'devaji@hyderabad.bits-pilani.ac.in',
     bhavan: 'Krishna and Ram bhawan',
     type: 'Boys',
@@ -853,7 +853,7 @@ export const campusData: Record<string, CampusData> = {
   },
   {
     name: 'Bhagat',
-    phone: '9705923495',
+    phone: ['9705923495'],
     email: 'Srikantbhajat081@gmail.com',
     bhavan: 'Vishwakarma Bhawan',
     type: 'Boys',
@@ -861,7 +861,7 @@ export const campusData: Record<string, CampusData> = {
   },
   {
     name: 'Gaffur',
-    phone: '9866047888',
+    phone: ['9866047888'],
     email: 'Mdgafur124@gmail.com',
     bhavan: 'Krishna and Ram bhawan',
     type: 'Boys',
@@ -869,7 +869,7 @@ export const campusData: Record<string, CampusData> = {
   },
   {
     name: 'R MAHESH',
-    phone: '9666855208',
+    phone: ['9666855208'],
     email: 'Rachakondamahesh1992@gmail.com',
     bhavan: 'Vishwakarma Bhawan',
     type: 'Boys',
@@ -877,7 +877,7 @@ export const campusData: Record<string, CampusData> = {
   },
   {
     name: 'NERAJ KAR',
-    phone: '8639599039',
+    phone: ['8639599039'],
     email: 'Nerajibits45@gmail.com',
     bhavan: 'Gandhi and Budh Bhawan',
     type: 'Boys',
@@ -885,7 +885,7 @@ export const campusData: Record<string, CampusData> = {
   },
   {
     name: 'K. Anuradha',
-    phone: '9553900181',
+    phone: ['9553900181'],
     email: 'anuradha@hyderabad.bits-pilani.ac.in',
     bhavan: 'Meera / Malaviya',
     type: 'Girls',
@@ -893,7 +893,7 @@ export const campusData: Record<string, CampusData> = {
   },
   {
     name: 'B.Vijaya Laxmi',
-    phone: '9553464208',
+    phone: ['9553464208'],
     email: 'vijayalaxmi@hyderabad.bits-pilani.ac.in',
     bhavan: 'Meera / Malaviya',
     type: 'Girls',
@@ -901,7 +901,7 @@ export const campusData: Record<string, CampusData> = {
   },
   {
     name: 'I. Catherine',
-    phone: '7702857792',
+    phone: ['7702857792'],
     email: 'KLTS Employee',
     bhavan: 'Meera / Malaviya',
     type: 'Girls',
@@ -1381,6 +1381,135 @@ export const campusData: Record<string, CampusData> = {
     "vehicle": "Ertiga"
   }
 ],
+warden:[
+  {
+    name: 'Dr. R.B. Moulick',
+    phone: ['9881777443', '9049002211'],
+    email: 'rbmoulick@goa.bits-pilani.ac.in',
+    bhavan: 'CH1 - C.V. RAMAN'
+  },
+  {
+    name: 'Dr. Vaibavish Singh',
+    phone: ['9822135154'],
+    email: 'vaibhavish@goa.bits-pilani.ac.in',
+    bhavan: 'CH2 - S.N. BOSE'
+  },
+  {
+    name: 'Dr. Inzamam Talukdar',
+    phone: ['9886041595', '8554976831'],
+    email: 'inzamam@goa.bits-pilani.ac.in',
+    bhavan: 'CH3 - DR. HOMI J. BHABHA'
+  },
+  {
+    name: 'Dr. Swaroop Talukdar',
+    phone: ['9850435041', '8554976831', '9158372881'],
+    email: 'swaroopt@goa.bits-pilani.ac.in',
+    bhavan: 'CH4 - MEGHNAD SAHA'
+  },
+  {
+    name: 'Dr. Ritika Agrawal',
+    phone: ['9807034510', '8554976831', '7708504032'],
+    email: 'ritika@goa.bits-pilani.ac.in',
+    bhavan: 'CH5 - J.C. BOSE'
+  },
+  {
+    name: 'Dr. Ripul Jindal',
+    phone: ['7030588698', '9527819777', '8975040292'],
+    email: 'ripul.jindal@goa.bits-pilani.ac.in',
+    bhavan: 'CH6 - VISVESVARAYA'
+  },
+  {
+    name: 'Dr. Debabrata Chitaranjan Das Mohapatra',
+    phone: ['7219265955', '7875666033'],
+    email: 'debabrata@goa.bits-pilani.ac.in',
+    bhavan: 'CH7 - SIR C.V. RAMAN'
+  },
+  {
+    name: 'Dr. Amjad Ahmad',
+    phone: ['7448067702', '9552837895'],
+    email: 'amjad.ahmad@goa.bits-pilani.ac.in',
+    bhavan: 'AH1 & AH2 - RAMANUJAN & GANDHI'
+  },
+  {
+    name: 'Dr. Pradeep Kumar Suman',
+    phone: ['9591924878', '9538664024'],
+    email: 'psuman@goa.bits-pilani.ac.in',
+    bhavan: 'AH3 - BUDH'
+  },
+  {
+    name: 'Dr. Pranay Shankar',
+    phone: ['9022486320', '9167268518'],
+    email: 'pranay@goa.bits-pilani.ac.in',
+    bhavan: 'AH4 - SHANKAR'
+  },
+  {
+    name: 'Dr. Ashish Chittora',
+    phone: ['9167150885', '8554976831'],
+    email: 'ashishchittora@goa.bits-pilani.ac.in',
+    bhavan: 'AH5 - ASHOKA'
+  },
+  {
+    name: 'Dr. Raviprasad A.D',
+    phone: ['8275027108', '8554976830'],
+    email: 'adr@goa.bits-pilani.ac.in',
+    bhavan: 'AH6 - VIVEKANAND'
+  },
+  {
+    name: 'Dr. Monojit Chowdhuri',
+    phone: ['8956411927'],
+    email: 'monojit@goa.bits-pilani.ac.in',
+    bhavan: 'AH7 - KRISHNA'
+  },
+  {
+    name: 'Dr. Vijay Veera Setha',
+    phone: ['9740941814', '8554976830'],
+    email: 'vijayveera@goa.bits-pilani.ac.in',
+    bhavan: 'AH8 - GAUTAM'
+  },
+  {
+    name: 'Dr. Naveen Gupta',
+    phone: ['8826188402', '8554976830'],
+    email: 'naveengupta@goa.bits-pilani.ac.in',
+    bhavan: 'AH9 - MALVIYA'
+  },
+  {
+    name: 'Dr. Reema Chatterjee',
+    phone: ['9717491732', '8554976830'],
+    email: 'reema@goa.bits-pilani.ac.in',
+    bhavan: 'DH1 - MEERA'
+  },
+  {
+    name: 'Dr. Saroj Baral',
+    phone: ['7828059712', '7506685199'],
+    email: 'sbaral@goa.bits-pilani.ac.in',
+    bhavan: 'DH2 - GARGHI'
+  },
+  {
+    name: 'Dr. Ravi Kanth Chaturvedi',
+    phone: ['9305479138', '8554976830'],
+    email: 'rkchaturvedi@goa.bits-pilani.ac.in',
+    bhavan: 'DH3 - MAITREYI'
+  },
+  {
+    name: 'Dr. Kanchan Maji',
+    phone: ['8085174976', '9062193211', '7385966624'],
+    email: 'drkanchan@goa.bits-pilani.ac.in',
+    bhavan: 'DH4 - SAVITRI'
+  },
+  {
+    name: 'Dr. Manoj M M',
+    phone: ['9011090124', '8554976830'],
+    email: 'manojmm@goa.bits-pilani.ac.in',
+    bhavan: 'DH5 - SHAKUNTALA'
+  },
+  {
+    name: 'Dr. Pawan Kesharwani',
+    phone: ['9179647971', '7276993142', '8956485039'],
+    email: 'pkesharwani@goa.bits-pilani.ac.in',
+    bhavan: 'SH1 - DAY SCHOLARS'
+  }
+]
+
   },
   pilani: {
     name: "BITS Pilani, Pilani Campus",

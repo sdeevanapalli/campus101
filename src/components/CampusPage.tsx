@@ -575,19 +575,38 @@ const CampusPage: React.FC<CampusPageProps> = ({ campusData }) => {
                         <p className="text-sm text-gray-600 dark:text-gray-400">{warden.bhavan}</p>
                       )}
                     </div>
-                    <div className="flex space-x-2">
-                      <a
-                        href={`tel:${warden.phone}`}
-                        className="bg-blue-600 text-white px-3 py-1.5 rounded-md text-sm hover:bg-blue-700 transition"
-                      >
-                        Call
-                      </a>
+                    <div className="flex flex-wrap gap-2">
+                      {Array.isArray(warden.phone)
+                        ? warden.phone.length === 1
+                          ? (
+                              <a
+                                href={`tel:${warden.phone[0]}`}
+                                className="bg-blue-600 text-white px-3 py-1.5 rounded-md text-sm hover:bg-blue-700 transition flex items-center space-x-1"
+                              >
+                                <Phone size={16} />
+                                <span>Call</span>
+                                <span className="ml-1"></span>
+                              </a>
+                            )
+                          : warden.phone.map((phoneNum, i) => (
+                              <a
+                                key={i}
+                                href={`tel:${phoneNum}`}
+                                className="bg-blue-600 text-white px-3 py-1.5 rounded-md text-sm hover:bg-blue-700 transition flex items-center space-x-1"
+                              >
+                                <Phone size={16} />
+                                <span>{`Call ${i + 1}`}</span>
+                                <span className="ml-1"></span>
+                              </a>
+                            ))
+                        : null}
                       {warden.email && (
                         <a
                           href={`mailto:${warden.email}`}
-                          className="bg-green-600 text-white px-3 py-1.5 rounded-md text-sm hover:bg-green-700 transition"
+                          className="bg-green-600 text-white px-3 py-1.5 rounded-md text-sm hover:bg-green-700 transition flex items-center space-x-1"
                         >
-                          Email
+                          <Mail size={16} />
+                          <span>Email</span>
                         </a>
                       )}
                     </div>
