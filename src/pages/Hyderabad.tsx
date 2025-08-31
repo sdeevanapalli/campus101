@@ -1,4 +1,4 @@
-import React from 'react';
+// import React from 'react';
 import CampusPage from '../components/CampusPage';
 import { campusData } from '../data/campusData';
 
