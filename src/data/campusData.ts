@@ -1187,7 +1187,7 @@ export const campusData: Record<string, CampusData> = {
         date: '2024-03-25',
         time: '6:00 PM',
         location: 'Beach Front',
-        description: 'Annual beach festival with music, dance, and cultural performances',
+        description: 'Annual beach festival with music, dance, and cultural performances.',
         category: 'cultural',
         image: 'https://images.unsplash.com/photo-1492684223066-81342ee5ff30?w=800&h=600&fit=crop'
       }
