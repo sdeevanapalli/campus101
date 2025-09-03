@@ -76,10 +76,10 @@ npm run dev
 
 ### Campus Images
 
-Drop your campus images in `public/images/` like this:
+Drop your campus images in `public/` like this:
 
 ```
-public/images/
+public/
   hyderabad-campus.jpg
   hyderabad-1.jpg ... hyderabad-5.jpg
   goa-campus.jpg
@@ -117,39 +117,17 @@ npm run lint     # Lint your code
 ```
 
 
-## 🤝 Contributing
+## OG Creators
 
-Fork, branch, code, PR. If you have a cool idea or want to fix something, jump in!
-
-
-
-
-## 🙏 Thanks
-
-- Shriniketh Deevanapalli & Kushagra Singh (OG creators)
-- BITS Pilani community for all the info
-- Aceternity UI for the awesome components
-- OpenStreetMap for maps
-- Everyone who helped with data and feedback
+- [Shriniketh Deevanapalli](https://www.sdeevanapalli.dev)
+- Kushagra Singh
 
 
-## 🐛 Known Issues
 
-- Some images are placeholders – swap them out for real campus pics!
-- Campus data might need a double-check with official sources
-- Map markers could be more precise
+## 👥 Contributing
 
-
-## 🚀 What’s Next?
-
-- [ ] Events calendar
-- [ ] Student reviews for outlets/facilities
-- [ ] Real-time updates
-- [ ] Multi-language support
-- [ ] PWA features (offline, push notifications)
-- [ ] Admin panel
-- [ ] API integration for live campus data
+Anyone is welcome to contribute! Just fork, branch, code, and open a PR—no need to ask for permission. If you spot a bug or have a cool idea, send it in.
 
 ---
 
-**Built with ❤️ for BITS students** | [GitHub](https://github.com) | [Live Demo](https://your-deployed-url.com)
+**Built with ❤️ for BITSians** | [GitHub](https://github.com/sdeevanapalli/campus101) | [Live Demo](https://campus101-sable.vercel.app)
