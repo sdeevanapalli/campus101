@@ -620,6 +620,19 @@ const CampusPage: React.FC<CampusPageProps> = ({ campusData }) => {
             </div>
           </div>
         );
+
+      case 'outlet menus':
+        return(
+          <div className="bg-white dark:bg-gray-900 rounded-xl shadow-lg p-6">
+            <h2 className="text-xl font-bold text-gray-800 dark:text-white mb-4">Outlet Menus</h2>
+            <div className="space-y-4 text-gray-700 dark:text-gray-300">
+              <p>
+                Explore the various outlet menus available on campus. From cafes to canteens, find out what each outlet has to offer.
+              </p>
+            </div>
+          </div>
+        );
+
       case 'about':
         return (
           <div className="bg-white dark:bg-gray-900 rounded-xl shadow-lg p-6">
