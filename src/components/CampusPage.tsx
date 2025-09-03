@@ -192,6 +192,7 @@ const Sidebar: React.FC<{
     ...(campusName.toLowerCase().includes('goa') ? [
       { icon: <Car size={20} />, label: 'Goa Cabs', id: 'goacabs' }
     ] : []),
+    { icon: <Utensils size={20} />, label: 'Outlet Menus', id: 'outlet-menus' },
     { icon: <Info size={20} />, label: 'About', id: 'about' }
 
   ];
@@ -621,7 +622,7 @@ const CampusPage: React.FC<CampusPageProps> = ({ campusData }) => {
           </div>
         );
 
-      case 'outlet menus':
+      case 'outlet-menus':
         return(
           <div className="bg-white dark:bg-gray-900 rounded-xl shadow-lg p-6">
             <h2 className="text-xl font-bold text-gray-800 dark:text-white mb-4">Outlet Menus</h2>
