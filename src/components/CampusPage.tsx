@@ -332,11 +332,10 @@ const CampusPage: React.FC<CampusPageProps> = ({ campusData }) => {
 
             
 
-            {campusData.autoDrivers && (
+            {campusData.autoDrivers && campusData.slug !== 'goa' && (
               <CollapsibleSection title="Auto Driver Numbers" icon={<Car size={24} />}>
                 <AutoDriverGrid drivers={campusData.autoDrivers} />
               </CollapsibleSection>
-                      
             )}
 
             <CollapsibleSection title="212 Bus Schedule (BPHC ↔ Secunderabad)" icon={<Bus size={24} />}>
