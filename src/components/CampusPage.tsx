@@ -292,22 +292,41 @@ const CampusPage: React.FC<CampusPageProps> = ({ campusData }) => {
             <CollapsibleSection title="Food Outlet Phone Numbers" icon={<Phone size={24} />}>
               <p className="mb-4 text-sm text-gray-700 dark:text-gray-300">Tap on a contact to call directly.</p>
               <div className="grid grid-cols-1 gap-3">
-                {[
-                  ['Hotspot', '70133 34805'],
-                  ['Yummpy\'s', '93814 23625']
-                ].map(([name, phone], index) => (
-                  <a
-                    key={name}
-                    href={`tel:${phone}`}
-                    className="bg-blue-50 dark:bg-blue-900 p-3 rounded-lg border border-blue-200 dark:border-blue-700 hover:bg-blue-100 dark:hover:bg-blue-800 transition-all duration-300 transform hover:scale-102 hover:shadow-md"
-                    style={{ animationDelay: `${index * 0.1}s` }}
-                  >
-                    <div className="flex justify-between items-center">
-                      <span className="font-medium text-gray-800 dark:text-white">{name}</span>
-                      <span className="text-blue-600 dark:text-blue-400 font-mono">{phone}</span>
-                    </div>
-                  </a>
-                ))}
+                {campusData.outletPhones && campusData.outletPhones.length > 0 ? (
+                  campusData.outletPhones.map((contact, index) => {
+                    const raw = (contact.phone ?? '').toString();
+                    const tel = raw && raw !== 'TBD' ? raw.replace(/[^\d+]/g, '') : null;
+                    const content = (
+                      <div className="flex justify-between items-center">
+                        <span className="font-medium text-gray-800 dark:text-white">{contact.name}</span>
+                        <span className="text-blue-600 dark:text-blue-400 font-mono">{contact.phone}</span>
+                      </div>
+                    );
+
+                    return tel ? (
+                      <a
+                        key={`${contact.name}-${index}`}
+                        href={`tel:${tel}`}
+                        className="bg-blue-50 dark:bg-blue-900 p-3 rounded-lg border border-blue-200 dark:border-blue-700 hover:bg-blue-100 dark:hover:bg-blue-800 transition-all duration-300 transform hover:scale-102 hover:shadow-md"
+                        style={{ animationDelay: `${index * 0.1}s` }}
+                      >
+                        {content}
+                      </a>
+                    ) : (
+                      <div
+                        key={`${contact.name}-${index}`}
+                        className="bg-gray-50 dark:bg-gray-800 p-3 rounded-lg border border-gray-200 dark:border-gray-700 text-sm text-gray-500 dark:text-gray-400"
+                        style={{ animationDelay: `${index * 0.1}s` }}
+                      >
+                        {content}
+                      </div>
+                    );
+                  })
+                ) : (
+                  <div className="text-center p-4 text-sm text-gray-500 dark:text-gray-400">
+                    Outlet phone numbers not available for this campus.
+                  </div>
+                )}
               </div>
             </CollapsibleSection>
 

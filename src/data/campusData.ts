@@ -49,6 +49,8 @@ export interface CampusData {
   mapCenter: [number, number];
   locations: Location[];
   outlets: Outlet[];
+  // Optional list of outlet contact numbers for quick access
+  outletPhones?: Array<{ name: string; phone: string }>;
   autoDrivers?: string[];
   busRoutes?: Array<{ route: string; times: string[] }>;
   warden?: Array<{ name: string; phone: Array<string>; email: string; bhavan:string; type?: 'Boys' | 'Girls'; role?: string }>;
@@ -529,6 +531,13 @@ export const campusData: Record<string, CampusData> = {
         reviews: 67,
         description: 'Main campus cafeteria'
       }
+    ],
+    outletPhones: [
+      { name: 'Hotspot', phone: '70133 34805' },
+      { name: "Yummpy's", phone: '93814 23625' },
+      { name: 'SFC', phone: '99120 20026' },
+      { name: 'WichPlease', phone: '82900 04921' },
+      { name: 'Vijay Vahini', phone: '93937 37444' }
     ],
     autoDrivers: [
   '96035 11629', '98481 65044', '99484 83171', '90000 92037',
@@ -1172,6 +1181,12 @@ export const campusData: Record<string, CampusData> = {
     description: 'Local business'
   }
     ],
+    outletPhones: [
+      { name: 'FK', phone: 'TBD' },
+      { name: 'Subspot', phone: 'TBD' },
+      { name: 'Amul', phone: 'TBD' },
+      { name: 'Nescafé', phone: 'TBD' }
+    ],
     autoDrivers: [
       'Goa Driver 1 - 9876543210',
       'Goa Driver 2 - 9876543211'
@@ -1582,6 +1597,11 @@ warden:[
         popular: true,
         description: 'Popular hangout spot with great food'
       }
+    ],
+    // Placeholder phone numbers for Pilani outlets — replace with actual numbers when available
+    outletPhones: [
+      { name: 'Pilani Store', phone: 'TBD' },
+      { name: 'Campus Cafe', phone: 'TBD' }
     ],
     autoDrivers: [
       'Pilani Driver 1 - 9876543210',
