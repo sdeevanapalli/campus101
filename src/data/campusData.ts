@@ -394,7 +394,7 @@ export const campusData: Record<string, CampusData> = {
       },
       { 
         name: 'Sri Sai Laundry', 
-        timing: '9:00 AM - 9:00 PM (Monday closed)', 
+        timing: '9:00 AM - 9:00 PM (On Monday 9AM to 5PM)', 
         category: 'services',
         rating: 4.1,
         reviews: 45,
@@ -427,7 +427,7 @@ export const campusData: Record<string, CampusData> = {
       },
       { 
         name: 'Tea Time', 
-        timing: '9:00 AM - 9:00 PM (Sunday closed)', 
+        timing: '09:30 AM - 10:30 PM', 
         category: 'food',
         rating: 4.3,
         reviews: 67,
@@ -436,6 +436,14 @@ export const campusData: Record<string, CampusData> = {
       { 
         name: 'Karturi Stationery', 
         timing: '5:00 PM - 8:00 PM', 
+        category: 'stationery',
+        rating: 4.0,
+        reviews: 23,
+        description: 'Evening stationery shop'
+      },
+      { 
+        name: 'Vijay Laxmi Enterprises', 
+        timing: '09:00 AM - 09:00 PM', 
         category: 'stationery',
         rating: 4.0,
         reviews: 23,
@@ -468,7 +476,7 @@ export const campusData: Record<string, CampusData> = {
       },
       { 
         name: 'Vijay Vahini', 
-        timing: '12:00 PM - 10:00 PM', 
+        timing: '08:30 AM - 02:00 AM', 
         category: 'food',
         rating: 4.3,
         reviews: 56,
@@ -476,7 +484,7 @@ export const campusData: Record<string, CampusData> = {
       },
       { 
         name: 'Thickshake', 
-        timing: '11:00 AM - 9:00 PM', 
+        timing: '09:30 AM - 11:30 PM', 
         category: 'food',
         rating: 4.4,
         reviews: 67,
@@ -484,7 +492,7 @@ export const campusData: Record<string, CampusData> = {
       },
       { 
         name: "Yummpy's", 
-        timing: '10:00 AM - 02:00 AM', 
+        timing: '08:00 AM - 02:00 AM', 
         category: 'food',
         rating: 4.5,
         reviews: 78,
@@ -493,15 +501,31 @@ export const campusData: Record<string, CampusData> = {
       },
       { 
         name: 'Hotspot', 
-        timing: '10:00 AM - 12:00 AM', 
+        timing: '09:00 AM - 03:20 AM', 
         category: 'food',
         rating: 4.2,
         reviews: 45,
         description: 'Popular hangout spot with food'
       },
       { 
-        name: 'Wich Please and SFC', 
-        timing: '05:00 PM - 02:00 AM', 
+        name: 'Fruitful', 
+        timing: '04:00 PM - 10:30 PM', 
+        category: 'food',
+        rating: 4.2,
+        reviews: 45,
+        description: 'Popular hangout spot with food'
+      },
+      { 
+        name: 'Wich Please', 
+        timing: '05:00 PM - 01:45 AM', 
+        category: 'food',
+        rating: 4.1,
+        reviews: 34,
+        description: 'Sandwiches and fast food'
+      },
+      { 
+        name: 'SFC', 
+        timing: '03:00 PM - 01:45 AM', 
         category: 'food',
         rating: 4.1,
         reviews: 34,
@@ -509,7 +533,7 @@ export const campusData: Record<string, CampusData> = {
       },
       { 
         name: 'Nescafe', 
-        timing: 'TBA', 
+        timing: '02:00 PM - 02:00 AM', 
         category: 'food',
         rating: 4.3,
         reviews: 56,
@@ -526,6 +550,38 @@ export const campusData: Record<string, CampusData> = {
       { 
         name: 'Domino\'s Pizza', 
         timing: '11:00 AM - 11:00 PM', 
+        category: 'food',
+        rating: 4.0,
+        reviews: 67,
+        description: 'Main campus cafeteria'
+      },
+      { 
+        name: 'C3', 
+        timing: '03:00 PM - 02:00 AM', 
+        category: 'food',
+        rating: 4.0,
+        reviews: 67,
+        description: 'Main campus cafeteria'
+      },
+      { 
+        name: 'Campus Kitchen', 
+        timing: '08:00 AM - 07:30 PM', 
+        category: 'food',
+        rating: 4.0,
+        reviews: 67,
+        description: 'Main campus cafeteria'
+      },
+      { 
+        name: 'Cafe Coffee Day', 
+        timing: '09:00 AM - 05:30 PM', 
+        category: 'food',
+        rating: 4.0,
+        reviews: 67,
+        description: 'Main campus cafeteria'
+      },
+      { 
+        name: 'Goutham Cafe', 
+        timing: '08:00 AM - 07:00 PM', 
         category: 'food',
         rating: 4.0,
         reviews: 67,
@@ -1002,7 +1058,7 @@ export const campusData: Record<string, CampusData> = {
   },
   {
     name: 'Amul',
-    timing: '9:30 AM - 12:00 AM',
+    timing: '08:30 AM - 03:30 AM',
     category: 'shopping',
     rating: 4.0,
     reviews: 50,
