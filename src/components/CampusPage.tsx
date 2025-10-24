@@ -150,7 +150,6 @@ const CollapsibleSection: React.FC<CollapsibleSectionProps> = ({
 };
 
 
-
 // Auto Driver Grid (if available)
 const AutoDriverGrid: React.FC<{ drivers: string[] }> = ({ drivers }) => {
   return (
