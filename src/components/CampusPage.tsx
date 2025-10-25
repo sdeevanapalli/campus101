@@ -249,7 +249,6 @@ const Sidebar: React.FC<{
   );
 };
 
-
 const CampusPage: React.FC<CampusPageProps> = ({ campusData }) => {
   const [isDark, setIsDark] = useState(false);
   const [sidebarOpen, setSidebarOpen] = useState(false);
