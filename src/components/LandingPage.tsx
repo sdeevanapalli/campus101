@@ -18,7 +18,7 @@ const LandingPage = () => {
       stats: { students: "3,000+", facilities: "50+", clubs: "40+" }
     },
     {
-      name: "BITS Pilani, K. K. Birla Goa Campus", 
+      name: "BITS Pilani, K.K. Birla Goa Campus", 
       location: "Zuarinagar, Goa",
       description: "Coastal paradise offering academic excellence with beachside serenity",
       image: "/bitsg.jpeg", 
@@ -27,7 +27,7 @@ const LandingPage = () => {
       stats: { students: "2,500+", facilities: "40+", clubs: "35+" }
     },
     {
-      name: "BITS Pilani",
+      name: "BITS Pilani, Pilani Campus",
       location: "Pilani, Rajasthan", 
       description: "Historic flagship campus where tradition meets innovation",
       image: "/bitsp.jpg",
@@ -88,7 +88,8 @@ const LandingPage = () => {
                       {campus.location}
                     </CardItem>
 
-                    <CardItem translateZ="100" className="w-full mt-4">
+                  <div className="w-full mt-4">
+                    <CardItem translateZ="100" className="w-full">
                       <img
                         src={campus.image}
                         height="1000"
@@ -98,36 +99,7 @@ const LandingPage = () => {
                       />
                     </CardItem>
 
-                    <CardItem
-                      as="p"
-                      translateZ="60"
-                      className="text-neutral-500 text-sm max-w-sm mt-4 dark:text-neutral-300"
-                    >
-                      {campus.description}
-                    </CardItem>
-
-                    {/* Stats */}
-                    <CardItem translateZ="80" className="mt-4">
-                      <div className="grid grid-cols-3 gap-4 text-center">
-                        <div className="flex flex-col items-center">
-                          <Users size={20} className="text-blue-400 mb-1" />
-                          <span className="text-xs text-gray-400">Students</span>
-                          <span className="text-sm font-semibold text-white">{campus.stats.students}</span>
-                        </div>
-                        <div className="flex flex-col items-center">
-                          <Book size={20} className="text-green-400 mb-1" />
-                          <span className="text-xs text-gray-400">Facilities</span>
-                          <span className="text-sm font-semibold text-white">{campus.stats.facilities}</span>
-                        </div>
-                        <div className="flex flex-col items-center">
-                          <Sparkles size={20} className="text-purple-400 mb-1" />
-                          <span className="text-xs text-gray-400">Clubs</span>
-                          <span className="text-sm font-semibold text-white">{campus.stats.clubs}</span>
-                        </div>
-                      </div>
-                    </CardItem>
-
-                    <div className="flex justify-between items-center mt-6">
+                    <div className="flex justify-center items-center mt-6">
                       <CardItem
                         translateZ={20}
                         as={Link}
@@ -136,15 +108,9 @@ const LandingPage = () => {
                       >
                         Explore Campus
                       </CardItem>
-                      
-                      <CardItem
-                        translateZ={20}
-                        as="div"
-                        className="px-4 py-2 rounded-xl bg-black/[0.8] text-white text-sm font-normal"
-                      >
-                        Campus Guide →
-                      </CardItem>
                     </div>
+                  </div>
+
                   </CardBody>
                 </CardContainer>
               </motion.div>
@@ -154,7 +120,7 @@ const LandingPage = () => {
       </div>
 
       {/* Features Section */}
-      <div className="relative bg-gradient-to-br from-slate-800 to-slate-900 py-20">
+      {/* <div className="relative bg-gradient-to-br from-slate-800 to-slate-900 py-20">
         <div className="max-w-7xl mx-auto px-4">
           <motion.div
             initial={{ opacity: 0, y: 50 }}
@@ -192,12 +158,12 @@ const LandingPage = () => {
             ))}
           </div>
         </div>
-      </div>
+      </div> */}
 
       {/* Footer */}
       <div className="bg-black py-12 text-center">
         <p className="text-gray-400">
-          Built with ❤️ for BITS students by{' '}
+          Built with ❤️ for BITSians by{' '}
           <a
             href="https://www.linkedin.com/in/sdeevanapalli"
             target="_blank"
