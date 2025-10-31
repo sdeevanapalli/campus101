@@ -191,7 +191,6 @@ const Sidebar: React.FC<{
     ...(campusName.toLowerCase().includes('goa') ? [
       { icon: <Car size={20} />, label: 'Goa Cabs', id: 'goacabs' }
     ] : []),
-    { icon: <Utensils size={20} />, label: 'Outlet Menus', id: 'outlet-menus' },
     { icon: <Info size={20} />, label: 'About', id: 'about' }
 
   ];
@@ -338,7 +337,8 @@ const CampusPage: React.FC<CampusPageProps> = ({ campusData }) => {
               </CollapsibleSection>
             )}
 
-            <CollapsibleSection title="212 Bus Schedule (BPHC ↔ Secunderabad)" icon={<Bus size={24} />}>
+            {campusData.busRoutes && campusData.slug !== 'goa' && (
+              <CollapsibleSection title="212 Bus Schedule (BPHC ↔ Secunderabad)" icon={<Bus size={24} />}>
               <div className="grid md:grid-cols-2 gap-6">
                 <div className="bg-green-50 dark:bg-green-900 p-4 rounded-lg border border-green-200 dark:border-green-700 transition-all duration-300 hover:shadow-md">
                   <h3 className="font-semibold text-green-800 dark:text-green-300 mb-3 flex items-center">
@@ -368,7 +368,9 @@ const CampusPage: React.FC<CampusPageProps> = ({ campusData }) => {
                 </div>
               </div>
             </CollapsibleSection>
+                  )}
 
+            {campusData.slug !== 'goa' && (
             <CollapsibleSection title="Alternate Bus Routes" icon={<Bus size={24} />}>
               <div className="bg-yellow-50 dark:bg-yellow-900 p-4 rounded-lg border border-yellow-200 dark:border-yellow-700 mb-4 transition-all duration-300 hover:shadow-md">
                 <div className="flex items-center mb-2">
@@ -396,7 +398,7 @@ const CampusPage: React.FC<CampusPageProps> = ({ campusData }) => {
                 </div>
               </div>
             </CollapsibleSection>
-
+            )}
           </>
         );
 
@@ -440,6 +442,13 @@ const CampusPage: React.FC<CampusPageProps> = ({ campusData }) => {
                     </div>
                   </div>
                 ))}
+                <div className="text-center">
+              <h4 className="font-semibold text-gray-800 dark:text-white">
+                <a href="https://docs.google.com/spreadsheets/d/1p2h80qan-fqB6YiNC6iQBjygd_JtNwDz/edit?usp=drivesdk&ouid=109919866450311609892&rtpof=true&sd=true">
+                  Click Here for More Information
+                </a>
+              </h4>
+            </div>
               </div>
             </div>
           );
@@ -636,18 +645,6 @@ const CampusPage: React.FC<CampusPageProps> = ({ campusData }) => {
                   <p className="text-gray-500 dark:text-gray-400">No warden information available for this campus.</p>
                 </div>
               )}
-            </div>
-          </div>
-        );
-
-      case 'outlet-menus':
-        return(
-          <div className="bg-white dark:bg-gray-900 rounded-xl shadow-lg p-6">
-            <h2 className="text-xl font-bold text-gray-800 dark:text-white mb-4">Outlet Menus</h2>
-            <div className="space-y-4 text-gray-700 dark:text-gray-300">
-              <p>
-                Explore the various outlet menus available on campus. From cafes to canteens, find out what each outlet has to offer.
-              </p>
             </div>
           </div>
         );
