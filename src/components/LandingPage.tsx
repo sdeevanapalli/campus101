@@ -60,7 +60,6 @@ const LandingPage = () => {
             </p>
           </motion.div>
 
-          {/* Updated grid with better spacing */}
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-12 px-4">
             {campuses.map((campus, index) => (
               <motion.div
