@@ -1,261 +1,204 @@
-import React, { useState, useRef, useEffect, useMemo } from 'react';
-import { MapContainer, TileLayer, Marker, Popup, useMap } from 'react-leaflet';
+import React, { useState, useEffect } from 'react';
+import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet';
 import L from 'leaflet';
 import { Link } from 'react-router-dom';
+import { motion, AnimatePresence } from 'framer-motion';
 import {
   ChevronDown,
-  ChevronUp,
-  Clock,
-  Store,
-  User,
-  Bus,
-  Car,
-  Phone,
-  Utensils,
-  HeartHandshake,
-  Handshake,
-  AlertTriangle,
   Menu,
   X,
   Home,
-  BookOpen,
-  Map,
+  Map as MapIcon,
   Info,
   MapPin,
   ArrowLeft,
+  Phone,
   Mail,
-  Search,
+  Car,
+  Bus,
+  Clock,
+  ExternalLink,
+  Users,
+  AlertTriangle,
+  FileText,
+  Heart
 } from 'lucide-react';
-
 import 'leaflet/dist/leaflet.css';
 import { CampusData } from '../data/campusData';
 
+// --- Utility Components ---
 
-const ContactCard: React.FC<{ name: string; phone: string; email: string; label?: string }> = ({
-  name,
-  phone,
-  email,
-  label
-}) => (
-  <div className="bg-gray-50 dark:bg-gray-800 rounded-lg p-4 hover:bg-gray-100 dark:hover:bg-gray-700 transition-all duration-300 transform hover:scale-102 hover:shadow-md">
-    <div className="flex justify-between items-center">
-      <div>
-        <h4 className="font-semibold text-gray-800 dark:text-white transition-colors duration-200">
-          {name}
-        </h4>
-        {label && (
-          <p className="text-sm text-gray-600 dark:text-gray-300 transition-colors duration-200">
-            {label}
-          </p>
-        )}
-      </div>
-      <div className="flex space-x-2">
-        <a
-          href={`tel:${phone}`}
-          className="bg-blue-600 text-white px-3 py-2 rounded-lg hover:bg-blue-700 transition-all duration-300 flex items-center space-x-1 transform hover:scale-105 active:scale-95"
-        >
-          <Phone size={16} className="transition-transform duration-200 hover:rotate-12" />
-          <span className="text-sm font-medium">Call</span>
-        </a>
-        <a
-          href={`mailto:${email}`}
-          className="bg-green-600 text-white px-3 py-2 rounded-lg hover:bg-green-700 transition-all duration-300 flex items-center space-x-1 transform hover:scale-105 active:scale-95"
-        >
-          <Mail size={16} className="transition-transform duration-200 hover:rotate-12" />
-          <span className="text-sm font-medium">Email</span>
-        </a>
-      </div>
-    </div>
-  </div>
+const Badge = ({ children, className }: { children: React.ReactNode; className?: string }) => (
+  <span className={`px-2 py-1 rounded-md text-xs font-mono uppercase tracking-widest ${className}`}>
+    {children}
+  </span>
 );
 
-const BusScheduleItem: React.FC<{ time: string; color: string }> = ({ time, color }) => (
-  <div className={`bg-white dark:bg-gray-800 p-2 rounded text-center font-medium transition-all duration-300 hover:shadow-md transform hover:scale-105 ${color} border-l-4 ${color === 'text-green-700 dark:text-green-200' ? 'border-green-500' : 'border-blue-500'}`}>
-    {time}
-  </div>
-);
-
-// Route Badge with bounce animation
-const RouteBadge: React.FC<{ route: string }> = ({ route }) => (
-  <span className="bg-blue-100 dark:bg-blue-800 text-blue-800 dark:text-blue-100 px-3 py-1 rounded-full text-sm font-medium transition-all duration-300 hover:bg-blue-200 dark:hover:bg-blue-700 transform hover:scale-110 cursor-default">
+const RouteBadge = ({ route }: { route: string }) => (
+  <span className="bg-zinc-800 text-zinc-300 border border-white/5 px-3 py-1.5 rounded-lg text-sm font-mono hover:bg-blue-500/20 hover:text-blue-200 hover:border-blue-500/30 transition-all cursor-default">
     {route}
   </span>
 );
 
-interface CampusPageProps {
-  campusData: CampusData;
-}
-interface Warden {
-  name: string;
-  phone: string;
-  email?: string;
-  bhavan?: string;
-  type?: 'Boys' | 'Girls';
-  role?: string;
-}
+const ContactItem = ({ name, phone, label, delay }: { name: string; phone: string; label?: string; delay: number }) => (
+  <motion.div 
+    initial={{ opacity: 0, y: 10 }}
+    animate={{ opacity: 1, y: 0 }}
+    transition={{ delay: delay * 0.05 }}
+    className="group flex items-center justify-between p-4 rounded-xl border border-white/5 bg-zinc-800/40 hover:bg-zinc-800 hover:border-blue-500/30 transition-all duration-300"
+  >
+    <div>
+      <h4 className="font-medium text-zinc-200 group-hover:text-blue-200 transition-colors">{name}</h4>
+      {label && <p className="text-xs text-zinc-500 mt-1">{label}</p>}
+    </div>
+    <div className="flex gap-2">
+      <a
+        href={`tel:${phone}`}
+        className="p-2 rounded-lg bg-blue-500/10 text-blue-400 hover:bg-blue-500 hover:text-white transition-colors"
+        title="Call"
+      >
+        <Phone size={16} />
+      </a>
+    </div>
+  </motion.div>
+);
 
-// Collapsible Section with smooth animations
-interface CollapsibleSectionProps {
+const CollapsibleSection: React.FC<{
   title: string;
   icon: React.ReactNode;
   children: React.ReactNode;
   defaultOpen?: boolean;
-}
-
-const CollapsibleSection: React.FC<CollapsibleSectionProps> = ({
-  title,
-  icon,
-  children,
-  defaultOpen = false
-}) => {
+}> = ({ title, icon, children, defaultOpen = false }) => {
   const [isOpen, setIsOpen] = useState(defaultOpen);
-  const [height, setHeight] = useState<number | undefined>(defaultOpen ? undefined : 0);
-  const contentRef = useRef<HTMLDivElement>(null);
-
-  useEffect(() => {
-    if (contentRef.current) {
-      setHeight(isOpen ? contentRef.current.scrollHeight : 0);
-    }
-  }, [isOpen, children]);
 
   return (
-    <div className="mb-6 bg-white dark:bg-gray-900 rounded-xl shadow-lg overflow-hidden transition-all duration-300 hover:shadow-xl">
+    <div className="mb-4 border border-white/5 rounded-2xl overflow-hidden bg-zinc-800/30 backdrop-blur-sm">
       <button
         onClick={() => setIsOpen(!isOpen)}
-        className="w-full p-6 flex items-center justify-between bg-gradient-to-r from-blue-50 to-orange-50 dark:from-gray-800 dark:to-gray-700 hover:from-blue-100 hover:to-orange-100 dark:hover:from-gray-700 dark:hover:to-gray-600 transition-all duration-300"
+        className="w-full p-6 flex items-center justify-between hover:bg-zinc-800/50 transition-colors duration-300 group"
       >
-        <div className="flex items-center space-x-3">
-          <div className="text-blue-600 dark:text-orange-400 transition-colors duration-300">
+        <div className="flex items-center gap-4">
+          <div className="p-2.5 rounded-xl bg-gradient-to-br from-red-500/10 to-blue-500/10 text-zinc-300 group-hover:from-red-500/20 group-hover:to-blue-500/20 group-hover:text-white transition-all">
             {icon}
           </div>
-          <h2 className="text-xl font-bold text-gray-800 dark:text-white transition-colors duration-300">
+          <h2 className="text-lg font-semibold text-zinc-200 tracking-tight group-hover:text-white">
             {title}
           </h2>
         </div>
-        <div className={`transform transition-transform duration-300 ${isOpen ? 'rotate-180' : ''}`}>
-          <ChevronDown size={24} className="text-gray-600 dark:text-gray-300" />
-        </div>
-      </button>
-      <div
-        ref={contentRef}
-        style={{ height }}
-        className="overflow-hidden transition-all duration-300 ease-in-out"
-      >
-        <div className="p-6 pt-0">
-          {children}
-        </div>
-      </div>
-    </div>
-  );
-};
-
-
-// Auto Driver Grid (if available)
-const AutoDriverGrid: React.FC<{ drivers: string[] }> = ({ drivers }) => {
-  return (
-    <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3">
-      {drivers.map((phone, index) => (
-        <a
-          key={index}
-          href={`tel:${phone}`}
-          className="bg-gradient-to-r from-blue-100 to-blue-300 dark:from-blue-700 dark:to-blue-900 p-3 rounded-lg text-center hover:from-blue-200 hover:to-blue-400 dark:hover:from-blue-600 dark:hover:to-blue-800 transition-all duration-300 border border-blue-300 dark:border-blue-700 hover:border-blue-400 transform hover:scale-105 hover:shadow-md"
-          style={{ animationDelay: `${index * 0.05}s` }}
+        <motion.div 
+          animate={{ rotate: isOpen ? 180 : 0 }}
+          transition={{ duration: 0.2 }}
         >
-          <div className="text-sm font-medium text-gray-700 dark:text-white mb-1 transition-colors duration-200">{index + 1}</div>
-          <div className="text-sm font-mono text-blue-700 dark:text-blue-300 transition-colors duration-200">{phone}</div>
-        </a>
-      ))}
+          <ChevronDown size={20} className="text-zinc-500 group-hover:text-zinc-300" />
+        </motion.div>
+      </button>
+      <AnimatePresence>
+        {isOpen && (
+          <motion.div
+            initial={{ height: 0, opacity: 0 }}
+            animate={{ height: "auto", opacity: 1 }}
+            exit={{ height: 0, opacity: 0 }}
+            transition={{ duration: 0.3, ease: "easeInOut" }}
+            className="overflow-hidden"
+          >
+            <div className="p-6 pt-0 border-t border-white/5">
+              {children}
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </div>
   );
 };
 
-// Sidebar Navigation
+// --- Sidebar ---
 const Sidebar: React.FC<{ 
   isOpen: boolean; 
   onClose: () => void; 
   activeSection: string; 
   onSectionChange: (section: string) => void;
   campusName: string;
-}> = ({ 
-  isOpen, 
-  onClose, 
-  activeSection, 
-  onSectionChange,
-  campusName
-}) => {
-  // Add Goa Cabs button only for Goa campus
+}> = ({ isOpen, onClose, activeSection, onSectionChange, campusName }) => {
   const menuItems = [
-    { icon: <Home size={20} />, label: 'Home', id: 'home' },
-    { icon: <Map size={20} />, label: 'Map', id: 'map' },
-    { icon: <Info size={20} />, label: 'Warden Info', id: 'wardens' },
+    { icon: <Home size={18} />, label: 'Home', id: 'home' },
+    { icon: <MapIcon size={18} />, label: 'Campus Map', id: 'map' },
+    { icon: <Users size={18} />, label: 'Warden Info', id: 'wardens' },
     ...(campusName.toLowerCase().includes('goa') ? [
-      { icon: <Car size={20} />, label: 'Goa Cabs', id: 'goacabs' }
+      { icon: <Car size={18} />, label: 'Goa Cabs', id: 'goacabs' }
     ] : []),
-    { icon: <Info size={20} />, label: 'About', id: 'about' }
-
+    { icon: <Info size={18} />, label: 'About & Credits', id: 'about' }
   ];
-
-  const handleSectionClick = (sectionId: string) => {
-    onSectionChange(sectionId);
-    onClose();
-  };
 
   return (
     <>
-      {/* Overlay */}
-      {isOpen && (
-        <div
-          className="fixed inset-0 bg-black bg-opacity-50 z-40 lg:hidden"
-          onClick={onClose}
-        />
-      )}
-      
-      {/* Sidebar */}
-      <div className={`fixed left-0 top-0 h-full w-80 bg-white dark:bg-gray-900 shadow-xl z-50 transform transition-transform duration-300 ease-in-out ${
-        isOpen ? 'translate-x-0' : '-translate-x-full'
-      }`}>
-        {/* Header */}
-        <div className="p-6 border-b border-gray-200 dark:border-gray-700 bg-gradient-to-r from-blue-600 to-orange-500 dark:from-gray-800 dark:to-gray-700">
-          <button
+      <AnimatePresence>
+        {isOpen && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            className="fixed inset-0 bg-zinc-950/60 backdrop-blur-sm z-[60]"
             onClick={onClose}
-            className="absolute top-4 right-4 p-2 rounded-lg hover:bg-white/10 transition-colors duration-200"
-          >
-            <X size={24} className="text-white" />
+          />
+        )}
+      </AnimatePresence>
+      
+      <motion.div 
+        className={`fixed left-0 top-0 h-full w-80 bg-zinc-900 border-r border-white/10 z-[70] shadow-2xl`}
+        initial={{ x: "-100%" }}
+        animate={{ x: isOpen ? 0 : "-100%" }}
+        transition={{ type: "spring", stiffness: 300, damping: 30 }}
+      >
+        <div className="p-6 border-b border-white/5 flex justify-between items-center bg-zinc-900">
+          <div>
+            <h2 className="text-lg font-bold text-zinc-100 tracking-tighter">Menu</h2>
+            <p className="text-xs text-zinc-500 font-mono uppercase tracking-widest">{campusName}</p>
+          </div>
+          <button onClick={onClose} className="p-2 hover:bg-white/5 rounded-lg text-zinc-400 transition-colors">
+            <X size={20} />
           </button>
-          <h2 className="text-xl font-bold text-white">{campusName}</h2>
-          <p className="text-blue-100 dark:text-orange-100 text-sm">Campus Guide</p>
         </div>
         
-        {/* Menu Items */}
         <div className="p-4 space-y-2">
           {menuItems.map((item) => (
             <button
               key={item.id}
-              onClick={() => handleSectionClick(item.id)}
-              className={`w-full flex items-center space-x-3 p-3 rounded-lg transition-all duration-200 ${
+              onClick={() => { onSectionChange(item.id); onClose(); }}
+              className={`w-full flex items-center space-x-3 p-3 rounded-xl text-sm font-medium transition-all duration-200 ${
                 activeSection === item.id
-                  ? 'bg-blue-100 dark:bg-blue-900 text-blue-700 dark:text-blue-300'
-                  : 'text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800'
+                  ? 'bg-red-500/10 text-red-400 border border-red-500/20'
+                  : 'text-zinc-400 hover:bg-zinc-800 hover:text-zinc-200'
               }`}
             >
               {item.icon}
-              <span className="font-medium">{item.label}</span>
+              <span>{item.label}</span>
             </button>
           ))}
         </div>
-      </div>
+
+        <div className="absolute bottom-6 left-0 w-full px-6">
+            <div className="p-4 rounded-xl bg-zinc-800/30 border border-white/5">
+                <p className="text-xs text-zinc-500 text-center">
+                    Designed for BITSians
+                </p>
+            </div>
+        </div>
+      </motion.div>
     </>
   );
 };
 
+// --- Main Page ---
+interface CampusPageProps {
+  campusData: CampusData;
+}
 
 const CampusPage: React.FC<CampusPageProps> = ({ campusData }) => {
-  const [isDark, setIsDark] = useState(false);
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const [activeSection, setActiveSection] = useState('home');
   const [selectedLocation, setSelectedLocation] = useState(campusData.locations[0]);
 
-  // Fix Leaflet icon configuration
+  // Leaflet Icons Fix
   useEffect(() => {
     delete (L.Icon.Default.prototype as any)._getIconUrl;
     L.Icon.Default.mergeOptions({
@@ -265,431 +208,343 @@ const CampusPage: React.FC<CampusPageProps> = ({ campusData }) => {
     });
   }, []);
 
-  const toggleDarkMode = () => {
-    document.documentElement.classList.toggle('dark');
-    setIsDark(!isDark);
-  };
-
   const renderContent = () => {
     switch (activeSection) {
       case 'home':
         return (
-          <>
-            <CollapsibleSection title="Food Outlets & Timings" icon={<Store size={24} />}>
-              <div className="space-y-3 text-sm">
+          <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} className="space-y-6">
+            
+            {/* 1. Food Outlets & Timings */}
+            <CollapsibleSection title="Food Outlets" icon={<Clock size={20} />}>
+              <div className="grid gap-2">
                 {campusData.outlets.map((outlet, index) => (
-                  <div key={index} className="transition-all duration-300 hover:bg-gray-50 dark:hover:bg-gray-800 p-2 rounded" style={{ animationDelay: `${index * 0.05}s` }}>
-                    <h4 className="font-semibold text-gray-800 dark:text-white transition-colors duration-200">{outlet.name}</h4>
-                    <p className={`text-sm transition-colors duration-200 ${outlet.closed ? 'text-red-600 dark:text-red-400' : 'text-gray-600 dark:text-gray-300'}`}>
+                  <div key={index} className="flex justify-between items-center p-3 rounded-lg hover:bg-zinc-800/50 transition-colors border-b border-white/5 last:border-0">
+                    <span className="text-sm font-medium text-zinc-300">{outlet.name}</span>
+                    <Badge className={outlet.closed ? 'text-red-400 bg-red-400/10 border border-red-400/20' : 'text-emerald-400 bg-emerald-400/10 border border-emerald-400/20'}>
                       {outlet.timing}
-                    </p>
+                    </Badge>
                   </div>
                 ))}
               </div>
             </CollapsibleSection>
 
-            <CollapsibleSection title="Food Outlet Phone Numbers" icon={<Phone size={24} />}>
-              <p className="mb-4 text-sm text-gray-700 dark:text-gray-300">Tap on a contact to call directly.</p>
-              <div className="grid grid-cols-1 gap-3">
+            {/* 2. Food Outlet Phone Numbers */}
+            <CollapsibleSection title="Direct Lines" icon={<Phone size={20} />}>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
                 {campusData.outletPhones && campusData.outletPhones.length > 0 ? (
-                  campusData.outletPhones.map((contact, index) => {
-                    const raw = (contact.phone ?? '').toString();
-                    const tel = raw && raw !== 'TBD' ? raw.replace(/[^\d+]/g, '') : null;
-                    const content = (
-                      <div className="flex justify-between items-center">
-                        <span className="font-medium text-gray-800 dark:text-white">{contact.name}</span>
-                        <span className="text-blue-600 dark:text-blue-400 font-mono">{contact.phone}</span>
-                      </div>
-                    );
-
-                    return tel ? (
-                      <a
-                        key={`${contact.name}-${index}`}
-                        href={`tel:${tel}`}
-                        className="bg-blue-50 dark:bg-blue-900 p-3 rounded-lg border border-blue-200 dark:border-blue-700 hover:bg-blue-100 dark:hover:bg-blue-800 transition-all duration-300 transform hover:scale-102 hover:shadow-md"
-                        style={{ animationDelay: `${index * 0.1}s` }}
-                      >
-                        {content}
-                      </a>
-                    ) : (
-                      <div
-                        key={`${contact.name}-${index}`}
-                        className="bg-gray-50 dark:bg-gray-800 p-3 rounded-lg border border-gray-200 dark:border-gray-700 text-sm text-gray-500 dark:text-gray-400"
-                        style={{ animationDelay: `${index * 0.1}s` }}
-                      >
-                        {content}
-                      </div>
-                    );
-                  })
+                    campusData.outletPhones.map((contact, index) => {
+                        const raw = (contact.phone ?? '').toString();
+                        const isCall = raw && raw !== 'TBD';
+                        return isCall ? (
+                            <ContactItem 
+                                key={index} 
+                                name={contact.name} 
+                                phone={raw} 
+                                delay={index} 
+                            />
+                        ) : (
+                            <div key={index} className="flex items-center justify-between p-4 rounded-xl border border-white/5 bg-zinc-800/40">
+                                <span className="text-zinc-400">{contact.name}</span>
+                                <span className="text-xs text-zinc-600 font-mono">N/A</span>
+                            </div>
+                        )
+                    })
                 ) : (
-                  <div className="text-center p-4 text-sm text-gray-500 dark:text-gray-400">
-                    Outlet phone numbers not available for this campus.
-                  </div>
+                    <div className="text-center p-4 text-sm text-zinc-500">
+                        No contact numbers available.
+                    </div>
                 )}
               </div>
             </CollapsibleSection>
 
-            
-
-            {campusData.autoDrivers && campusData.slug !== 'goa' && (
-              <CollapsibleSection title="Auto Driver Numbers" icon={<Car size={24} />}>
-                <AutoDriverGrid drivers={campusData.autoDrivers} />
+            {/* 3. Auto Driver Numbers (Skip if Goa) */}
+            {campusData.slug !== 'goa' && campusData.autoDrivers && (
+              <CollapsibleSection title="Auto Drivers" icon={<Car size={20} />}>
+                <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
+                  {campusData.autoDrivers.map((phone, index) => (
+                    <a
+                      key={index}
+                      href={`tel:${phone}`}
+                      className="flex flex-col items-center justify-center p-4 rounded-xl border border-white/5 bg-zinc-800/40 hover:bg-blue-600/90 hover:border-blue-500 hover:text-white transition-all group"
+                    >
+                      <span className="text-xs text-zinc-500 group-hover:text-blue-100 mb-1">Driver {index + 1}</span>
+                      <span className="font-mono text-sm">{phone}</span>
+                    </a>
+                  ))}
+                </div>
               </CollapsibleSection>
             )}
 
-            {campusData.busRoutes && campusData.slug !== 'goa' && (
-              <CollapsibleSection title="212 Bus Schedule (BPHC ↔ Secunderabad)" icon={<Bus size={24} />}>
-              <div className="grid md:grid-cols-2 gap-6">
-                <div className="bg-green-50 dark:bg-green-900 p-4 rounded-lg border border-green-200 dark:border-green-700 transition-all duration-300 hover:shadow-md">
-                  <h3 className="font-semibold text-green-800 dark:text-green-300 mb-3 flex items-center">
-                    <MapPin size={16} className="mr-2 transition-transform duration-300 hover:bounce" />
-                    From BPHC
-                  </h3>
-                  <div className="space-y-2">
-                    {['9:00 AM', '10:00 AM', '2:00 PM', '5:00 PM', '6:00 PM'].map((time, index) => (
-                      <div key={time} style={{ animationDelay: `${index * 0.1}s` }}>
-                        <BusScheduleItem time={time} color="text-green-700 dark:text-green-200" />
-                      </div>
-                    ))}
-                  </div>
-                </div>
-                <div className="bg-blue-50 dark:bg-blue-900 p-4 rounded-lg border border-blue-200 dark:border-blue-700 transition-all duration-300 hover:shadow-md">
-                  <h3 className="font-semibold text-blue-800 dark:text-blue-300 mb-3 flex items-center">
-                    <MapPin size={16} className="mr-2 transition-transform duration-300 hover:bounce" />
-                    From Secunderabad
-                  </h3>
-                  <div className="space-y-2">
-                    {['7:50 AM', '8:50 AM', '12:45 PM', '4:00 PM', '5:00 PM'].map((time, index) => (
-                      <div key={time} style={{ animationDelay: `${index * 0.1}s` }}>
-                        <BusScheduleItem time={time} color="text-blue-700 dark:text-blue-200" />
-                      </div>
-                    ))}
-                  </div>
-                </div>
-              </div>
-            </CollapsibleSection>
-                  )}
-
+            {/* 4. Bus Schedule 212 (Skip if Goa) */}
             {campusData.slug !== 'goa' && (
-            <CollapsibleSection title="Alternate Bus Routes" icon={<Bus size={24} />}>
-              <div className="bg-yellow-50 dark:bg-yellow-900 p-4 rounded-lg border border-yellow-200 dark:border-yellow-700 mb-4 transition-all duration-300 hover:shadow-md">
-                <div className="flex items-center mb-2">
-                  <AlertTriangle size={20} className="text-yellow-600 mr-2 transition-transform duration-300 hover:rotate-12" />
-                  <span className="font-semibold text-yellow-800 dark:text-yellow-300">Important Note</span>
-                </div>
-                <p className="text-yellow-700 dark:text-yellow-100 text-sm">
-                  Confirm with the conductor before boarding to ensure it stops at your destination.
-                </p>
-              </div>
-              <div className="bg-white dark:bg-gray-800 p-4 rounded-lg border border-gray-200 dark:border-gray-600 transition-all duration-300 hover:shadow-md">
-                <h3 className="font-semibold text-gray-800 dark:text-white mb-3">
-                  From Secunderabad to Thumkunta/Tandoor Junction:
-                </h3>
-                <div className="flex flex-wrap gap-2">
-                  {[
-                    '211A', '211B', '211C', '211DY', '212T',
-                    '212/564', '212/567', '212/568', '212/702',
-                    '564', '567', '568'
-                  ].map((route, index) => (
-                    <div key={route} style={{ animationDelay: `${index * 0.05}s` }}>
-                      <RouteBadge route={route} />
+              <CollapsibleSection title="Shuttle Service (212)" icon={<Bus size={20} />}>
+                 <div className="grid md:grid-cols-2 gap-6">
+                    {/* From Campus */}
+                    <div className="p-4 rounded-xl bg-zinc-800/40 border border-white/5">
+                        <h3 className="text-sm font-semibold text-zinc-400 uppercase tracking-widest mb-4 flex items-center gap-2">
+                            <span className="w-2 h-2 rounded-full bg-red-500"></span> From Campus
+                        </h3>
+                        <div className="flex flex-wrap gap-2">
+                            {['9:00 AM', '10:00 AM', '2:00 PM', '5:00 PM', '6:00 PM'].map(t => (
+                                <span key={t} className="px-3 py-1.5 rounded bg-zinc-700/50 text-zinc-300 hover:text-red-400 hover:bg-red-500/10 hover:border-red-500/20 text-sm font-mono border border-transparent transition-all">{t}</span>
+                            ))}
+                        </div>
                     </div>
-                  ))}
-                </div>
-              </div>
-            </CollapsibleSection>
+                    {/* From City */}
+                    <div className="p-4 rounded-xl bg-zinc-800/40 border border-white/5">
+                        <h3 className="text-sm font-semibold text-zinc-400 uppercase tracking-widest mb-4 flex items-center gap-2">
+                            <span className="w-2 h-2 rounded-full bg-blue-500"></span> From Secunderabad
+                        </h3>
+                         <div className="flex flex-wrap gap-2">
+                            {['7:50 AM', '8:50 AM', '12:45 PM', '4:00 PM', '5:00 PM'].map(t => (
+                                <span key={t} className="px-3 py-1.5 rounded bg-zinc-700/50 text-zinc-300 hover:text-blue-400 hover:bg-blue-500/10 hover:border-blue-500/20 text-sm font-mono border border-transparent transition-all">{t}</span>
+                            ))}
+                        </div>
+                    </div>
+                 </div>
+              </CollapsibleSection>
             )}
-          </>
+
+            {/* 5. Alternate Bus Routes (Skip if Goa) */}
+            {campusData.slug !== 'goa' && (
+              <CollapsibleSection title="Alternate Bus Routes" icon={<MapPin size={20} />}>
+                  <div className="bg-gradient-to-r from-red-500/10 to-orange-500/10 border border-red-500/20 p-4 rounded-lg mb-4 flex items-start gap-3">
+                      <AlertTriangle className="text-red-400 shrink-0" size={20} />
+                      <p className="text-sm text-red-200">
+                          Confirm with the conductor before boarding to ensure the bus stops at your destination.
+                      </p>
+                  </div>
+                  
+                  <div className="bg-zinc-800/40 p-6 rounded-xl border border-white/5">
+                      <h3 className="text-sm font-semibold text-zinc-300 mb-4">
+                        From Secunderabad to Thumkunta/Tandoor Junction:
+                      </h3>
+                      <div className="flex flex-wrap gap-2">
+                        {[
+                          '211A', '211B', '211C', '211DY', '212T',
+                          '212/564', '212/567', '212/568', '212/702',
+                          '564', '567', '568'
+                        ].map((route) => (
+                          <RouteBadge key={route} route={route} />
+                        ))}
+                      </div>
+                  </div>
+              </CollapsibleSection>
+            )}
+          </motion.div>
         );
 
       case 'goacabs':
-        if (campusData.slug === 'goa' && campusData.goacabs && campusData.goacabs.length > 0) {
-          return (
-            <div className="bg-white dark:bg-gray-900 rounded-xl shadow-lg p-6">
-              <h2 className="text-2xl font-bold text-gray-800 dark:text-white mb-4 flex items-center">
-                <Car size={24} className="mr-3 text-blue-600" />
-                Goa Campus Cabs
-              </h2>
-              <p className="text-gray-700 dark:text-gray-300 mb-6">Reliable cab contacts for BITS Goa campus. Tap to call.</p>
-              <div className="space-y-4">
-                {campusData.goacabs.map((cab, idx) => (
-                  <div key={idx} className="flex flex-col sm:flex-row sm:items-center sm:justify-between bg-gray-50 dark:bg-gray-800 rounded-lg p-4 shadow-sm">
-                    <div className="mb-2 sm:mb-0">
-                      <h4 className="font-semibold text-gray-800 dark:text-white">{cab.name}</h4>
-                      <p className="text-sm text-gray-600 dark:text-gray-400">{cab.vehicle}</p>
-                    </div>
-                    <div className="flex space-x-2">
-                      {Array.isArray(cab.phone)
-                        ? cab.phone.map((phoneNum, i) => (
-                            <a
-                              key={i}
-                              href={`tel:${phoneNum}`}
-                              className="bg-blue-600 text-white px-3 py-1.5 rounded-md text-sm hover:bg-blue-700 transition flex items-center space-x-1"
-                            >
-                              <Phone size={16} />
-                              <span>+91 {phoneNum}</span>
-                            </a>
-                          ))
-                        : (
-                          <a
-                            href={`tel:${cab.phone}`}
-                            className="bg-blue-600 text-white px-3 py-1.5 rounded-md text-sm hover:bg-blue-700 transition flex items-center space-x-1"
-                          >
-                            <Phone size={16} />
-                            <span>Call {cab.phone}</span>
-                          </a>
-                        )}
-                    </div>
-                  </div>
-                ))}
-                <div className="text-center">
-              <h4 className="font-semibold text-gray-800 dark:text-white">
-                <a href="https://docs.google.com/spreadsheets/d/1p2h80qan-fqB6YiNC6iQBjygd_JtNwDz/edit?usp=drivesdk&ouid=109919866450311609892&rtpof=true&sd=true">
-                  Click Here for More Information
-                </a>
-              </h4>
-            </div>
-              </div>
-            </div>
-          );
-        } else {
-          return (
-            <div className="bg-white dark:bg-gray-900 rounded-xl shadow-lg p-6 text-center">
-              <h2 className="text-2xl font-bold text-gray-800 dark:text-white mb-4 flex items-center justify-center">
-                <Car size={24} className="mr-3 text-blue-600" />
-                Goa Campus Cabs
-              </h2>
-              <p className="text-gray-500 dark:text-gray-400">Cab information is only available for BITS Goa campus.</p>
-            </div>
-          );
-        }
+         return (
+             <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="space-y-4">
+                 <div className="p-6 rounded-2xl bg-gradient-to-r from-red-500/10 to-blue-500/10 border border-white/5 mb-6">
+                     <h2 className="text-xl font-bold text-zinc-100 mb-2">Goa Taxi Services</h2>
+                     <p className="text-zinc-400 text-sm">Official and trusted cab services for the Goa Campus.</p>
+                 </div>
+                 
+                 {/* Cab List */}
+                 <div className="grid gap-3">
+                    {campusData.goacabs?.map((cab, idx) => (
+                         <div key={idx} className="flex justify-between items-center p-4 rounded-xl bg-zinc-800/40 border border-white/5 hover:border-blue-500/30 transition-all">
+                             <div>
+                                 <h3 className="font-semibold text-zinc-200">{cab.name}</h3>
+                                 <p className="text-xs text-zinc-500">{cab.vehicle || 'Taxi Service'}</p>
+                             </div>
+                             <div className="flex gap-2">
+                                {Array.isArray(cab.phone) ? cab.phone.map((p, i) => (
+                                    <a key={i} href={`tel:${p}`} className="p-3 bg-blue-500/10 text-blue-400 rounded-lg hover:bg-blue-600 hover:text-white transition-colors">
+                                        <Phone size={18} />
+                                    </a>
+                                )) : (
+                                    <a href={`tel:${cab.phone}`} className="p-3 bg-blue-500/10 text-blue-400 rounded-lg hover:bg-blue-600 hover:text-white transition-colors">
+                                        <Phone size={18} />
+                                    </a>
+                                )}
+                             </div>
+                         </div>
+                    ))}
+                 </div>
+
+                 {/* Google Sheet Link */}
+                 <div className="mt-8 text-center">
+                    <a 
+                        href="https://docs.google.com/spreadsheets/d/1p2h80qan-fqB6YiNC6iQBjygd_JtNwDz/edit?usp=drivesdk&ouid=109919866450311609892&rtpof=true&sd=true"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="inline-flex items-center gap-2 px-6 py-3 rounded-full bg-zinc-800 hover:bg-blue-600 hover:text-white text-zinc-200 font-medium transition-all"
+                    >
+                        <FileText size={18} />
+                        View Full Rate Card
+                    </a>
+                 </div>
+             </motion.div>
+         )
+
       case 'map':
         return (
-          <div className="bg-white dark:bg-gray-900 rounded-xl shadow-lg p-6">
-            <h2 className="text-2xl font-bold text-gray-800 dark:text-white mb-4 flex items-center">
-              <MapPin size={24} className="mr-3 text-blue-600" />
-              Campus Navigation
-            </h2>
-            <p className="mb-6 text-sm sm:text-base text-gray-700 dark:text-gray-300">
-              Explore BITS Hyderabad campus locations with interactive map and quick directions.
-            </p>
-
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-              {/* Left side - Location buttons and info */}
-              <div className="space-y-4">
-                {/* Location Selection Buttons */}
-                <div className="grid grid-cols-2 gap-2 mb-4">
-                  {campusData.locations.map((location, index) => (
+          <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="space-y-6">
+            <div className="flex flex-col lg:flex-row gap-6 h-[calc(100vh-200px)] min-h-[600px]">
+              
+              {/* Location List */}
+              <div className="w-full lg:w-1/3 space-y-4 overflow-y-auto pr-2 custom-scrollbar">
+                <h3 className="text-lg font-bold text-zinc-200 mb-4 flex items-center gap-2">
+                    <MapIcon size={18} className="text-red-400"/> Locations
+                </h3>
+                {campusData.locations.map((location) => (
                     <button
                       key={location.id}
                       onClick={() => setSelectedLocation(location)}
-                      className={`p-3 rounded-lg text-left transition-all duration-300 transform hover:scale-105 ${
+                      className={`w-full text-left p-4 rounded-xl border transition-all duration-200 ${
                         selectedLocation?.id === location.id
-                          ? 'bg-blue-600 text-white shadow-lg'
-                          : 'bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-700'
+                          ? 'bg-gradient-to-r from-red-500/10 to-transparent border-red-500/30 text-red-200'
+                          : 'bg-zinc-800/40 text-zinc-400 border-white/5 hover:bg-zinc-800 hover:text-zinc-200'
                       }`}
-                      style={{ animationDelay: `${index * 0.05}s` }}
                     >
                       <div className="font-medium text-sm">{location.name}</div>
+                      {selectedLocation?.id === location.id && (
+                          <div className="mt-2 text-xs opacity-70 leading-relaxed text-zinc-400">
+                            {location.desc}
+                          </div>
+                      )}
                     </button>
                   ))}
-                </div>
-
-                {/* Selected Location Info */}
-                {selectedLocation && (
-                  <div className="bg-gray-50 dark:bg-gray-800 rounded-lg p-4 border dark:border-gray-700 transition-all duration-500">
-                    <h3 className="text-lg font-semibold mb-2 text-gray-800 dark:text-white flex items-center">
-                      <MapPin size={18} className="mr-2 text-blue-600" />
-                      {selectedLocation.name}
-                    </h3>
-                    {selectedLocation.desc && (
-                      <p className="text-sm text-gray-700 dark:text-gray-300 mb-4 leading-relaxed">
-                        {selectedLocation.desc}
-                      </p>
-                    )}
-                    <a
-                      href={`https://www.google.com/maps/search/?api=1&query=${selectedLocation.lat},${selectedLocation.lng}`}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="inline-flex items-center space-x-2 bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition-all duration-300 text-sm font-medium transform hover:scale-105 active:scale-95"
-                    >
-                      <MapPin size={16} />
-                      <span>Open in Google Maps</span>
-                    </a>
-                  </div>
-                )}
               </div>
 
-              {/* Right side - Map Preview */}
-              <div className="h-96 lg:h-full min-h-[400px]">
-                <div className="w-full h-full rounded-lg overflow-hidden border dark:border-gray-700 shadow-lg">
-                  <MapContainer
+              {/* Map Container */}
+              <div className="w-full lg:w-2/3 rounded-2xl overflow-hidden border border-white/10 relative shadow-2xl">
+                 <MapContainer
                     center={[selectedLocation.lat, selectedLocation.lng]}
-                    zoom={18}
+                    zoom={17}
                     scrollWheelZoom={true}
-                    className="w-full h-full z-0"
+                    className="w-full h-full z-0 bg-zinc-900"
                     key={selectedLocation.id}
                   >
-                    {/* <ChangeView center={[selectedLocation.lat, selectedLocation.lng]} /> */}
                     <TileLayer
-                      attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+                      // Adjusted Dark Mode Filter for Grey Theme
+                      className="map-tiles-grey" 
+                      attribution='© OpenStreetMap'
                       url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
                     />
                     <Marker position={[selectedLocation.lat, selectedLocation.lng]}>
-                      <Popup>
-                        <div className="text-center">
-                          <strong className="text-lg">{selectedLocation.name}</strong>
-                          {selectedLocation.desc && (
-                            <>
-                              <br />
-                              <span className="text-sm text-gray-600">{selectedLocation.desc}</span>
-                            </>
-                          )}
-                        </div>
+                      <Popup className="custom-popup">
+                         <span className="font-semibold">{selectedLocation.name}</span>
                       </Popup>
                     </Marker>
                   </MapContainer>
-                </div>
-              </div>
-            </div>
-
-            {/* Quick Access Cards */}
-            {/* <div className="mt-6 pt-6 border-t border-gray-200 dark:border-gray-700">
-              <h3 className="text-lg font-semibold text-gray-800 dark:text-white mb-4">Quick Access</h3>
-              <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3">
-                {campusData.locations.map((location, index) => (
+                  
+                  {/* Overlay Button */}
                   <a
-                    key={location.id}
-                    href={`https://www.google.com/maps/search/?api=1&query=${location.lat},${location.lng}`}
+                    href={`https://www.google.com/maps/search/?api=1&query=${selectedLocation.lat},${selectedLocation.lng}`}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="bg-gradient-to-r from-blue-50 to-blue-100 dark:from-blue-900 dark:to-blue-800 p-3 rounded-lg text-center hover:from-blue-100 hover:to-blue-200 dark:hover:from-blue-800 dark:hover:to-blue-700 transition-all duration-300 border border-blue-200 dark:border-blue-700 transform hover:scale-105"
-                    style={{ animationDelay: `${index * 0.05}s` }}
+                    className="absolute bottom-6 right-6 z-[400] bg-zinc-800 text-white border border-white/10 px-4 py-2 rounded-lg text-sm font-medium flex items-center gap-2 shadow-xl hover:bg-blue-600 hover:border-blue-500 transition-colors"
                   >
-                    <div className="text-xs font-medium text-gray-700 dark:text-gray-300 mb-1">
-                      {location.name}
-                    </div>
-                    <div className="text-xs text-blue-600 dark:text-blue-400 flex items-center justify-center">
-                      <MapPin size={12} className="mr-1" />
-                      View
-                    </div>
+                    Open in Google Maps <ExternalLink size={14}/>
                   </a>
-                ))}
               </div>
-            </div> */}
-          </div>
+            </div>
+            
+            {/* Inject CSS for Grey Map */}
+            <style>{`
+                .map-tiles-grey {
+                    filter: grayscale(100%) invert(90%) contrast(85%) brightness(95%);
+                }
+                .custom-popup .leaflet-popup-content-wrapper {
+                    background: #27272a;
+                    color: #e4e4e7;
+                    border: 1px solid #3f3f46;
+                }
+                .custom-popup .leaflet-popup-tip {
+                    background: #27272a;
+                }
+                /* Custom Scrollbar for list */
+                .custom-scrollbar::-webkit-scrollbar {
+                    width: 4px;
+                }
+                .custom-scrollbar::-webkit-scrollbar-track {
+                    background: transparent;
+                }
+                .custom-scrollbar::-webkit-scrollbar-thumb {
+                    background: #3f3f46;
+                    border-radius: 4px;
+                }
+            `}</style>
+          </motion.div>
         );
-      
+
       case 'wardens':
         return (
-          <div className="bg-white dark:bg-gray-900 rounded-xl shadow-lg p-6">
-            <h2 className="text-2xl font-bold text-gray-800 dark:text-white mb-4 flex items-center">
-              <User size={24} className="mr-3 text-blue-600" />
-              Warden Contact List
-            </h2>
-            <p className="text-gray-700 dark:text-gray-300 mb-6">
-              Below is the updated list of wardens for {campusData.name}.
-            </p>
-            <div className="space-y-4">
-              {campusData.warden && campusData.warden.length > 0 ? (
-                campusData.warden.map((warden, index) => (
-                  <div
-                    key={`${warden.name}-${index}`}
-                    className="flex flex-col sm:flex-row sm:items-center sm:justify-between bg-gray-50 dark:bg-gray-800 rounded-lg p-4 shadow-sm"
-                  >
-                    <div className="mb-2 sm:mb-0">
-                      <h4 className="font-semibold text-gray-800 dark:text-white">{warden.name}</h4>
-                      {warden.bhavan && (
-                        <p className="text-sm text-gray-600 dark:text-gray-400">{warden.bhavan}</p>
-                      )}
-                    </div>
-                    <div className="flex flex-wrap gap-2">
-                      {Array.isArray(warden.phone)
-                        ? warden.phone.length === 1
-                          ? (
-                              <a
-                                href={`tel:${warden.phone[0]}`}
-                                className="bg-blue-600 text-white px-3 py-1.5 rounded-md text-sm hover:bg-blue-700 transition flex items-center space-x-1"
-                              >
-                                <Phone size={16} />
-                                <span>Call</span>
-                                <span className="ml-1"></span>
-                              </a>
-                            )
-                          : warden.phone.map((phoneNum, i) => (
-                              <a
-                                key={i}
-                                href={`tel:${phoneNum}`}
-                                className="bg-blue-600 text-white px-3 py-1.5 rounded-md text-sm hover:bg-blue-700 transition flex items-center space-x-1"
-                              >
-                                <Phone size={16} />
-                                <span>{`Call ${i + 1}`}</span>
-                                <span className="ml-1"></span>
-                              </a>
-                            ))
-                        : null}
-                      {warden.email && (
-                        <a
-                          href={`mailto:${warden.email}`}
-                          className="bg-green-600 text-white px-3 py-1.5 rounded-md text-sm hover:bg-green-700 transition flex items-center space-x-1"
-                        >
-                          <Mail size={16} />
-                          <span>Email</span>
-                        </a>
-                      )}
-                    </div>
-                  </div>
-                ))
-              ) : (
-                <div className="text-center py-8">
-                  <p className="text-gray-500 dark:text-gray-400">No warden information available for this campus.</p>
-                </div>
-              )}
-            </div>
-          </div>
-        );
+            <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }}>
+                <div className="p-6 rounded-2xl bg-gradient-to-r from-red-500/10 to-blue-500/10 border border-white/5 mb-6">
+                     <h2 className="text-xl font-bold text-zinc-100 mb-2">Warden Contacts</h2>
+                     <p className="text-zinc-400 text-sm">Emergency and administrative contacts for hostels.</p>
+                 </div>
 
+                <div className="grid gap-4">
+                {campusData.warden?.map((warden, idx) => (
+                    <div key={idx} className="flex flex-col md:flex-row justify-between items-start md:items-center p-6 rounded-xl border border-white/5 bg-zinc-800/40 hover:border-blue-500/20 transition-all">
+                        <div className="mb-4 md:mb-0">
+                            <h3 className="text-lg font-bold text-zinc-200">{warden.name}</h3>
+                            <p className="text-sm text-zinc-500">{warden.bhavan || 'Warden'}</p>
+                        </div>
+                        <div className="flex gap-3 flex-wrap">
+                             {Array.isArray(warden.phone) ? warden.phone.map((p, i) => (
+                                <a key={i} href={`tel:${p}`} className="px-4 py-2 rounded-lg bg-zinc-800 text-sm text-zinc-300 flex items-center gap-2 hover:bg-blue-600 hover:text-white transition-colors">
+                                    <Phone size={14}/> Call {i+1}
+                                </a>
+                             )) : (
+                                <a href={`tel:${warden.phone}`} className="px-4 py-2 rounded-lg bg-zinc-800 text-sm text-zinc-300 flex items-center gap-2 hover:bg-blue-600 hover:text-white transition-colors">
+                                    <Phone size={14}/> Call
+                                </a>
+                             )}
+                             {warden.email && (
+                                <a href={`mailto:${warden.email}`} className="px-4 py-2 rounded-lg bg-zinc-800 text-sm text-zinc-300 flex items-center gap-2 hover:bg-red-600 hover:text-white transition-colors">
+                                    <Mail size={14}/> Email
+                                </a>
+                             )}
+                        </div>
+                    </div>
+                ))}
+                </div>
+            </motion.div>
+        );
+        
       case 'about':
         return (
-          <div className="bg-white dark:bg-gray-900 rounded-xl shadow-lg p-6">
-            <h2 className="text-2xl font-bold text-gray-800 dark:text-white mb-4 flex items-center">
-              <Info size={24} className="mr-3 text-blue-600" />
-              About Campus101
-            </h2>
-            <div className="space-y-4 text-gray-700 dark:text-gray-300">
-              <p>
-                This comprehensive campus guide provides essential information about {campusData.name}.
-                Navigate through campus facilities, find important contact numbers, and discover
-                everything you need to know about campus life.
-              </p>
-              <p>
-                {campusData.description}
-              </p>
-              <p>
-                Built with ❤️ for BITSians by{' '}
-                <strong>
-                  <a
-                    href="https://www.linkedin.com/in/sdeevanapalli"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="text-blue-700 dark:text-blue-400"
-                  >
-                    Shriniketh Deevanapalli
-                  </a>
-                </strong>{' '}
-                and <strong>
-                  <a
-                    href="https://www.linkedin.com/in/kushagra-singh47/"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="text-blue-700 dark:text-blue-400"
-                  >
-                    Kushagra Singh
-                  </a>
-                </strong>
-              </p>
-            </div>
-          </div>
+             <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="max-w-2xl mx-auto text-center py-12">
+                 <div className="w-20 h-20 bg-gradient-to-br from-red-500/10 to-blue-500/10 rounded-2xl mx-auto flex items-center justify-center mb-6 border border-white/5">
+                     <Info size={32} className="text-zinc-200"/>
+                 </div>
+                 <h2 className="text-3xl font-bold text-zinc-100 mb-4">About Campus101</h2>
+                 <p className="text-zinc-400 leading-relaxed mb-8">
+                    An open-source initiative to simplify campus life at BITS Pilani. 
+                    Created to help students navigate the complex ecosystem of transport, food, and facilities.
+                 </p>
+                 <div className="p-6 rounded-xl bg-zinc-800/40 border border-white/5 mb-8 text-left">
+                    <p className="text-zinc-300 text-sm leading-relaxed">
+                        {campusData.description}
+                    </p>
+                 </div>
+                 
+                 <div className="grid grid-cols-2 gap-6 text-sm">
+                     <div className="p-4 rounded-xl border border-white/5 bg-zinc-800/40 hover:bg-zinc-800 transition-colors">
+                         <span className="block text-zinc-500 text-xs uppercase tracking-widest mb-2">Developed By</span>
+                         <a href="https://linkedin.com/in/sdeevanapalli" target="_blank" rel="noopener noreferrer" className="text-zinc-200 font-medium hover:text-blue-400 flex justify-center items-center gap-2">
+                             Shriniketh D. <ExternalLink size={12} />
+                         </a>
+                     </div>
+                     <div className="p-4 rounded-xl border border-white/5 bg-zinc-800/40 hover:bg-zinc-800 transition-colors">
+                         <span className="block text-zinc-500 text-xs uppercase tracking-widest mb-2">Co-Developed By</span>
+                         <a href="https://linkedin.com/in/kushagra-singh47" target="_blank" rel="noopener noreferrer" className="text-zinc-200 font-medium hover:text-blue-400 flex justify-center items-center gap-2">
+                             Kushagra S. <ExternalLink size={12} />
+                         </a>
+                     </div>
+                 </div>
+
+                 <div className="mt-12 flex items-center justify-center gap-2 text-zinc-600 text-sm">
+                     Built with <Heart size={14} className="text-red-500 fill-red-500" /> for BITSians
+                 </div>
+             </motion.div>
         );
 
       default:
@@ -697,10 +552,13 @@ const CampusPage: React.FC<CampusPageProps> = ({ campusData }) => {
     }
   };
 
-  
   return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-50 via-white to-orange-50 dark:from-gray-950 dark:via-gray-900 dark:to-gray-950 text-gray-900 dark:text-white transition-colors duration-300">
-      {/* Sidebar */}
+    <div className="min-h-screen bg-zinc-900 text-zinc-200 selection:bg-red-500/30">
+       
+       {/* Background Grid - Adjusted for Grey Theme */}
+       <div className="absolute inset-0 bg-[linear-gradient(to_right,#8080800a_1px,transparent_1px),linear-gradient(to_bottom,#8080800a_1px,transparent_1px)] bg-[size:24px_24px] pointer-events-none fixed" />
+
+      {/* Navigation Drawer */}
       <Sidebar 
         isOpen={sidebarOpen} 
         onClose={() => setSidebarOpen(false)} 
@@ -709,49 +567,39 @@ const CampusPage: React.FC<CampusPageProps> = ({ campusData }) => {
         campusName={campusData.name}
       />
 
-      {/* Header */}
-      <div className="bg-gradient-to-r from-blue-600 to-orange-500 dark:from-gray-800 dark:to-gray-700 text-white py-4 px-4 transition-all duration-300 sticky top-0 z-30 shadow-lg">
-        <div className="max-w-4xl mx-auto flex justify-between items-center">
-          <div className="flex items-center space-x-4">
-            <Link
-              to="/"
-              className="p-2 rounded-lg hover:bg-white/10 transition-all duration-200 transform hover:scale-110"
-            >
-              <ArrowLeft size={24} />
-            </Link>
-            <button
-              onClick={() => setSidebarOpen(true)}
-              className="p-2 rounded-lg hover:bg-white/10 transition-all duration-200 transform hover:scale-110"
-            >
-              <Menu size={24} />
-            </button>
-            <div className="transform transition-all duration-500 hover:scale-105">
-              <h1 className="text-xl md:text-2xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-white to-blue-100">
-                Campus101
-              </h1>
-              <p className="text-blue-100 dark:text-orange-100 text-sm md:text-base transition-colors duration-300">
-                {campusData.name}
-              </p>
-            </div>
+      {/* Top Bar */}
+      <div className="sticky top-0 z-30 w-full border-b border-white/5 bg-zinc-900/90 backdrop-blur-md">
+        <div className="max-w-5xl mx-auto px-4 h-16 flex items-center justify-between">
+          <div className="flex items-center gap-4">
+             <Link to="/" className="p-2 hover:bg-zinc-800 rounded-lg transition-colors text-zinc-400 hover:text-zinc-100">
+                <ArrowLeft size={20} />
+             </Link>
+             
+             {/* MENU BUTTON */}
+             <button 
+                onClick={() => setSidebarOpen(true)} 
+                className="p-2 hover:bg-zinc-800 rounded-lg text-zinc-200 transition-colors"
+                aria-label="Open Menu"
+             >
+                <Menu size={20} />
+             </button>
+             
+             <div className="h-6 w-px bg-white/10 hidden sm:block" />
+             <h1 className="text-lg font-semibold tracking-tight truncate max-w-[200px] sm:max-w-none text-zinc-100">
+               {campusData.name}
+             </h1>
           </div>
-          <button
-            onClick={toggleDarkMode}
-            className="bg-gray-200 dark:bg-gray-800 text-sm px-4 py-2 rounded shadow text-gray-800 dark:text-white hover:bg-gray-300 dark:hover:bg-gray-700 transition-all duration-300 transform hover:scale-110 active:scale-95"
-          >
-            <span className="flex items-center space-x-2">
-              <span className={`transition-transform duration-500 ${isDark ? 'rotate-180' : 'rotate-0'}`}>
-                {isDark ? '☀️' : '🌙'}
-              </span>
-              <span className="hidden sm:inline">{isDark ? 'Light Mode' : 'Dark Mode'}</span>
-            </span>
-          </button>
+          
+          <div className="text-xs font-mono text-zinc-500 uppercase tracking-widest hidden sm:block">
+            Campus Guide v2.0
+          </div>
         </div>
       </div>
 
-      {/* Content */}
-      <div className="max-w-4xl mx-auto px-4 py-8">
+      {/* Main Content Area */}
+      <main className="relative z-10 max-w-5xl mx-auto px-4 py-8">
         {renderContent()}
-      </div>
+      </main>
     </div>
   );
 };
