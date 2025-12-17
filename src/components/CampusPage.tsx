@@ -21,7 +21,8 @@ import {
   Clock,
   MapPin,
   AlertTriangle,
-  ArrowRight
+  ArrowRight,
+  ArrowLeft
 } from 'lucide-react';
 import 'leaflet/dist/leaflet.css';
 import { CampusData } from '../data/campusData';
@@ -678,7 +679,7 @@ const CampusPage: React.FC<{ campusData: CampusData }> = ({ campusData }) => {
         <div className="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
            <Link to="/" className="text-zinc-400 hover:text-white transition-colors">
               <div className="flex items-center gap-2">
-                  <div className="w-2 h-2 rounded-full bg-white/20" />
+                <ArrowLeft size={16} className="text-zinc-500 group-hover:text-white transition-colors" />
                   <span className="text-sm font-medium tracking-wide">Back</span>
               </div>
            </Link>
