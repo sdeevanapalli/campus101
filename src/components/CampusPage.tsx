@@ -360,6 +360,24 @@ const MapView = ({ data }: { data: CampusData }) => {
     return () => window.removeEventListener('resize', checkMobile);
   }, []);
 
+  // Goa maps are not ready yet; show a placeholder instead of the interactive map
+  if (data.slug === 'goa') {
+    return (
+      <div className="relative h-[80vh] md:h-[75vh] w-full rounded-[40px] overflow-hidden border border-white/10 shadow-2xl bg-zinc-950 flex items-center justify-center">
+        <div className="text-center space-y-4 px-8 max-w-2xl">
+          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-amber-500/10 border border-amber-500/30 text-amber-200 uppercase text-[11px] font-bold tracking-[0.25em]">
+            <AlertTriangle size={16} className="text-amber-300" />
+            <span>Coming Soon</span>
+          </div>
+          <h3 className="text-3xl md:text-4xl font-bold text-white">In Progress</h3>
+          <p className="text-zinc-400 text-base md:text-lg leading-relaxed">
+            We are mapping BITS Goa right now. The interactive campus map will arrive shortly. Stay tuned!
+          </p>
+        </div>
+      </div>
+    );
+  }
+
   return (
     <div className="relative h-[80vh] md:h-[75vh] w-full rounded-[40px] overflow-hidden border border-white/10 shadow-2xl bg-zinc-950">
        <MapContainer
