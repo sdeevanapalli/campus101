@@ -58,9 +58,13 @@ export const HeroParallax = ({
   return (
     <div
       ref={ref}
-      className="h-[300vh] py-40 overflow-hidden bg-neutral-950 antialiased relative flex flex-col self-auto [perspective:1000px] [transform-style:preserve-3d]"
+      // MOBILE: h-auto to fit content
+      // DESKTOP: h-[300vh] for the scroll animation
+      className="h-auto md:h-[300vh] py-20 md:py-40 overflow-hidden bg-neutral-950 antialiased relative flex flex-col self-auto [perspective:1000px] [transform-style:preserve-3d]"
     >
       <Header />
+      
+      {/* Hidden on Mobile, Visible on Desktop */}
       <motion.div
         style={{
           rotateX,
@@ -68,7 +72,7 @@ export const HeroParallax = ({
           translateY,
           opacity,
         }}
-        className=""
+        className="hidden md:block"
       >
         <motion.div className="flex flex-row-reverse space-x-reverse space-x-20 mb-20">
           {firstRow.map((product) => (
@@ -121,6 +125,23 @@ export const Header = () => {
         to the coastal calm of <span className="text-white font-medium">Goa</span>, 
         and the modern fortress of <span className="text-white font-medium">Hyderabad</span>.
       </p>
+
+      {/* --- ADDED: Credits Section for Mobile Only --- */}
+      <div className="mt-8 flex items-center gap-4 md:hidden">
+         <div className="h-px w-8 bg-neutral-800"></div>
+         <div className="flex gap-3 text-sm font-mono text-neutral-500">
+            <span className="text-neutral-600">By</span>
+            <a href="https://www.linkedin.com/in/sdeevanapalli" className="text-neutral-400 hover:text-white transition-colors">
+              Shriniketh
+            </a>
+            <span className="text-neutral-700">&</span>
+            <a href="https://www.linkedin.com/in/kushagra-singh47/" className="text-neutral-400 hover:text-white transition-colors">
+              Kushagra
+            </a>
+         </div>
+      </div>
+      {/* ---------------------------------------------- */}
+
     </div>
   );
 };
@@ -157,7 +178,6 @@ export const ProductCard = ({
           alt={product.title}
         />
         
-        {/* Modern Gradient Overlay */}
         <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/20 to-transparent opacity-0 group-hover/product:opacity-100 transition-opacity duration-500 pointer-events-none" />
         
         <div className="absolute bottom-0 left-0 p-8 opacity-0 group-hover/product:opacity-100 transition-opacity duration-500 translate-y-4 group-hover/product:translate-y-0 transform">
