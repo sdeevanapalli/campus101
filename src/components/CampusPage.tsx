@@ -95,6 +95,20 @@ const SectionHeader = ({ title, subtitle }: { title: string, subtitle: string })
   </div>
 );
 
+// Shared placeholder for in-progress features
+const InProgress = ({ label = 'Feature', context = 'Pilani' }: { label?: string; context?: string }) => (
+  <div className="relative min-h-[40vh] w-full rounded-[32px] overflow-hidden border border-white/10 bg-zinc-950 flex items-center justify-center">
+    <div className="text-center space-y-4 px-8 max-w-xl">
+      <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-amber-500/10 border border-amber-500/30 text-amber-200 uppercase text-[11px] font-bold tracking-[0.25em]">
+        <AlertTriangle size={16} className="text-amber-300" />
+        <span>In Progress</span>
+      </div>
+      <h3 className="text-2xl md:text-3xl font-bold text-white">{label} for {context} campus</h3>
+      <p className="text-zinc-400 text-base leading-relaxed">We’re still building this section. It’ll be available soon.</p>
+    </div>
+  </div>
+);
+
 const FlyToLocation = ({ center }: { center: [number, number] }) => {
   const map = useMap();
   useEffect(() => {
@@ -175,6 +189,16 @@ const TransportView = ({ data }: { data: CampusData }) => {
     const shuttleToCity = ['7:50 AM', '8:50 AM', '12:45 PM', '4:00 PM', '5:00 PM'];
     const shuttleToCampus = ['9:00 AM', '10:00 AM', '2:00 PM', '5:00 PM', '6:00 PM'];
     const altRoutes = ['211A', '211B', '211C', '211DY', '212T', '212/564', '212/567', '212/568', '564', '567'];
+
+  // Pilani transport: show in-progress placeholder
+  if (data.slug === 'pilani') {
+    return (
+      <div className="pb-32 space-y-6">
+        <SectionHeader title="Transport" subtitle="" />
+        <InProgress label="Transport" context="Pilani" />
+      </div>
+    );
+  }
 
 return (
         <div className="pb-32 space-y-6">
@@ -279,7 +303,7 @@ return (
                             <h3 className="text-xl font-bold text-white mb-1">{cab.name}</h3>
                             <p className="text-sm text-zinc-500 mb-6">{cab.vehicle}</p>
                             <div className="flex gap-2">
-                                <a href={`tel:${cab.phone}`} className="flex-1 py-3 rounded-xl bg-zinc-800 text-white border border-white/10 font-semibold text-sm flex items-center justify-center gap-2 hover:bg-zinc-700 transition-colors">
+                      <a href={`tel:${cab.phone}`} className="flex-1 py-3 rounded-xl bg-zinc-800 text-white border border-white/10 font-semibold text-sm flex items-center justify-center gap-2 hover:bg-zinc-700 transition-colors">
                                     <Phone size={16} /> Book
                                 </a>
                             </div>
@@ -299,6 +323,20 @@ const OutletsView = ({ data }: { data: CampusData }) => {
       outlet.name.toLowerCase().includes(outletSearch.toLowerCase())
     );
   
+    // Pilani outlets: show in-progress placeholder
+    if (data.slug === 'pilani') {
+      return (
+        <div className="pb-32">
+          <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-8 px-2">
+              <div>
+                  <h2 className="text-4xl md:text-5xl font-bold text-white tracking-tighter mb-2">Outlets</h2>
+              </div>
+          </div>
+          <InProgress label="Outlets" context="Pilani" />
+        </div>
+      );
+    }
+
     return (
       <div className="pb-32">
         <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-8 px-2">
@@ -361,7 +399,7 @@ const MapView = ({ data }: { data: CampusData }) => {
   }, []);
 
   // Goa maps are not ready yet; show a placeholder instead of the interactive map
-  if (data.slug === 'goa') {
+  if (data.slug === 'goa' ) {
     return (
       <div className="relative h-[80vh] md:h-[75vh] w-full rounded-[40px] overflow-hidden border border-white/10 shadow-2xl bg-zinc-950 flex items-center justify-center">
         <div className="text-center space-y-4 px-8 max-w-2xl">
@@ -372,6 +410,23 @@ const MapView = ({ data }: { data: CampusData }) => {
           <h3 className="text-3xl md:text-4xl font-bold text-white">In Progress</h3>
           <p className="text-zinc-400 text-base md:text-lg leading-relaxed">
             We are mapping BITS Goa right now. The interactive campus map will arrive shortly. Stay tuned!
+          </p>
+        </div>
+      </div>
+    );
+  }
+
+    if (data.slug === 'pilani' ) {
+    return (
+      <div className="relative h-[80vh] md:h-[75vh] w-full rounded-[40px] overflow-hidden border border-white/10 shadow-2xl bg-zinc-950 flex items-center justify-center">
+        <div className="text-center space-y-4 px-8 max-w-2xl">
+          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-amber-500/10 border border-amber-500/30 text-amber-200 uppercase text-[11px] font-bold tracking-[0.25em]">
+            <AlertTriangle size={16} className="text-amber-300" />
+            <span>Coming Soon</span>
+          </div>
+          <h3 className="text-3xl md:text-4xl font-bold text-white">In Progress</h3>
+          <p className="text-zinc-400 text-base md:text-lg leading-relaxed">
+            We are mapping BITS Pilani, Pilani Campus right now. The interactive campus map will arrive shortly. Stay tuned!
           </p>
         </div>
       </div>
@@ -497,7 +552,22 @@ const DirectoryView = ({ data }: { data: CampusData }) => {
         (w.bhavan && w.bhavan.toLowerCase().includes(searchTerm.toLowerCase()))
     );
 
+  // Pilani wardens: show in-progress placeholder
+  if (data.slug === 'pilani') {
     return (
+      <div className="pb-32">
+        <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-8 px-2">
+          <div>
+            <h2 className="text-4xl md:text-5xl font-bold text-white tracking-tighter mb-2">Wardens</h2>
+            <p className="text-zinc-500 text-lg font-medium tracking-wide">Hostel & Admin Contacts</p>
+          </div>
+        </div>
+        <InProgress label="Wardens" context="Pilani" />
+      </div>
+    );
+  }
+
+  return (
         <div className="pb-32">
             <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-8 px-2">
                 <div>

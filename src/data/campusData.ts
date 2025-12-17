@@ -1452,132 +1452,132 @@ export const campusData: Record<string, CampusData> = {
     "vehicle": "Ertiga"
   }
 ],
-warden:[
+warden: [
   {
     name: 'Dr. R.B. Moulick',
     phone: ['9881777443', '9049002211'],
     email: 'rbmoulick@goa.bits-pilani.ac.in',
-    bhavan: 'CH1 - C.V. RAMAN'
+    bhavan: 'CH1'
   },
   {
     name: 'Dr. Vaibavish Singh',
     phone: ['9822135154'],
     email: 'vaibhavish@goa.bits-pilani.ac.in',
-    bhavan: 'CH2 - S.N. BOSE'
+    bhavan: 'CH2'
   },
   {
     name: 'Dr. Inzamam Talukdar',
     phone: ['9886041595', '8554976831'],
     email: 'inzamam@goa.bits-pilani.ac.in',
-    bhavan: 'CH3 - DR. HOMI J. BHABHA'
+    bhavan: 'CH3'
   },
   {
     name: 'Dr. Swaroop Talukdar',
     phone: ['9850435041', '8554976831', '9158372881'],
     email: 'swaroopt@goa.bits-pilani.ac.in',
-    bhavan: 'CH4 - MEGHNAD SAHA'
+    bhavan: 'CH4'
   },
   {
     name: 'Dr. Ritika Agrawal',
     phone: ['9807034510', '8554976831', '7708504032'],
     email: 'ritika@goa.bits-pilani.ac.in',
-    bhavan: 'CH5 - J.C. BOSE'
+    bhavan: 'CH5'
   },
   {
     name: 'Dr. Ripul Jindal',
     phone: ['7030588698', '9527819777', '8975040292'],
     email: 'ripul.jindal@goa.bits-pilani.ac.in',
-    bhavan: 'CH6 - VISVESVARAYA'
+    bhavan: 'CH6'
   },
   {
     name: 'Dr. Debabrata Chitaranjan Das Mohapatra',
     phone: ['7219265955', '7875666033'],
     email: 'debabrata@goa.bits-pilani.ac.in',
-    bhavan: 'CH7 - SIR C.V. RAMAN'
+    bhavan: 'CH7'
   },
   {
     name: 'Dr. Amjad Ahmad',
     phone: ['7448067702', '9552837895'],
     email: 'amjad.ahmad@goa.bits-pilani.ac.in',
-    bhavan: 'AH1 & AH2 - RAMANUJAN & GANDHI'
+    bhavan: 'AH1 & AH2'
   },
   {
     name: 'Dr. Pradeep Kumar Suman',
     phone: ['9591924878', '9538664024'],
     email: 'psuman@goa.bits-pilani.ac.in',
-    bhavan: 'AH3 - BUDH'
+    bhavan: 'AH3'
   },
   {
     name: 'Dr. Pranay Shankar',
     phone: ['9022486320', '9167268518'],
     email: 'pranay@goa.bits-pilani.ac.in',
-    bhavan: 'AH4 - SHANKAR'
+    bhavan: 'AH4'
   },
   {
     name: 'Dr. Ashish Chittora',
     phone: ['9167150885', '8554976831'],
     email: 'ashishchittora@goa.bits-pilani.ac.in',
-    bhavan: 'AH5 - ASHOKA'
+    bhavan: 'AH5'
   },
   {
     name: 'Dr. Raviprasad A.D',
     phone: ['8275027108', '8554976830'],
     email: 'adr@goa.bits-pilani.ac.in',
-    bhavan: 'AH6 - VIVEKANAND'
+    bhavan: 'AH6'
   },
   {
     name: 'Dr. Monojit Chowdhuri',
     phone: ['8956411927'],
     email: 'monojit@goa.bits-pilani.ac.in',
-    bhavan: 'AH7 - KRISHNA'
+    bhavan: 'AH7'
   },
   {
     name: 'Dr. Vijay Veera Setha',
     phone: ['9740941814', '8554976830'],
     email: 'vijayveera@goa.bits-pilani.ac.in',
-    bhavan: 'AH8 - GAUTAM'
+    bhavan: 'AH8'
   },
   {
     name: 'Dr. Naveen Gupta',
     phone: ['8826188402', '8554976830'],
     email: 'naveengupta@goa.bits-pilani.ac.in',
-    bhavan: 'AH9 - MALVIYA'
+    bhavan: 'AH9'
   },
   {
     name: 'Dr. Reema Chatterjee',
     phone: ['9717491732', '8554976830'],
     email: 'reema@goa.bits-pilani.ac.in',
-    bhavan: 'DH1 - MEERA'
+    bhavan: 'DH1'
   },
   {
     name: 'Dr. Saroj Baral',
     phone: ['7828059712', '7506685199'],
     email: 'sbaral@goa.bits-pilani.ac.in',
-    bhavan: 'DH2 - GARGHI'
+    bhavan: 'DH2'
   },
   {
     name: 'Dr. Ravi Kanth Chaturvedi',
     phone: ['9305479138', '8554976830'],
     email: 'rkchaturvedi@goa.bits-pilani.ac.in',
-    bhavan: 'DH3 - MAITREYI'
+    bhavan: 'DH3'
   },
   {
     name: 'Dr. Kanchan Maji',
     phone: ['8085174976', '9062193211', '7385966624'],
     email: 'drkanchan@goa.bits-pilani.ac.in',
-    bhavan: 'DH4 - SAVITRI'
+    bhavan: 'DH4'
   },
   {
     name: 'Dr. Manoj M M',
     phone: ['9011090124', '8554976830'],
     email: 'manojmm@goa.bits-pilani.ac.in',
-    bhavan: 'DH5 - SHAKUNTALA'
+    bhavan: 'DH5'
   },
   {
     name: 'Dr. Pawan Kesharwani',
     phone: ['9179647971', '7276993142', '8956485039'],
     email: 'pkesharwani@goa.bits-pilani.ac.in',
-    bhavan: 'SH1 - DAY SCHOLARS'
+    bhavan: 'SH1'
   }
 ]
 
