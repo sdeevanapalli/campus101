@@ -26,6 +26,25 @@ import {
 import 'leaflet/dist/leaflet.css';
 import { CampusData } from '../data/campusData';
 
+// --- LEAFLET ICON FIX START ---
+import L from 'leaflet';
+
+// Import marker images explicitly
+import markerIcon2x from 'leaflet/dist/images/marker-icon-2x.png';
+import markerIcon from 'leaflet/dist/images/marker-icon.png';
+import markerShadow from 'leaflet/dist/images/marker-shadow.png';
+
+// Fix for the broken icon in production builds
+// @ts-ignore
+delete L.Icon.Default.prototype._getIconUrl;
+
+L.Icon.Default.mergeOptions({
+  iconUrl: typeof markerIcon === 'string' ? markerIcon : (markerIcon as any).src,
+  iconRetinaUrl: typeof markerIcon2x === 'string' ? markerIcon2x : (markerIcon2x as any).src,
+  shadowUrl: typeof markerShadow === 'string' ? markerShadow : (markerShadow as any).src,
+});
+// --- LEAFLET ICON FIX END ---
+
 // --- Design Primitives ---
 
 const GlassCard = ({ children, className, onClick, delay = 0 }: any) => (
@@ -432,7 +451,7 @@ const MapView = ({ data }: { data: CampusData }) => {
 
         {/* GO Button (Open Google Maps) */}
         <a
-           href={`https://www.google.com/maps?q=${activeLoc.lat},${activeLoc.lng}`}
+           href={`https://www.google.com/maps/search/?api=1&query=${activeLoc.lat},${activeLoc.lng}`}
            target="_blank"
            rel="noreferrer"
            className={`
