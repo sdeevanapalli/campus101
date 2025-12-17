@@ -96,15 +96,15 @@ const HomeView = ({ data, setTab }: { data: CampusData, setTab: any }) => {
         {/* 1. Overview Card */}
         <GlassCard className="md:col-span-2 p-8 flex flex-col justify-between min-h-[240px] bg-gradient-to-br from-indigo-500/10 to-purple-500/5">
            <div>
-             <h3 className="text-3xl font-bold text-white mb-2">Campus Overview</h3>
+             <h3 className="text-3xl font-bold text-white mb-2">Quick Access</h3>
              <p className="text-zinc-400">Navigate campus life with ease.</p>
            </div>
            <div className="flex gap-4 mt-8 flex-wrap">
               <button onClick={() => setTab('transport')} className="flex-1 py-4 px-4 rounded-xl bg-white/5 hover:bg-white/10 border border-white/5 text-sm font-bold uppercase tracking-wider transition-all flex flex-col items-center gap-2">
                  <Bus size={20} className="text-rose-400" /> Transport
               </button>
-              <button onClick={() => setTab('food')} className="flex-1 py-4 px-4 rounded-xl bg-white/5 hover:bg-white/10 border border-white/5 text-sm font-bold uppercase tracking-wider transition-all flex flex-col items-center gap-2">
-                 <Utensils size={20} className="text-orange-400" /> Dining
+              <button onClick={() => setTab('outlets')} className="flex-1 py-4 px-4 rounded-xl bg-white/5 hover:bg-white/10 border border-white/5 text-sm font-bold uppercase tracking-wider transition-all flex flex-col items-center gap-2">
+                 <Utensils size={20} className="text-orange-400" /> Campus Outlets
               </button>
               <button onClick={() => setTab('map')} className="flex-1 py-4 px-4 rounded-xl bg-white/5 hover:bg-white/10 border border-white/5 text-sm font-bold uppercase tracking-wider transition-all flex flex-col items-center gap-2">
                  <MapIcon size={20} className="text-blue-400" /> Map
@@ -129,7 +129,7 @@ const HomeView = ({ data, setTab }: { data: CampusData, setTab: any }) => {
         <GlassCard className="md:col-span-3 p-6">
            <div className="flex items-center gap-3 mb-6">
               <Zap size={20} className="text-yellow-400" />
-              <h3 className="text-lg font-bold text-white">Essential Services</h3>
+              <h3 className="text-lg font-bold text-white">Campus Outlet Phone Numbers</h3>
            </div>
            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-3">
               {data.outletPhones?.map((item, i) => (
@@ -153,13 +153,13 @@ const HomeView = ({ data, setTab }: { data: CampusData, setTab: any }) => {
 
 const TransportView = ({ data }: { data: CampusData }) => {
     // Static Data for BITS Hyd
-    const shuttleToCity = ['7:50 AM', '8:50 AM', '12:45 PM', '4:00 PM', '5:00 PM', '6:00 PM', '8:00 PM'];
-    const shuttleToCampus = ['9:00 AM', '10:00 AM', '2:00 PM', '5:00 PM', '6:00 PM', '7:00 PM', '9:00 PM'];
+    const shuttleToCity = ['7:50 AM', '8:50 AM', '12:45 PM', '4:00 PM', '5:00 PM'];
+    const shuttleToCampus = ['9:00 AM', '10:00 AM', '2:00 PM', '5:00 PM', '6:00 PM'];
     const altRoutes = ['211A', '211B', '211C', '211DY', '212T', '212/564', '212/567', '212/568', '564', '567'];
 
 return (
         <div className="pb-32 space-y-6">
-            <SectionHeader title="Transport" subtitle="Shuttles, Cabs & Autos" />
+            <SectionHeader title="Transport" subtitle="" />
 
             {/* HYDERABAD SPECIFIC DATA */}
             {data.slug !== 'goa' ? (
@@ -171,6 +171,7 @@ return (
                             <div className="flex items-center gap-3 mb-6">
                                 <Car size={20} className="text-yellow-400" />
                                 <h3 className="text-lg font-bold text-white">Auto Drivers</h3>
+                                <p className="text-sm text-neutral-400 mt-2 leading-relaxed"></p>
                             </div>
                             <div className="grid grid-cols-1 gap-3">
                                 {data.autoDrivers?.map((phone, i) => (
@@ -271,19 +272,19 @@ return (
     );
 };
 
-const FoodView = ({ data }: { data: CampusData }) => {
-    const [foodSearch, setFoodSearch] = useState('');
+const OutletsView = ({ data }: { data: CampusData }) => {
+    const [outletSearch, setOutletSearch] = useState('');
     const openOutlets = data.outlets.filter(o => !o.closed).length;
     
     const filteredOutlets = data.outlets.filter(outlet => 
-      outlet.name.toLowerCase().includes(foodSearch.toLowerCase())
+      outlet.name.toLowerCase().includes(outletSearch.toLowerCase())
     );
   
     return (
       <div className="pb-32">
         <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-8 px-2">
             <div>
-                <h2 className="text-4xl md:text-5xl font-bold text-white tracking-tighter mb-2">Dining</h2>
+                <h2 className="text-4xl md:text-5xl font-bold text-white tracking-tighter mb-2">Outlets</h2>
                 <div className="flex items-center gap-2">
                     <span className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 text-xs font-bold uppercase tracking-wider">
                         <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"/>
@@ -296,8 +297,8 @@ const FoodView = ({ data }: { data: CampusData }) => {
                 <GlassInput 
                     icon={Search} 
                     placeholder="Search outlets..." 
-                    value={foodSearch}
-                    onChange={setFoodSearch}
+                    value={outletSearch}
+                    onChange={setOutletSearch}
                 />
             </div>
         </div>
@@ -319,7 +320,7 @@ const FoodView = ({ data }: { data: CampusData }) => {
                 ))
             ) : (
                 <div className="col-span-full py-20 text-center text-zinc-500">
-                    No outlets matching "{foodSearch}"
+                    No outlets matching "{outletSearch}"
                 </div>
             )}
         </div>
@@ -558,7 +559,7 @@ const AboutView = () => (
 // --- Main Layout ---
 
 const CampusPage: React.FC<{ campusData: CampusData }> = ({ campusData }) => {
-  const [tab, setTab] = useState<'home' | 'transport' | 'food' | 'map' | 'directory' | 'about'>('home');
+  const [tab, setTab] = useState<'home' | 'transport' | 'outlets' | 'map' | 'directory' | 'about'>('home');
 
   return (
     <div className="min-h-screen bg-black text-white font-sans selection:bg-indigo-500/30 overflow-x-hidden">
@@ -598,9 +599,9 @@ const CampusPage: React.FC<{ campusData: CampusData }> = ({ campusData }) => {
               <TransportView data={campusData} />
             </motion.div>
           )}
-          {tab === 'food' && (
-            <motion.div key="food" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} transition={{ duration: 0.3 }}>
-              <FoodView data={campusData} />
+          {tab === 'outlets' && (
+            <motion.div key="outlets" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} transition={{ duration: 0.3 }}>
+              <OutletsView data={campusData} />
             </motion.div>
           )}
           {tab === 'map' && (
@@ -627,7 +628,7 @@ const CampusPage: React.FC<{ campusData: CampusData }> = ({ campusData }) => {
            {[
              { id: 'home', icon: Grid, label: 'Home' },
              { id: 'transport', icon: Bus, label: 'Transport' },
-             { id: 'food', icon: Utensils, label: 'Food' },
+             { id: 'outlets', icon: Utensils, label: 'Outlets' },
              { id: 'map', icon: MapIcon, label: 'Map' },
              { id: 'directory', icon: Users, label: 'Wardens' },
              { id: 'about', icon: Info, label: 'About' }
