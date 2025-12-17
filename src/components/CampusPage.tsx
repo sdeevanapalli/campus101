@@ -589,6 +589,7 @@ const CampusPage: React.FC<CampusPageProps> = ({ campusData }) => {
                {campusData.name}
              </h1>
           </div>
+
           
           <div className="text-xs font-mono text-zinc-500 uppercase tracking-widest hidden sm:block">
             Campus Guide v2.0
