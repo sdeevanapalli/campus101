@@ -1454,130 +1454,136 @@ export const campusData: Record<string, CampusData> = {
 ],
 warden: [
   {
-    "name": "Dr. R.B. Moulick",
-    "phone": ["9881777443", "9049002211"],
-    "email": "rbmoulick@goa.bits-pilani.ac.in",
+    "name": "Dr. Sudeep Bajdha",
+    "phone": ["8871774354", "8956485930"],
+    "email": "ch1warden@goa.bits-pilani.ac.in",
     "bhavan": "CH1"
   },
   {
-    "name": "Dr. Vaibavish Singh",
-    "phone": ["9822135154"],
-    "email": "vaibhavish@goa.bits-pilani.ac.in",
+    "name": "Dr. Varinder Singh",
+    "phone": ["9822133154"],
+    "email": "ch2warden@goa.bits-pilani.ac.in",
     "bhavan": "CH2"
   },
   {
-    "name": "Dr. Inzamam Talukdar",
-    "phone": ["9886041595", "8554976831"],
-    "email": "inzamam@goa.bits-pilani.ac.in",
+    "name": "Dr. Indrani Talukdar",
+    "phone": ["9890415048", "8956485931"],
+    "email": "ch3warden@goa.bits-pilani.ac.in",
     "bhavan": "CH3"
   },
   {
-    "name": "Dr. Swaroop Talukdar",
-    "phone": ["9850435041", "8554976831", "9158372881"],
-    "email": "swaroopt@goa.bits-pilani.ac.in",
+    "name": "Dr. Indrani Talukdar",
+    "phone": ["9890415048", "8956485931"],
+    "email": "ch4warden@goa.bits-pilani.ac.in",
     "bhavan": "CH4"
   },
   {
-    "name": "Dr. Ritika Agrawal",
-    "phone": ["9807034510", "8554976831", "7708504032"],
-    "email": "ritika@goa.bits-pilani.ac.in",
+    "name": "Dr. Ritika Jaswal",
+    "phone": ["9897604635", "9876981347", "8956485932"],
+    "email": "ch5warden@goa.bits-pilani.ac.in",
     "bhavan": "CH5"
   },
   {
-    "name": "Dr. Ripul Jindal",
-    "phone": ["7030588698", "9527819777", "8975040292"],
-    "email": "ripul.jindal@goa.bits-pilani.ac.in",
+    "name": "Dr. Ritika Jaswal",
+    "phone": ["9897604635", "9876981347", "8956485932"],
+    "email": "ch6warden@goa.bits-pilani.ac.in",
     "bhavan": "CH6"
   },
   {
-    "name": "Dr. Debabrata Chitaranjan Das Mohapatra",
-    "phone": ["7219265955", "7875666033"],
-    "email": "debabrata@goa.bits-pilani.ac.in",
+    "name": "Dr. Anushaya Chittaranjan Mohapatra",
+    "phone": ["7710035981", "8956485933"],
+    "email": "ch7warden@goa.bits-pilani.ac.in",
     "bhavan": "CH7"
   },
   {
-    "name": "Dr. Amjad Ahmad",
-    "phone": ["7448067702", "9552837895"],
-    "email": "amjad.ahmad@goa.bits-pilani.ac.in",
-    "bhavan": "AH1 & AH2"
+    "name": "Dr. Arfat Ahmad Sofi",
+    "phone": ["9149960707", "7599325717", "8956485922"],
+    "email": "ah1warden@goa.bits-pilani.ac.in",
+    "bhavan": "AH1"
   },
   {
-    "name": "Dr. Pradeep Kumar Suman",
-    "phone": ["9591924878", "9538664024"],
-    "email": "psuman@goa.bits-pilani.ac.in",
+    "name": "Dr. Arfat Ahmad Sofi",
+    "phone": ["9149960707", "7599325717", "8956485922"],
+    "email": "ah2warden@goa.bits-pilani.ac.in",
+    "bhavan": "AH2"
+  },
+  {
+    "name": "Dr. Pradeep Boggarapu",
+    "phone": ["9535248795", "8956485923"],
+    "email": "ah3warden@goa.bits-pilani.ac.in",
     "bhavan": "AH3"
   },
   {
-    "name": "Dr. Pranay Shankar",
-    "phone": ["9022486320", "9167268518"],
-    "email": "pranay@goa.bits-pilani.ac.in",
+    "name": "Dr. Pratanshu Ranjan",
+    "phone": ["9873498539", "8956485924"],
+    "email": "ah4warden@goa.bits-pilani.ac.in",
     "bhavan": "AH4"
   },
   {
     "name": "Dr. Ashish Chittora",
-    "phone": ["9167150885", "8554976831"],
-    "email": "ashishchittora@goa.bits-pilani.ac.in",
+    "phone": ["9167330585", "8956485925"],
+    "email": "ah5warden@goa.bits-pilani.ac.in",
     "bhavan": "AH5"
   },
   {
-    "name": "Dr. Raviprasad A.D",
-    "phone": ["8275027108", "8554976830"],
-    "email": "adr@goa.bits-pilani.ac.in",
+    "name": "Dr. Raviprasad Aduri",
+    "phone": ["8378071084", "8956485926"],
+    "email": "ah6warden@goa.bits-pilani.ac.in",
     "bhavan": "AH6"
   },
   {
-    "name": "Dr. Monojit Chowdhuri",
-    "phone": ["8956411927"],
-    "email": "monojit@goa.bits-pilani.ac.in",
+    "name": "Dr. Monojit Bhattacharya",
+    "phone": ["8956485927"],
+    "email": "ah7warden@goa.bits-pilani.ac.in",
     "bhavan": "AH7"
   },
   {
-    "name": "Dr. Vijay Veera Setha",
-    "phone": ["9740941814", "8554976830"],
-    "email": "vijayveera@goa.bits-pilani.ac.in",
+    "name": "Dr. Tusar Tirtha Saha",
+    "phone": ["7478414241", "8956485928"],
+    "email": "ah8warden@goa.bits-pilani.ac.in",
     "bhavan": "AH8"
   },
   {
     "name": "Dr. Naveen Gupta",
-    "phone": ["8826188402", "8554976830"],
-    "email": "naveengupta@goa.bits-pilani.ac.in",
+    "phone": ["8826388404", "8956485929"],
+    "email": "ah9warden@goa.bits-pilani.ac.in",
     "bhavan": "AH9"
   },
   {
-    "name": "Dr. Reema Chatterjee",
-    "phone": ["9717491732", "8554976830"],
-    "email": "reema@goa.bits-pilani.ac.in",
+    "name": "Dr. Mohan Kumar Behera",
+    "phone": ["9717482923", "8956485934"],
+    "email": "dh1warden@goa.bits-pilani.ac.in",
     "bhavan": "DH1"
   },
   {
-    "name": "Dr. Saroj Baral",
-    "phone": ["7828059712", "7506685199"],
-    "email": "sbaral@goa.bits-pilani.ac.in",
+    "name": "Dr. Nilesh Dadashade Pawar",
+    "phone": ["7838595727", "8956485935"],
+    "email": "dh2warden@goa.bits-pilani.ac.in",
     "bhavan": "DH2"
   },
   {
-    "name": "Dr. Ravi Kanth Chaturvedi",
-    "phone": ["9305479138", "8554976830"],
-    "email": "rkchaturvedi@goa.bits-pilani.ac.in",
+    "name": "Dr. Ravikant Iamati",
+    "phone": ["6366476438", "8956485936"],
+    "email": "dh3warden@goa.bits-pilani.ac.in",
     "bhavan": "DH3"
   },
   {
-    "name": "Dr. Kanchan Maji",
-    "phone": ["8085174976", "9062193211", "7385966624"],
-    "email": "drkanchan@goa.bits-pilani.ac.in",
+    "name": "Dr. Kanchan Manna",
+    "phone": ["9083174976", "9021957357", "8956485937"],
+    "email": "dh4warden@goa.bits-pilani.ac.in",
     "bhavan": "DH4"
   },
   {
-    "name": "Dr. Manoj M M",
-    "phone": ["9011090124", "8554976830"],
-    "email": "manojmm@goa.bits-pilani.ac.in",
+    "name": "Dr. Kiran Mali",
+    "phone": ["9011091126", "8956485938"],
+    "email": "dh5warden@goa.bits-pilani.ac.in",
     "bhavan": "DH5"
   },
   {
-    "name": "Dr. Pawan Kesharwani",
-    "phone": ["9179647971", "7276993142", "8956485039"],
-    "email": "pkesharwani@goa.bits-pilani.ac.in",
-    "bhavan": "SH1"
+    "name": "Dr. Vivek Rangarajan",
+    "phone": ["9176547871", "7499223142", "8956485939"],
+    "email": "dh6warden@goa.bits-pilani.ac.in",
+    "bhavan": "DH6"
   }
 ]
 
