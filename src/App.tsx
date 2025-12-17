@@ -8,6 +8,7 @@ import LandingPage from './components/LandingPage';
 import Hyderabad from './pages/Hyderabad';
 import Goa from './pages/Goa';
 import Pilani from './pages/Pilani';
+import ScrollToTop from './components/ScrollToTop';
 
 // Initialize Google Analytics
 ReactGA.initialize("G-9EG5HKKXP1");
@@ -16,6 +17,7 @@ ReactGA.send("pageview");
 function App() {
   return (
     <>
+      <ScrollToTop />
       <Routes>
         <Route path="/" element={<LandingPage />} />
         <Route path="/hyderabad" element={<Hyderabad />} />
