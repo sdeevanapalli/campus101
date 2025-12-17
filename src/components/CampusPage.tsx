@@ -343,11 +343,6 @@ const OutletsView = ({ data }: { data: CampusData }) => {
             <div>
                 <h2 className="text-4xl md:text-5xl font-bold text-white tracking-tighter mb-2">Outlets</h2>
                 <div className="flex items-center gap-2">
-                    <span className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 text-xs font-bold uppercase tracking-wider">
-                        <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"/>
-                        {openOutlets} Open
-                    </span>
-                    <span className="text-zinc-500 text-sm"> / {data.outlets.length} Total</span>
                 </div>
             </div>
             <div className="w-full md:w-80">
