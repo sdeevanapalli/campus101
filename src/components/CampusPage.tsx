@@ -159,27 +159,29 @@ const HomeView = ({ data, setTab }: { data: CampusData, setTab: any }) => {
             </div>
         </GlassCard>
 
-        {/* 3. Essential Services */}
-        <GlassCard className="md:col-span-3 p-6">
-           <div className="flex items-center gap-3 mb-6">
-              <Zap size={20} className="text-yellow-400" />
-              <h3 className="text-lg font-bold text-white">Campus Outlet Phone Numbers</h3>
-           </div>
-           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-3">
-              {data.outletPhones?.map((item, i) => (
+          {/* 3. Essential Services (hidden for Goa) */}
+          {data.slug !== 'goa' && data.slug !== 'pilani'&& (
+           <GlassCard className="md:col-span-3 p-6">
+             <div className="flex items-center gap-3 mb-6">
+               <Zap size={20} className="text-yellow-400" />
+               <h3 className="text-lg font-bold text-white">Campus Outlet Phone Numbers</h3>
+             </div>
+             <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-3">
+               {data.outletPhones?.map((item, i) => (
                  <div key={i} className="flex items-center justify-between p-3 rounded-xl bg-white/5 hover:bg-white/10 transition-colors border border-white/5">
-                    <div className="truncate pr-2">
-                        <span className="block text-sm text-zinc-200 font-medium">{item.name}</span>
-                    </div>
-                    {item.phone && item.phone !== 'TBD' ? (
-                       <a href={`tel:${item.phone}`} className="p-2 bg-indigo-500/10 text-indigo-300 rounded-lg hover:bg-indigo-500 hover:text-white transition-all">
-                          <Phone size={14} />
-                       </a>
-                    ) : <span className="text-[10px] text-zinc-600">N/A</span>}
+                   <div className="truncate pr-2">
+                      <span className="block text-sm text-zinc-200 font-medium">{item.name}</span>
+                   </div>
+                   {item.phone && item.phone !== 'TBD' ? (
+                     <a href={`tel:${item.phone}`} className="p-2 bg-indigo-500/10 text-indigo-300 rounded-lg hover:bg-indigo-500 hover:text-white transition-all">
+                       <Phone size={14} />
+                     </a>
+                   ) : <span className="text-[10px] text-zinc-600">N/A</span>}
                  </div>
-              ))}
-           </div>
-        </GlassCard>
+               ))}
+             </div>
+           </GlassCard>
+          )}
       </div>
     </div>
   );
