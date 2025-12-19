@@ -61,7 +61,7 @@ Common scripts:
 - Ensure env config (if you change analytics IDs) is set in your hosting platform.
 
 ### Maintainers
-- Shriniketh Deevanapalli — f20230414@hyderabad.bits-pilani.ac.in
+- [Shriniketh Deevanapalli](https://sdeevanapalli.dev) — f20230414@hyderabad.bits-pilani.ac.in
 - Kushagra Singh - f20231210@goa.bits-pilani.ac.in
 
 Enjoy the build, and ping us if something feels off.
