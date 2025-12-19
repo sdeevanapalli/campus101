@@ -639,7 +639,7 @@ const AboutView = () => (
             </p>
             
             <div className="flex justify-center gap-4">
-                 <a href="#" className="flex items-center gap-2 px-6 py-3 rounded-full bg-white/5 hover:bg-white/10 border border-white/5 transition-all text-sm font-bold uppercase tracking-wider">
+                 <a href="https://github.com/sdeevanapalli/campus101" className="flex items-center gap-2 px-6 py-3 rounded-full bg-white/5 hover:bg-white/10 border border-white/5 transition-all text-sm font-bold uppercase tracking-wider">
                     <Github size={18} /> Contribute
                  </a>
             </div>
