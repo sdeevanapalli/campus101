@@ -1,133 +1,67 @@
+## Campus101
 
-# Campus101 – The Chill BITS Campus Guide
+A lightweight campus companion for BITS Pilani (Hyderabad, Goa, Pilani) built with React + Vite. It pairs a glossy landing page with campus-specific views for transport, outlets, maps, and quick contacts.
 
-Welcome to Campus101! This is your one-stop, super-friendly web app for exploring all three BITS Pilani campuses – Hyderabad, Goa, and Pilani. Whether you’re a fresher, a senior, or just campus-curious, this guide has you covered with maps, mess info, outlets, and more. Built with React, TypeScript, and some seriously cool UI magic.
+### Links
+- GitHub: https://github.com/sdeevanapalli/campus101
+- Live: https://campus101-sable.vercel.app
 
+### Highlights
+- Interactive campus cards with parallax hero and 3D hover effects.
+- Leaflet-powered maps with location fly-to and rich descriptions.
+- Campus-specific utilities: shuttle timings, auto numbers, outlets, and quick-dial shortcuts.
+- Route-aware scroll restore, framer-motion transitions, and Tailwind-driven theming.
+- Vercel Analytics + GA4 instrumentation out of the box.
 
-## 🚀 What’s Inside?
+### Quick Start
+1. Install Node 18+.
+2. `npm install`
+3. `npm run dev`
+4. Open the dev server link (typically `http://localhost:5173`).
 
-- **Landing Page**: Parallax hero images, 3D campus cards, and a vibe that’s both modern and fun.
-- **Campus Pages**: Interactive maps (Leaflet + OSM), all the outlets, mess schedules, emergency contacts, and even bus/auto info if you need to escape.
-- **Dark/Light Mode**: Because everyone has a preference.
-- **Mobile First**: Works great on your phone, tablet, or that ancient desktop in the library.
-- **Reusable Components**: Clean code, easy to add new stuff.
-- **Fast**: Vite + React = 🚀
+Common scripts:
+- `npm run dev` – local dev with HMR.
+- `npm run build` – production build.
+- `npm run preview` – preview the production build locally.
+- `npm run lint` – lint with ESLint.
 
+### Configuration
+- Analytics: GA4 Measurement ID is set in `src/App.tsx`. Swap with your own if you fork.
+- Router: All routes are declared in `src/App.tsx` and use `BrowserRouter` (see `src/main.tsx`).
+- Styling: Tailwind + custom components; global styles live in `src/index.css` and component-level classes.
 
-## 🛠 Tech Stack
+### Project Structure (short version)
+- `src/App.tsx` — routing + analytics boot.
+- `src/main.tsx` — React root + router wrapper.
+- `src/components/LandingPage.tsx` — hero, campus cards, footer.
+- `src/components/CampusPage.tsx` — shared campus view (map, transport, outlets, quick actions).
+- `src/pages/{Hyderabad|Goa|Pilani}.tsx` — campus-specific shells wiring data into `CampusPage`.
+- `src/data/campusData.ts` — all campus metadata (locations, outlets, contacts, hero images, stats).
+- `src/components/ui/*` — 3D card + hero parallax primitives.
 
-- React 18 + TypeScript
-- React Router DOM
-- Tailwind CSS (for all the pretty stuff)
-- Framer Motion (animations)
-- React Leaflet + OpenStreetMap (maps)
-- Lucide React (icons)
-- Vite (build tool)
-- Google Analytics 4 + Vercel Analytics
+### Features & Capabilities
+- Campus switcher landing with CTA links to each campus page.
+- Leaflet maps per campus with fly-to interactions and category-aware markers.
+- Quick-access tiles for transport, outlets, and maps; inline phone links for cabs/auto/outlets.
+- Searchable outlets (Hyderabad/Goa today; Pilani marked as “In Progress”).
+- Motion polish via framer-motion and glassmorphism-inspired cards.
 
+### Security, Privacy, and Use
+- This codebase is not open-source; please do not copy or redistribute the code. Feel free to read it and propose changes.
+- GA4/Vercel Analytics are enabled; swap or remove IDs if you do not want telemetry.
+- Secrets: none stored here; keep any keys in env vars if you add new integrations.
 
-## 📁 Folder Vibes
+### Contributing
+- PRs are welcome. Use Conventional Commits (e.g., `feat: add goa cab cards`, `fix: handle leaflet icon paths`).
+- If you cannot open a PR, send a patch to f20230414@hyderabad.bits-pilani.ac.in and f20231210@goa.bits-pilani.ac.in
+- Please keep new data additions consistent with `src/data/campusData.ts` shapes and Tailwind class conventions.
 
-```
-src/
-  components/
-    ui/              # Aceternity UI stuff (3D cards, parallax)
-    LandingPage.tsx  # The main landing page
-    CampusPage.tsx   # Template for all campuses
-  pages/
-    Hyderabad.tsx    # Hyderabad campus
-    Goa.tsx          # Goa campus
-    Pilani.tsx       # Pilani campus
-  data/
-    campusData.ts    # All the campus info
-  lib/
-    utils.ts         # Helper functions
-  App.tsx            # Routing
-  main.tsx           # App entry
-```
+### Deployment
+- Built with Vite; `npm run build` outputs to `dist/`. The project is Vercel-ready (`vercel.json` provided).
+- Ensure env config (if you change analytics IDs) is set in your hosting platform.
 
+### Maintainers
+- Shriniketh Deevanapalli — f20230414@hyderabad.bits-pilani.ac.in
+- Kushagra Singh - f20231210@goa.bits-pilani.ac.in
 
-## � How It’s Built (and How to Build More)
-
-1. **Routing**: React Router for easy navigation.
-2. **UI**: Aceternity UI for 3D cards, parallax, and general wow-factor.
-3. **Data**: All campus info lives in `src/data/campusData.ts`.
-4. **Pages**: Each campus gets its own page in `src/pages/`.
-5. **Maps**: React Leaflet + OSM for interactive campus maps.
-6. **Performance**: Vite keeps things snappy.
-
-
-## 🏃‍♂️ Getting Started
-
-You’ll need Node.js 16+ and npm (or yarn).
-
-```bash
-# Clone the repo
-git clone <your-repo-url>
-cd campus101
-
-# Install dependencies
-npm install
-
-# Start the dev server
-npm run dev
-```
-
-
-### Campus Images
-
-Drop your campus images in `public/` like this:
-
-```
-public/
-  hyderabad-campus.jpg
-  hyderabad-1.jpg ... hyderabad-5.jpg
-  goa-campus.jpg
-  goa-1.jpg ... goa-5.jpg
-  pilani-campus.jpg
-  pilani-1.jpg ... pilani-5.jpg
-```
-
-
-## 🎨 Customizing Stuff
-
-Want to add a new campus?
-
-1. Add your campus data in `src/data/campusData.ts`.
-2. Make a new page in `src/pages/` (copy one of the existing ones).
-3. Add a route in `src/App.tsx`.
-4. Update the landing page to show your new campus card.
-
-Want to change the look?
-- Tweak Tailwind classes for colors, gradients, and dark mode.
-
-
-## 📱 Mobile Friendly
-
-Works great on phones, tablets, and desktops. Collapsible sidebar, responsive grids, and touch-friendly controls.
-
-
-## 🔧 Scripts
-
-```bash
-npm run dev      # Start dev server
-npm run build    # Build for production
-npm run preview  # Preview production build
-npm run lint     # Lint your code
-```
-
-
-## OG Creators
-
-- [Shriniketh Deevanapalli](https://www.sdeevanapalli.dev)
-- Kushagra Singh
-
-
-
-## 👥 Contributing
-
-Anyone is welcome to contribute! Just fork, branch, code, and open a PR—no need to ask for permission. If you spot a bug or have a cool idea, send it in.
-
----
-
-**Built with ❤️ for BITSians** | [GitHub](https://github.com/sdeevanapalli/campus101) | [Live Demo](https://campus101-sable.vercel.app)
+Enjoy the build, and ping us if something feels off.
