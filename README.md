@@ -47,7 +47,6 @@ Common scripts:
 - Motion polish via framer-motion and glassmorphism-inspired cards.
 
 ### Security, Privacy, and Use
-- This codebase is not open-source; please do not copy or redistribute the code. Feel free to read it and propose changes.
 - GA4/Vercel Analytics are enabled; swap or remove IDs if you do not want telemetry.
 - Secrets: none stored here; keep any keys in env vars if you add new integrations.
 

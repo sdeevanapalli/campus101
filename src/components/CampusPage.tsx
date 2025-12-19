@@ -550,22 +550,21 @@ const DirectoryView = ({ data }: { data: CampusData }) => {
         (w.bhavan && w.bhavan.toLowerCase().includes(searchTerm.toLowerCase()))
     );
 
-  // Pilani wardens: show in-progress placeholder
-  if (data.slug === 'pilani') {
-    return (
-      <div className="pb-32">
-        <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-8 px-2">
-          <div>
-            <h2 className="text-4xl md:text-5xl font-bold text-white tracking-tighter mb-2">Wardens</h2>
-            <p className="text-zinc-500 text-lg font-medium tracking-wide">Hostel & Admin Contacts</p>
-          </div>
-        </div>
-        <InProgress label="Wardens" context="Pilani" />
-      </div>
-    );
-  }
+    if (data.slug === 'pilani') {
+        return (
+            <div className="pb-32">
+                <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-8 px-2">
+                    <div>
+                        <h2 className="text-4xl md:text-5xl font-bold text-white tracking-tighter mb-2">Wardens</h2>
+                        <p className="text-zinc-500 text-lg font-medium tracking-wide">Hostel & Admin Contacts</p>
+                    </div>
+                </div>
+                <InProgress label="Wardens" context="Pilani" />
+            </div>
+        );
+    }
 
-  return (
+    return (
         <div className="pb-32">
             <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-8 px-2">
                 <div>
@@ -590,15 +589,23 @@ const DirectoryView = ({ data }: { data: CampusData }) => {
                                 <div className="p-3 rounded-full bg-zinc-950 border border-white/10 text-indigo-400 group-hover:scale-110 transition-transform">
                                     <Shield size={20} />
                                 </div>
-                                {w.bhavan && (
-                                    <span className="text-[10px] font-mono border border-white/10 px-2 py-1 rounded text-zinc-500 uppercase tracking-wider">
-                                        {w.bhavan}
-                                    </span>
-                                )}
                             </div>
                             
-                            <h3 className="text-xl font-bold text-white mb-1">{w.name}</h3>
-                            <p className="text-sm text-zinc-500 mb-6">Hostel Warden</p>
+                            <h3 className="text-2xl font-bold text-white mb-1">{w.name}</h3>
+                            
+                            {/* Enlarged and Bolded Bhavan Section */}
+                            {w.bhavan ? (
+                                <div className="mb-6">
+                                    <p className="text-xl font-extrabold text-indigo-400 tracking-tight uppercase">
+                                        {w.bhavan}
+                                    </p>
+                                    <p className="text-xs text-zinc-500 font-medium uppercase tracking-widest">
+                                        Hostel Warden
+                                    </p>
+                                </div>
+                            ) : (
+                                <p className="text-sm text-zinc-500 mb-6">Hostel Warden</p>
+                            )}
                             
                             <div className="flex gap-2">
                                 <a href={`tel:${Array.isArray(w.phone) ? w.phone[0] : w.phone}`} className="flex-1 py-3 rounded-xl bg-white text-black font-bold text-sm flex items-center justify-center gap-2 hover:bg-zinc-200 transition-colors">
