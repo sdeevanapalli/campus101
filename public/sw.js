@@ -1,4 +1,4 @@
-const CACHE_NAME = 'campus101-v2'; // bump version for updates
+const CACHE_NAME = 'campus101-v4'; // bump version for updates
 
 // You don’t need to precache /src/index.css; let Vite handle it via import
 const urlsToCache = [
