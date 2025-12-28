@@ -326,7 +326,7 @@ const OutletsView = ({ data }: { data: CampusData }) => {
         <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-8 px-2">
             <div>
                 <h2 className="text-4xl md:text-5xl font-bold text-white tracking-tighter mb-2">Outlets</h2>
-                <p>Data is crowdsourced and may not be 100% accurate. To contribute corrections, please visit our GitHub page linked in the "About" section.</p>
+                <p>Data is crowdsourced and may not be accurate. To contribute corrections, please visit our GitHub page linked in the "About" section.</p>
                 <div className="flex items-center gap-2">
                 </div>
             </div>
