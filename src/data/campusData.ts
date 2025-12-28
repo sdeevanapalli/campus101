@@ -699,7 +699,7 @@ export const campusData: Record<string, CampusData> = {
       name: 'Dr. Phaneendra Kiran Chaganti',
       phone: ['9010202831'],
       email: 'cpkiran@hyderabad.bits-pilani.ac.in',
-      bhavan: 'Buddh Bhawan',
+      bhavan: 'Budh Bhawan',
       type: 'Boys'
     },
     {
@@ -776,7 +776,7 @@ export const campusData: Record<string, CampusData> = {
     name: 'Dr. Pranesh Bhargava',
     phone: ['7988228215'],
     email: 'pranesh@hyderabad.bits-pilani.ac.in',
-    bhavan: 'Buddh Bhawan',
+    bhavan: 'Budh Bhawan',
     type: 'Boys'
   },
   {
@@ -840,7 +840,7 @@ export const campusData: Record<string, CampusData> = {
     name: 'Mr.Santhosh',
     phone: ['9010202835'],
     email: 'santhosh@hyderabad.bits-pilani.ac.in',
-    bhavan: 'Gandhi, Buddh, Vyas',
+    bhavan: 'Gandhi, Budh, Vyas',
     type: 'Boys',
     role: 'Office Staff'
   },
