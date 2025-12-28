@@ -1,4 +1,3 @@
-"use client";
 import React from "react";
 import {
   motion,
@@ -58,13 +57,10 @@ export const HeroParallax = ({
   return (
     <div
       ref={ref}
-      // MOBILE: h-auto to fit content
-      // DESKTOP: h-[300vh] for the scroll animation
       className="h-auto md:h-[300vh] py-20 md:py-40 overflow-hidden bg-neutral-950 antialiased relative flex flex-col self-auto [perspective:1000px] [transform-style:preserve-3d]"
     >
       <Header />
       
-      {/* Hidden on Mobile, Visible on Desktop */}
       <motion.div
         style={{
           rotateX,
@@ -126,7 +122,6 @@ export const Header = () => {
         and the modern fortress of <span className="text-white font-medium">Hyderabad</span>.
       </p>
 
-      {/* --- ADDED: Credits Section for Mobile Only --- */}
       <div className="mt-8 flex items-center gap-4 md:hidden">
          <div className="h-px w-8 bg-neutral-800"></div>
          <div className="flex gap-3 text-sm font-mono text-neutral-500">
@@ -140,7 +135,6 @@ export const Header = () => {
             </a>
          </div>
       </div>
-      {/* ---------------------------------------------- */}
 
     </div>
   );

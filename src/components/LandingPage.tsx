@@ -1,11 +1,9 @@
-"use client";
-import React from 'react';
 import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { HeroParallax } from './ui/hero-parallax';
 import { CardContainer, CardBody, CardItem } from './ui/3d-card';
 import { heroImages } from '../data/campusData';
-import { MapPin, ArrowUpRight, Users, Layers, Trophy } from 'lucide-react';
+import { ArrowUpRight, Users, Layers, Trophy } from 'lucide-react';
 
 const LandingPage = () => {
   const campuses = [
@@ -56,21 +54,16 @@ const LandingPage = () => {
   return (
     <div className="min-h-screen bg-neutral-950 text-white selection:bg-white/20 selection:text-black">
       
-      {/* 1. Hero Section */}
       <div className="relative z-10">
         <HeroParallax products={heroImages} />
       </div>
 
-      {/* 2. Main Content */}
-      {/* FIX: mt-0 on mobile so it doesn't overlap the header. -mt-20 on desktop for the overlap effect. */}
       <div className="relative w-full bg-neutral-950 mt-0 md:-mt-20 pb-32">
         
-        {/* Subtle Background Grid Texture */}
         <div className="absolute inset-0 bg-[linear-gradient(to_right,#80808012_1px,transparent_1px),linear-gradient(to_bottom,#80808012_1px,transparent_1px)] bg-[size:24px_24px] [mask-image:radial-gradient(ellipse_60%_50%_at_50%_0%,#000_70%,transparent_100%)] pointer-events-none" />
 
         <div className="max-w-7xl mx-auto px-6 relative z-10">
           
-          {/* Header Typography */}
           <div className="mb-24 flex flex-col md:flex-row md:items-end justify-between gap-6 border-b border-white/10 pb-8">
             <motion.div
               initial={{ opacity: 0, y: 20 }}
@@ -102,7 +95,6 @@ const LandingPage = () => {
             </motion.div>
           </div>
 
-          {/* 3. Card Grid */}
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-10">
             {campuses.map((campus, index) => (
               <motion.div
@@ -116,7 +108,6 @@ const LandingPage = () => {
                 <CardContainer className="inter-var w-full h-full">
                   <CardBody className={`relative group/card h-full w-full rounded-2xl p-4 border border-white/10 bg-neutral-900/50 backdrop-blur-sm transition-all duration-500 ${campus.border} ${campus.shadow}`}>
                     
-                    {/* Clickable Overlay */}
                     <CardItem 
                       translateZ="100" 
                       className="absolute inset-0 z-50 w-full h-full"
@@ -128,7 +119,6 @@ const LandingPage = () => {
                       />
                     </CardItem>
 
-                    {/* Image */}
                     <CardItem
                       translateZ="40"
                       className="w-full mb-6 overflow-hidden rounded-xl aspect-[4/3] relative"
@@ -141,7 +131,6 @@ const LandingPage = () => {
                       />
                     </CardItem>
 
-                    {/* Content */}
                     <div className="px-2 pb-2 flex flex-col h-full justify-between">
                       <div>
                         <CardItem
@@ -196,7 +185,6 @@ const LandingPage = () => {
         </div>
       </div>
 
-      {/* Footer */}
       <footer className="bg-neutral-950 border-t border-white/5 py-12">
         <div className="max-w-7xl mx-auto px-6 flex flex-col md:flex-row justify-between items-center opacity-60 hover:opacity-100 transition-opacity">
           <p className="text-neutral-500 text-sm font-mono">

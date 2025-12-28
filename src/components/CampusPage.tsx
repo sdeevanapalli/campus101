@@ -11,7 +11,6 @@ import {
   Users,
   Search,
   Zap,
-  Coffee,
   Shield,
   Grid,
   Info,
@@ -27,15 +26,13 @@ import {
 import 'leaflet/dist/leaflet.css';
 import { CampusData } from '../data/campusData';
 
-// --- LEAFLET ICON FIX START ---
 import L from 'leaflet';
 
-// Import marker images explicitly
 import markerIcon2x from 'leaflet/dist/images/marker-icon-2x.png';
 import markerIcon from 'leaflet/dist/images/marker-icon.png';
 import markerShadow from 'leaflet/dist/images/marker-shadow.png';
 
-// Fix for the broken icon in production builds
+// leaflet needs this otherwise markers break in prod
 // @ts-ignore
 delete L.Icon.Default.prototype._getIconUrl;
 
@@ -44,9 +41,6 @@ L.Icon.Default.mergeOptions({
   iconRetinaUrl: typeof markerIcon2x === 'string' ? markerIcon2x : (markerIcon2x as any).src,
   shadowUrl: typeof markerShadow === 'string' ? markerShadow : (markerShadow as any).src,
 });
-// --- LEAFLET ICON FIX END ---
-
-// --- Design Primitives ---
 
 const GlassCard = ({ children, className, onClick, delay = 0 }: any) => (
   <motion.div
@@ -96,7 +90,6 @@ const SectionHeader = ({ title, subtitle }: { title: string, subtitle: string })
   </div>
 );
 
-// Shared placeholder for in-progress features
 const InProgress = ({ label = 'Feature', context = 'Pilani' }: { label?: string; context?: string }) => (
   <div className="relative min-h-[40vh] w-full rounded-[32px] overflow-hidden border border-white/10 bg-zinc-950 flex items-center justify-center">
     <div className="text-center space-y-4 px-8 max-w-xl">
@@ -105,7 +98,7 @@ const InProgress = ({ label = 'Feature', context = 'Pilani' }: { label?: string;
         <span>In Progress</span>
       </div>
       <h3 className="text-2xl md:text-3xl font-bold text-white">{label} for {context} campus</h3>
-      <p className="text-zinc-400 text-base leading-relaxed">We’re still building this section. It’ll be available soon.</p>
+      <p className="text-zinc-400 text-base leading-relaxed">working on it, check back soon</p>
     </div>
   </div>
 );
@@ -118,8 +111,6 @@ const FlyToLocation = ({ center }: { center: [number, number] }) => {
   return null;
 };
 
-// --- Views ---
-
 const HomeView = ({ data, setTab }: { data: CampusData, setTab: any }) => {
   return (
     <div className="space-y-6 pb-32">
@@ -127,7 +118,6 @@ const HomeView = ({ data, setTab }: { data: CampusData, setTab: any }) => {
 
       <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
         
-        {/* 1. Overview Card */}
         <GlassCard className="md:col-span-2 p-8 flex flex-col justify-between min-h-[240px] bg-gradient-to-br from-indigo-500/10 to-purple-500/5">
            <div>
              <h3 className="text-3xl font-bold text-white mb-2">Quick Access</h3>
@@ -146,7 +136,6 @@ const HomeView = ({ data, setTab }: { data: CampusData, setTab: any }) => {
            </div>
         </GlassCard>
 
-        {/* 2. Quick Status */}
         <GlassCard className="p-6 flex flex-col justify-center items-center text-center gap-4 bg-zinc-900/80">
             <div className="w-16 h-16 rounded-full bg-zinc-800 flex items-center justify-center text-zinc-400">
                 <Clock size={32} />
@@ -159,7 +148,6 @@ const HomeView = ({ data, setTab }: { data: CampusData, setTab: any }) => {
             </div>
         </GlassCard>
 
-          {/* 3. Essential Services (hidden for Goa) */}
           {data.slug !== 'goa' && data.slug !== 'pilani'&& (
            <GlassCard className="md:col-span-3 p-6">
              <div className="flex items-center gap-3 mb-6">
@@ -207,11 +195,9 @@ return (
         <div className="pb-32 space-y-6">
             <SectionHeader title="Transport" subtitle="" />
 
-            {/* HYDERABAD SPECIFIC DATA */}
             {data.slug !== 'goa' ? (
                 <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
                     
-                    {/* LEFT COLUMN: AUTO DRIVERS */}
                     <div className="lg:col-span-1 h-full">
                         <GlassCard className="p-6 h-full">
                             <div className="flex items-center gap-3 mb-6">
@@ -230,10 +216,8 @@ return (
                         </GlassCard>
                     </div>
 
-                    {/* RIGHT COLUMN: BUS NUMBERS & TIMINGS */}
                     <div className="lg:col-span-2 space-y-6">
                         
-                        {/* 1. Alternate Routes (Bus Numbers) */}
                         <GlassCard className="p-6">
                             <div className="flex items-center gap-3 mb-4">
                                 <MapPin size={20} className="text-emerald-400" />
@@ -254,7 +238,6 @@ return (
                             </div>
                         </GlassCard>
 
-                        {/* 2. Shuttle Schedule (Timings) */}
                         <GlassCard className="p-8">
                             <div className="flex items-center gap-3 mb-8">
                                 <Bus size={24} className="text-rose-400" />
@@ -294,7 +277,6 @@ return (
                     </div>
                 </div>
             ) : (
-                /* GOA SPECIFIC DATA */
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                      {data.goacabs?.map((cab, idx) => (
                         <GlassCard key={idx} delay={idx} className="p-6">
@@ -320,7 +302,6 @@ return (
 
 const OutletsView = ({ data }: { data: CampusData }) => {
     const [outletSearch, setOutletSearch] = useState('');
-    const openOutlets = data.outlets.filter(o => !o.closed).length;
     
     const filteredOutlets = data.outlets.filter(outlet => 
       outlet.name.toLowerCase().includes(outletSearch.toLowerCase())
@@ -407,7 +388,7 @@ const MapView = ({ data }: { data: CampusData }) => {
           </div>
           <h3 className="text-3xl md:text-4xl font-bold text-white">In Progress</h3>
           <p className="text-zinc-400 text-base md:text-lg leading-relaxed">
-            We are mapping BITS Goa right now. The interactive campus map will arrive shortly. Stay tuned!
+            mapping out goa rn, the interactive map drops soon
           </p>
         </div>
       </div>
@@ -424,7 +405,7 @@ const MapView = ({ data }: { data: CampusData }) => {
           </div>
           <h3 className="text-3xl md:text-4xl font-bold text-white">In Progress</h3>
           <p className="text-zinc-400 text-base md:text-lg leading-relaxed">
-            We are mapping BITS Pilani, Pilani Campus right now. The interactive campus map will arrive shortly. Stay tuned!
+            mapping pilani campus rn, interactive map coming soon
           </p>
         </div>
       </div>
@@ -449,25 +430,16 @@ const MapView = ({ data }: { data: CampusData }) => {
           <FlyToLocation center={[activeLoc.lat, activeLoc.lng]} />
         </MapContainer>
 
-        {/* Responsive Panel: Bottom Sheet (Mobile) / Sidebar (Desktop) */}
         <motion.div 
            initial={false}
            animate={{ 
-             // Mobile: Slide Up/Down (Y-axis), Desktop: Slide Left/Right (X-axis)
              x: !isMobile ? (isListOpen ? 0 : -350) : 0, 
              y: isMobile ? (isListOpen ? 0 : '100%') : 0,
              opacity: 1
            }}
            transition={{ type: "spring", damping: 20, stiffness: 100 }}
-           className={`
-             absolute z-[500] bg-zinc-900/95 backdrop-blur-xl border border-white/10 flex flex-col transition-all
-             /* Mobile Styles */
-             bottom-0 left-0 right-0 w-full h-[45vh] rounded-t-3xl border-b-0
-             /* Desktop Styles */
-             md:top-4 md:left-4 md:bottom-4 md:w-80 md:h-auto md:rounded-3xl md:border-b
-           `}
+           className="absolute z-[500] bg-zinc-900/95 backdrop-blur-xl border border-white/10 flex flex-col transition-all bottom-0 left-0 right-0 w-full h-[45vh] rounded-t-3xl border-b-0 md:top-4 md:left-4 md:bottom-4 md:w-80 md:h-auto md:rounded-3xl md:border-b"
         >
-           {/* Mobile Drag Handle */}
            <div 
              className="md:hidden w-full flex justify-center pt-3 pb-1 cursor-pointer" 
              onClick={() => setListOpen(!isListOpen)}
@@ -503,33 +475,19 @@ const MapView = ({ data }: { data: CampusData }) => {
            </div>
         </motion.div>
         
-        {/* Toggle Button */}
         <button 
            onClick={() => setListOpen(!isListOpen)}
-           className={`
-             absolute z-[500] p-3 bg-white text-black rounded-full shadow-xl hover:scale-110 transition-transform
-             /* Desktop: Bottom-Left */
-             md:bottom-6 md:left-6
-             /* Mobile: Bottom-Left, but hide if sheet is open */
-             bottom-6 left-6 
-             ${isMobile && isListOpen ? 'hidden' : 'flex'}
-           `}
+           className={`absolute z-[500] p-3 bg-white text-black rounded-full shadow-xl hover:scale-110 transition-transform md:bottom-6 md:left-6 bottom-6 left-6 ${isMobile && isListOpen ? 'hidden' : 'flex'}`}
         >
            {isListOpen ? <ArrowRight size={20} className="hidden md:block"/> : <Search size={20}/>}
-           {/* Mobile Up Arrow when closed */}
            {!isListOpen && isMobile && <div className="md:hidden">▲</div>} 
         </button>
 
-        {/* GO Button (Open Google Maps) */}
         <a
            href={`https://www.google.com/maps/search/?api=1&query=${activeLoc.lat},${activeLoc.lng}`}
            target="_blank"
            rel="noreferrer"
-           className={`
-             absolute bottom-6 right-6 z-[500] flex items-center gap-2 px-6 py-3 bg-white text-black rounded-full shadow-xl hover:scale-105 transition-transform font-bold text-sm
-             /* On mobile, move button up if sheet is open so it's not covered */
-             ${isMobile && isListOpen ? '-translate-y-[46vh]' : 'translate-y-0'}
-           `}
+           className={`absolute bottom-6 right-6 z-[500] flex items-center gap-2 px-6 py-3 bg-white text-black rounded-full shadow-xl hover:scale-105 transition-transform font-bold text-sm ${isMobile && isListOpen ? '-translate-y-[46vh]' : 'translate-y-0'}`}
         >
            Open in Maps <ExternalLink size={16} />
         </a>
@@ -593,7 +551,6 @@ const DirectoryView = ({ data }: { data: CampusData }) => {
                             
                             <h3 className="text-2xl font-bold text-white mb-1">{w.name}</h3>
                             
-                            {/* Enlarged and Bolded Bhavan Section */}
                             {w.bhavan ? (
                                 <div className="mb-6">
                                     <p className="text-xl font-extrabold text-indigo-400 tracking-tight uppercase">
@@ -668,22 +625,18 @@ const AboutView = () => (
     </div>
 );
 
-// --- Main Layout ---
-
 const CampusPage: React.FC<{ campusData: CampusData }> = ({ campusData }) => {
   const [tab, setTab] = useState<'home' | 'transport' | 'outlets' | 'map' | 'directory' | 'about'>('home');
 
   return (
     <div className="min-h-screen bg-black text-white font-sans selection:bg-indigo-500/30 overflow-x-hidden">
       
-      {/* Background Ambience */}
       <div className="fixed inset-0 pointer-events-none">
         <div className="absolute top-[-10%] left-[-10%] w-[40%] h-[40%] bg-indigo-500/10 rounded-full blur-[120px] animate-pulse" />
         <div className="absolute bottom-[-10%] right-[-10%] w-[40%] h-[40%] bg-rose-500/10 rounded-full blur-[120px]" />
         <div className="absolute inset-0 bg-[url('https://grainy-gradients.vercel.app/noise.svg')] opacity-[0.05]" />
       </div>
 
-      {/* Top Nav */}
       <nav className="fixed top-0 w-full z-40 bg-black/50 backdrop-blur-xl border-b border-white/5">
         <div className="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
            <Link to="/" className="text-zinc-400 hover:text-white transition-colors">
@@ -698,7 +651,6 @@ const CampusPage: React.FC<{ campusData: CampusData }> = ({ campusData }) => {
         </div>
       </nav>
 
-      {/* Content Area */}
       <main className="relative z-10 pt-32 px-6 max-w-7xl mx-auto min-h-screen">
         <AnimatePresence mode="wait">
           {tab === 'home' && (
@@ -734,7 +686,6 @@ const CampusPage: React.FC<{ campusData: CampusData }> = ({ campusData }) => {
         </AnimatePresence>
       </main>
 
-      {/* Island Navigation Dock */}
       <div className="fixed bottom-8 left-1/2 -translate-x-1/2 z-50">
         <div className="flex items-center gap-1 p-1.5 rounded-full bg-zinc-900/90 backdrop-blur-2xl border border-white/10 shadow-2xl shadow-black/50">
            {[
