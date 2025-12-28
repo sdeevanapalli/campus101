@@ -326,6 +326,7 @@ const OutletsView = ({ data }: { data: CampusData }) => {
         <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-8 px-2">
             <div>
                 <h2 className="text-4xl md:text-5xl font-bold text-white tracking-tighter mb-2">Outlets</h2>
+                <p>Data is crowdsourced and may not be 100% accurate. To contribute corrections, please visit our GitHub page linked in the "About" section.</p>
                 <div className="flex items-center gap-2">
                 </div>
             </div>
@@ -583,7 +584,7 @@ const DirectoryView = ({ data }: { data: CampusData }) => {
 
 const AboutView = () => (
     <div className="pb-32 max-w-3xl mx-auto">
-        <SectionHeader title="About" subtitle="The story behind the project" />
+        <SectionHeader title="About" subtitle="" />
         
         <GlassCard className="p-8 md:p-12 mb-6 text-center">
             <div className="w-20 h-20 mx-auto bg-gradient-to-br from-indigo-500 to-purple-500 rounded-3xl flex items-center justify-center text-white mb-6 shadow-2xl shadow-indigo-500/20">
@@ -610,6 +611,8 @@ const AboutView = () => (
                  <div>
                     <p className="text-[10px] font-bold uppercase tracking-widest text-zinc-500">Developed By</p>
                     <a href="https://linkedin.com/in/sdeevanapalli" target="_blank" rel="noreferrer" className="text-lg font-bold text-white hover:text-indigo-400 transition-colors">Shriniketh D.</a>
+                    <br></br>
+                    <a href="mailto:f20230414@hyderabad.bits-pilani.ac.in"  target="_blank" rel="noreferrer" className="text-white hover:text-indigo-400 transition-colors">f20230414@hyderabad.bits-pilani.ac.in</a>
                  </div>
              </GlassCard>
              <GlassCard className="p-6 flex items-center gap-4">
@@ -619,6 +622,8 @@ const AboutView = () => (
                  <div>
                     <p className="text-[10px] font-bold uppercase tracking-widest text-zinc-500">Co-Developed By</p>
                     <a href="https://linkedin.com/in/kushagra-singh47" target="_blank" rel="noreferrer" className="text-lg font-bold text-white hover:text-indigo-400 transition-colors">Kushagra S.</a>
+                    <br></br>
+                    <a href="mailto:f20231210@goa.bits-pilani.ac.in"  target="_blank" rel="noreferrer" className="text-white hover:text-indigo-400 transition-colors">f20231210@goa.bits-pilani.ac.in</a>
                  </div>
              </GlassCard>
         </div>
