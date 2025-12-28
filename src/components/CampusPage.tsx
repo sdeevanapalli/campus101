@@ -99,7 +99,7 @@ const InProgress = ({ label = 'Feature', context = 'Pilani' }: { label?: string;
         <span>In Progress</span>
       </div>
       <h3 className="text-2xl md:text-3xl font-bold text-white">{label} for {context} campus</h3>
-      <p className="text-zinc-400 text-base leading-relaxed">working on it, check back soon</p>
+      <p className="text-zinc-400 text-base leading-relaxed">Help us expand to the Pilani campus! If you can contribute data for this section, please reach out using the contact details on our About page.</p>
     </div>
   </div>
 );
@@ -407,7 +407,7 @@ const MapView = ({ data }: { data: CampusData }) => {
           </div>
           <h3 className="text-3xl md:text-4xl font-bold text-white">In Progress</h3>
           <p className="text-zinc-400 text-base md:text-lg leading-relaxed">
-            mapping pilani campus rn, interactive map coming soon
+            Help us expand to the Pilani campus! If you can contribute data for this section, please reach out using the contact details on our About page.
           </p>
         </div>
       </div>
