@@ -4,14 +4,14 @@ A lightweight campus companion for BITS Pilani (Hyderabad, Goa, Pilani) built wi
 
 ### Links
 - GitHub: https://github.com/sdeevanapalli/campus101
-- Live: https://campus101-sable.vercel.app
+- Live: https://campus101.vercel.app
 
 ### Highlights
 - Interactive campus cards with parallax hero and 3D hover effects.
 - Leaflet-powered maps with location fly-to and rich descriptions.
 - Campus-specific utilities: shuttle timings, auto numbers, outlets, and quick-dial shortcuts.
 - Route-aware scroll restore, framer-motion transitions, and Tailwind-driven theming.
-- Vercel Analytics + GA4 instrumentation out of the box.
+- Vercel Analytics + GA4 instrumentation (env-gated) out of the box.
 
 ### Quick Start
 1. Install Node 18+.
@@ -26,9 +26,16 @@ Common scripts:
 - `npm run lint` – lint with ESLint.
 
 ### Configuration
-- Analytics: GA4 Measurement ID is set in `src/App.tsx`. Swap with your own if you fork.
+- Analytics: Set GA4 ID via `VITE_GA_ID` in your environment. `src/App.tsx` reads it and sends SPA pageviews on route changes.
 - Router: All routes are declared in `src/App.tsx` and use `BrowserRouter` (see `src/main.tsx`).
 - Styling: Tailwind + custom components; global styles live in `src/index.css` and component-level classes.
+
+### Environment Variables
+Add the following in your platform env or `.env.local`:
+
+```
+VITE_GA_ID=G-XXXXXXXXXX
+```
 
 ### Project Structure (short version)
 - `src/App.tsx` — routing + analytics boot.
@@ -57,7 +64,13 @@ Common scripts:
 
 ### Deployment
 - Built with Vite; `npm run build` outputs to `dist/`. The project is Vercel-ready (`vercel.json` provided).
-- Ensure env config (if you change analytics IDs) is set in your hosting platform.
+- SPA routing is handled by a global rewrite in `vercel.json`.
+- Ensure env config (e.g., `VITE_GA_ID`) is set in your hosting platform.
+- See detailed options and steps in `DEPLOYMENT.md` (Vercel, Netlify, GitHub Pages).
+
+### PWA Notes
+- Manifest is in `public/manifest.json`; update `icons` to match assets you provide.
+- A basic service worker (`public/sw.js`) handles cache strategies for assets and pages.
 
 ### Maintainers
 - [Shriniketh Deevanapalli](https://sdeevanapalli.dev) — f20230414@hyderabad.bits-pilani.ac.in
