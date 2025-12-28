@@ -21,7 +21,8 @@ import {
   MapPin,
   AlertTriangle,
   ArrowRight,
-  ArrowLeft
+  ArrowLeft,
+  Mail
 } from 'lucide-react';
 import 'leaflet/dist/leaflet.css';
 import { CampusData } from '../data/campusData';
@@ -596,10 +597,24 @@ const AboutView = () => (
                 From finding the right bus to calling a warden in an emergency, we've got you covered.
             </p>
             
-            <div className="flex justify-center gap-4">
-                 <a href="https://github.com/sdeevanapalli/campus101" className="flex items-center gap-2 px-6 py-3 rounded-full bg-white/5 hover:bg-white/10 border border-white/5 transition-all text-sm font-bold uppercase tracking-wider">
-                    <Github size={18} /> Contribute
-                 </a>
+            <div className="flex flex-col items-center gap-4">
+                {/* GitHub Button */}
+                <a 
+                    href="https://github.com/sdeevanapalli/campus101" 
+                    target="_blank" 
+                    rel="noopener noreferrer"
+                    className="flex items-center justify-center gap-2 w-64 py-3 rounded-full bg-white/5 hover:bg-white/10 border border-white/5 transition-all text-sm font-bold uppercase tracking-wider"
+                >
+                    <Github size={18} /> Contribute via Github
+                </a>
+
+                {/* Mail Button */}
+                <a 
+                    href="mailto:f20230414@hyderabad.bits-pilani.ac.in" 
+                    className="flex items-center justify-center gap-2 w-64 py-3 rounded-full bg-white/5 hover:bg-white/10 border border-white/5 transition-all text-sm font-bold uppercase tracking-wider"
+                >
+                    <Mail size={18} /> Contribute via Mail
+                </a>
             </div>
         </GlassCard>
 
