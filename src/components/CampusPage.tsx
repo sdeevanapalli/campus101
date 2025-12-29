@@ -22,7 +22,10 @@ import {
   AlertTriangle,
   ArrowRight,
   ArrowLeft,
-  Mail
+  Mail,
+  Book,
+  PersonStandingIcon,
+  PersonStanding
 } from 'lucide-react';
 import 'leaflet/dist/leaflet.css';
 import { CampusData } from '../data/campusData';
@@ -119,34 +122,22 @@ const HomeView = ({ data, setTab }: { data: CampusData, setTab: any }) => {
 
       <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
         
-        <GlassCard className="md:col-span-2 p-8 flex flex-col justify-between min-h-[240px] bg-gradient-to-br from-indigo-500/10 to-purple-500/5">
+          <GlassCard className="md:col-span-3 p-8 flex flex-col justify-between min-h-[240px] bg-gradient-to-br from-indigo-500/10 to-purple-500/5">
            <div>
              <h3 className="text-3xl font-bold text-white mb-2">Quick Access</h3>
              <p className="text-zinc-400">Navigate campus life with ease.</p>
            </div>
-           <div className="flex gap-4 mt-8 flex-wrap">
-              <button onClick={() => setTab('transport')} className="flex-1 py-4 px-4 rounded-xl bg-white/5 hover:bg-white/10 border border-white/5 text-sm font-bold uppercase tracking-wider transition-all flex flex-col items-center gap-2">
+           <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mt-8">
+              <button onClick={() => setTab('transport')} className="w-full py-4 px-4 rounded-xl bg-white/5 hover:bg-white/10 border border-white/5 text-sm font-bold uppercase tracking-wider transition-all flex flex-col items-center gap-2">
                  <Bus size={20} className="text-rose-400" /> Transport
               </button>
-              <button onClick={() => setTab('outlets')} className="flex-1 py-4 px-4 rounded-xl bg-white/5 hover:bg-white/10 border border-white/5 text-sm font-bold uppercase tracking-wider transition-all flex flex-col items-center gap-2">
+              <button onClick={() => setTab('outlets')} className="w-full py-4 px-4 rounded-xl bg-white/5 hover:bg-white/10 border border-white/5 text-sm font-bold uppercase tracking-wider transition-all flex flex-col items-center gap-2">
                  <Utensils size={20} className="text-orange-400" /> Campus Outlets
               </button>
-              <button onClick={() => setTab('map')} className="flex-1 py-4 px-4 rounded-xl bg-white/5 hover:bg-white/10 border border-white/5 text-sm font-bold uppercase tracking-wider transition-all flex flex-col items-center gap-2">
-                 <MapIcon size={20} className="text-blue-400" /> Map
+              <button onClick={() => setTab('directory')} className="w-full py-4 px-4 rounded-xl bg-white/5 hover:bg-white/10 border border-white/5 text-sm font-bold uppercase tracking-wider transition-all flex flex-col items-center gap-2">
+                 <Users size={20} className="text-blue-400" /> Wardens
               </button>
            </div>
-        </GlassCard>
-
-        <GlassCard className="p-6 flex flex-col justify-center items-center text-center gap-4 bg-zinc-900/80">
-            <div className="w-16 h-16 rounded-full bg-zinc-800 flex items-center justify-center text-zinc-400">
-                <Clock size={32} />
-            </div>
-            <div>
-                <h3 className="text-4xl font-bold text-white tracking-tighter">
-                    {new Date().getHours()}:{new Date().getMinutes().toString().padStart(2, '0')}
-                </h3>
-                <p className="text-zinc-500 text-xs font-mono uppercase tracking-widest mt-1">System Time</p>
-            </div>
         </GlassCard>
 
           {data.slug !== 'goa' && data.slug !== 'pilani'&& (
