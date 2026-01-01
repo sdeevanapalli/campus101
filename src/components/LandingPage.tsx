@@ -4,8 +4,23 @@ import { HeroParallax } from './ui/hero-parallax';
 import { CardContainer, CardBody, CardItem } from './ui/3d-card';
 import { heroImages } from '../data/campusData';
 import { ArrowUpRight, Users, Layers, Trophy } from 'lucide-react';
+import { useState, useEffect } from 'react';
+
+// Hook to detect mobile devices
+const useIsMobile = () => {
+  const [isMobile, setIsMobile] = useState(false);
+  useEffect(() => {
+    const checkMobile = () => setIsMobile(window.innerWidth < 768);
+    checkMobile();
+    window.addEventListener('resize', checkMobile);
+    return () => window.removeEventListener('resize', checkMobile);
+  }, []);
+  return isMobile;
+};
 
 const LandingPage = () => {
+  const isMobile = useIsMobile();
+  
   const campuses = [
     {
       id: "hyd",
@@ -55,7 +70,30 @@ const LandingPage = () => {
     <div className="min-h-screen bg-neutral-950 text-white selection:bg-white/20 selection:text-black">
       
       <div className="relative z-10">
-        <HeroParallax products={heroImages} />
+        {!isMobile ? (
+          <HeroParallax products={heroImages} />
+        ) : (
+          <div className="h-auto py-20 md:py-40 overflow-hidden bg-neutral-950 antialiased relative flex flex-col">
+            <div className="max-w-7xl relative mx-auto py-20 md:py-40 px-4 w-full left-0 top-0">
+              <div className="flex items-center gap-4 mb-4">
+                <div className="h-px w-12 bg-white/30"></div>
+                <p className="text-sm font-mono text-neutral-400 uppercase tracking-widest">
+                   The Experience
+                </p>
+              </div>
+              <h1 className="text-4xl md:text-8xl font-bold text-white tracking-tighter leading-tight">
+                BITS Pilani <br /> 
+                <span className="text-neutral-500">Campus101</span>
+              </h1>
+              <p className="max-w-2xl text-base md:text-xl mt-8 text-neutral-400 font-light leading-relaxed">
+                A unified interface to explore the three bastions of excellence. 
+                From the historic corridors of <span className="text-white font-medium">Pilani</span>, 
+                to the coastal calm of <span className="text-white font-medium">Goa</span>, 
+                and the modern fortress of <span className="text-white font-medium">Hyderabad</span>.
+              </p>
+            </div>
+          </div>
+        )}
       </div>
 
       <div className="relative w-full bg-neutral-950 mt-0 md:-mt-20 pb-32">
@@ -105,80 +143,128 @@ const LandingPage = () => {
                 transition={{ duration: 0.6, delay: index * 0.15 }}
                 className="h-full"
               >
-                <CardContainer className="inter-var w-full h-full">
-                  <CardBody className={`relative group/card h-full w-full rounded-2xl p-4 border border-white/10 bg-neutral-900/50 backdrop-blur-sm transition-all duration-500 ${campus.border} ${campus.shadow}`}>
-                    
-                    <CardItem 
-                      translateZ="100" 
-                      className="absolute inset-0 z-50 w-full h-full"
-                    >
-                      <Link 
-                        to={campus.link} 
-                        className="w-full h-full block" 
-                        aria-label={`Visit ${campus.name}`}
-                      />
-                    </CardItem>
+                {!isMobile ? (
+                  <CardContainer className="inter-var w-full h-full">
+                    <CardBody className={`relative group/card h-full w-full rounded-2xl p-4 border border-white/10 bg-neutral-900/50 backdrop-blur-sm transition-all duration-500 ${campus.border} ${campus.shadow}`}>
+                      
+                      <CardItem 
+                        translateZ="100" 
+                        className="absolute inset-0 z-50 w-full h-full"
+                      >
+                        <Link 
+                          to={campus.link} 
+                          className="w-full h-full block" 
+                          aria-label={`Visit ${campus.name}`}
+                        />
+                      </CardItem>
 
-                    <CardItem
-                      translateZ="40"
-                      className="w-full mb-6 overflow-hidden rounded-xl aspect-[4/3] relative"
-                    >
+                      <CardItem
+                        translateZ="40"
+                        className="w-full mb-6 overflow-hidden rounded-xl aspect-[4/3] relative"
+                      >
+                        <div className="absolute inset-0 bg-black/20 group-hover/card:bg-transparent transition-colors duration-500 z-10" />
+                        <img
+                          src={campus.image}
+                          className="h-full w-full object-cover grayscale-[30%] group-hover/card:grayscale-0 group-hover/card:scale-105 transition-all duration-700 ease-out"
+                          alt={campus.name}
+                        />
+                      </CardItem>
+
+                      <div className="px-2 pb-2 flex flex-col h-full justify-between">
+                        <div>
+                          <CardItem
+                            translateZ="50"
+                            className="flex items-center justify-between mb-2"
+                          >
+                            <span className={`text-xs font-bold tracking-[0.2em] uppercase ${campus.accent}`}>
+                              {campus.location}
+                            </span>
+                          </CardItem>
+
+                          <CardItem
+                            translateZ="60"
+                            as="h3"
+                            className="text-3xl font-semibold text-white mb-2 tracking-tight"
+                          >
+                            {campus.name}
+                          </CardItem>
+
+                          <CardItem
+                            as="p"
+                            translateZ="50"
+                            className="text-neutral-400 text-sm leading-relaxed mb-6 line-clamp-2"
+                          >
+                            {campus.description}
+                          </CardItem>
+                        </div>
+
+                        {/* Stats & Action */}
+                        <div className="pt-6 border-t border-white/5 flex items-center justify-between mt-4">
+                          <CardItem translateZ="40" className="flex gap-4 text-xs font-mono text-neutral-500">
+                            <span>{campus.stats.area}</span>
+                          </CardItem>
+
+                          <CardItem
+                            translateZ="40"
+                            as="div"
+                            className="group/btn flex items-center gap-2 text-white text-sm font-medium hover:text-neutral-300 transition-colors"
+                          >
+                            Visit
+                            <div className="bg-white text-black rounded-full p-1 group-hover/card:-rotate-45 transition-transform duration-300">
+                              <ArrowUpRight size={14} />
+                            </div>
+                          </CardItem>
+                        </div>
+                      </div>
+                    </CardBody>
+                  </CardContainer>
+                ) : (
+                  <Link 
+                    to={campus.link} 
+                    className="relative group/card h-full w-full rounded-2xl p-4 border border-white/10 bg-neutral-900/50 backdrop-blur-sm transition-all duration-500 hover:bg-neutral-800/50 flex flex-col"
+                  >
+                    <div className="w-full mb-6 overflow-hidden rounded-xl aspect-[4/3] relative">
                       <div className="absolute inset-0 bg-black/20 group-hover/card:bg-transparent transition-colors duration-500 z-10" />
                       <img
                         src={campus.image}
-                        className="h-full w-full object-cover grayscale-[30%] group-hover/card:grayscale-0 group-hover/card:scale-105 transition-all duration-700 ease-out"
+                        className="h-full w-full object-cover grayscale-[30%] group-hover/card:grayscale-0 transition-all duration-700 ease-out"
                         alt={campus.name}
                       />
-                    </CardItem>
+                    </div>
 
                     <div className="px-2 pb-2 flex flex-col h-full justify-between">
                       <div>
-                        <CardItem
-                          translateZ="50"
-                          className="flex items-center justify-between mb-2"
-                        >
+                        <div className="flex items-center justify-between mb-2">
                           <span className={`text-xs font-bold tracking-[0.2em] uppercase ${campus.accent}`}>
                             {campus.location}
                           </span>
-                        </CardItem>
+                        </div>
 
-                        <CardItem
-                          translateZ="60"
-                          as="h3"
-                          className="text-3xl font-semibold text-white mb-2 tracking-tight"
-                        >
+                        <h3 className="text-3xl font-semibold text-white mb-2 tracking-tight">
                           {campus.name}
-                        </CardItem>
+                        </h3>
 
-                        <CardItem
-                          as="p"
-                          translateZ="50"
-                          className="text-neutral-400 text-sm leading-relaxed mb-6 line-clamp-2"
-                        >
+                        <p className="text-neutral-400 text-sm leading-relaxed mb-6 line-clamp-2">
                           {campus.description}
-                        </CardItem>
+                        </p>
                       </div>
 
                       {/* Stats & Action */}
                       <div className="pt-6 border-t border-white/5 flex items-center justify-between mt-4">
-                        <CardItem translateZ="40" className="flex gap-4 text-xs font-mono text-neutral-500">
+                        <div className="flex gap-4 text-xs font-mono text-neutral-500">
                           <span>{campus.stats.area}</span>
-                        </CardItem>
+                        </div>
 
-                        <CardItem
-                          translateZ="40"
-                          as="div"
-                          className="group/btn flex items-center gap-2 text-white text-sm font-medium hover:text-neutral-300 transition-colors"
-                        >
+                        <div className="group/btn flex items-center gap-2 text-white text-sm font-medium hover:text-neutral-300 transition-colors">
                           Visit
-                          <div className="bg-white text-black rounded-full p-1 group-hover/card:-rotate-45 transition-transform duration-300">
+                          <div className="bg-white text-black rounded-full p-1 transition-transform duration-300">
                             <ArrowUpRight size={14} />
                           </div>
-                        </CardItem>
+                        </div>
                       </div>
                     </div>
-                  </CardBody>
-                </CardContainer>
+                  </Link>
+                )}
               </motion.div>
             ))}
           </div>

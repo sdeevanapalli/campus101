@@ -9,6 +9,21 @@ html, body {
   overscroll-behavior-y: contain;
   background-color: inherit;
   transition: background-color 0.3s ease, color 0.3s ease;
+  /* Performance optimizations */
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+}
+
+/* Reduce motion for users who prefer it */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
 }
 
 @keyframes fadeIn {
@@ -57,5 +72,21 @@ a[href^="tel:"] {
   
   th, td {
     padding: 0.5rem !important;
+  }
+  
+  /* Performance optimizations for mobile */
+  * {
+    -webkit-tap-highlight-color: transparent;
+  }
+  
+  /* Reduce backdrop blur on mobile for better performance */
+  .backdrop-blur-xl {
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+  }
+  
+  .backdrop-blur-2xl {
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
   }
 }

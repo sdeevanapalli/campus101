@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { MapContainer, TileLayer, Marker, Popup, useMap } from 'react-leaflet';
 import { Link } from 'react-router-dom';
-import { motion, AnimatePresence } from 'framer-motion';
+import { motion, AnimatePresence, useReducedMotion } from 'framer-motion';
 import {
   Map as MapIcon,
   Phone,
@@ -46,27 +46,44 @@ L.Icon.Default.mergeOptions({
   shadowUrl: typeof markerShadow === 'string' ? markerShadow : (markerShadow as any).src,
 });
 
-const GlassCard = ({ children, className, onClick, delay = 0 }: any) => (
-  <motion.div
-    initial={{ opacity: 0, y: 20 }}
-    animate={{ opacity: 1, y: 0 }}
-    transition={{ duration: 0.4, delay: delay * 0.1 }}
-    onClick={onClick}
-    className={`
-      relative overflow-hidden
-      bg-zinc-900/60 backdrop-blur-xl
-      border border-white/5
-      rounded-[32px]
-      hover:bg-zinc-800/80 hover:border-white/10 hover:shadow-2xl hover:shadow-indigo-500/10
-      transition-all duration-500 ease-out
-      group
-      ${className}
-    `}
-  >
-    <div className="absolute inset-0 opacity-[0.03] pointer-events-none bg-[url('https://grainy-gradients.vercel.app/noise.svg')]" />
-    <div className="relative z-10 h-full">{children}</div>
-  </motion.div>
-);
+// Hook to detect mobile and reduced motion preference
+const useIsMobile = () => {
+  const [isMobile, setIsMobile] = useState(false);
+  useEffect(() => {
+    const checkMobile = () => setIsMobile(window.innerWidth < 768);
+    checkMobile();
+    window.addEventListener('resize', checkMobile);
+    return () => window.removeEventListener('resize', checkMobile);
+  }, []);
+  return isMobile;
+};
+
+const GlassCard = ({ children, className, onClick, delay = 0 }: any) => {
+  const prefersReducedMotion = useReducedMotion();
+  const isMobile = useIsMobile();
+  
+  return (
+    <motion.div
+      initial={prefersReducedMotion || isMobile ? { opacity: 0 } : { opacity: 0, y: 20 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={prefersReducedMotion || isMobile ? { duration: 0.2 } : { duration: 0.4, delay: delay * 0.1 }}
+      onClick={onClick}
+      className={`
+        relative overflow-hidden
+        bg-zinc-900/60 backdrop-blur-xl
+        border border-white/5
+        rounded-[32px]
+        hover:bg-zinc-800/80 hover:border-white/10 hover:shadow-2xl hover:shadow-indigo-500/10
+        transition-all duration-500 ease-out
+        group
+        ${className}
+      `}
+    >
+      <div className="absolute inset-0 opacity-[0.03] pointer-events-none bg-[url('https://grainy-gradients.vercel.app/noise.svg')]" />
+      <div className="relative z-10 h-full">{children}</div>
+    </motion.div>
+  );
+};
 
 const GlassInput = ({ placeholder, value, onChange, icon: Icon }: any) => (
   <div className="relative group">
@@ -109,9 +126,11 @@ const InProgress = ({ label = 'Feature', context = 'Pilani' }: { label?: string;
 
 const FlyToLocation = ({ center }: { center: [number, number] }) => {
   const map = useMap();
+  const isMobile = useIsMobile();
   useEffect(() => {
-    map.flyTo(center, 17, { duration: 1.5 });
-  }, [center, map]);
+    // Use faster animation on mobile, smoother on desktop
+    map.flyTo(center, 17, { duration: isMobile ? 0.8 : 1.5 });
+  }, [center, map, isMobile]);
   return null;
 };
 
@@ -168,6 +187,9 @@ const HomeView = ({ data, setTab }: { data: CampusData, setTab: any }) => {
 };
 
 const TransportView = ({ data }: { data: CampusData }) => {
+    const [selectedAutoDriver, setSelectedAutoDriver] = useState<string>('');
+    const isMobile = useIsMobile();
+    
     // Static Data for BITS Hyd
     const shuttleToCity = ['7:50 AM', '8:50 AM', '12:45 PM', '4:00 PM', '5:00 PM'];
     const shuttleToCampus = ['9:00 AM', '10:00 AM', '2:00 PM', '5:00 PM', '6:00 PM'];
@@ -195,16 +217,46 @@ return (
                             <div className="flex items-center gap-3 mb-6">
                                 <Car size={20} className="text-yellow-400" />
                                 <h3 className="text-lg font-bold text-white">Auto Drivers</h3>
-                                <p className="text-sm text-neutral-400 mt-2 leading-relaxed"></p>
                             </div>
-                            <div className="grid grid-cols-1 gap-3">
-                                {data.autoDrivers?.map((phone, i) => (
-                                    <a key={i} href={`tel:${phone}`} className="flex items-center justify-between p-4 rounded-xl bg-white/5 hover:bg-white/10 border border-white/5 transition-all group">
-                                        <span className="text-sm text-zinc-400 font-bold uppercase tracking-wider">+91 {phone}</span>
-                                        <Phone size={16} className="text-zinc-500 group-hover:text-white" />
-                                    </a>
-                                ))}
-                            </div>
+                            {data.slug === 'hyderabad' && data.autoDrivers && data.autoDrivers.length > 0 ? (
+                                <>
+                                    <div className="mb-4">
+                                        <select
+                                            value={selectedAutoDriver}
+                                            onChange={(e) => setSelectedAutoDriver(e.target.value)}
+                                            className="w-full bg-black/40 border border-white/10 text-white px-4 py-3 rounded-xl focus:outline-none focus:ring-2 focus:ring-indigo-500/50 focus:border-indigo-500/50 transition-all text-sm"
+                                        >
+                                            <option value="">Select an auto driver...</option>
+                                            {data.autoDrivers.map((phone, i) => (
+                                                <option key={i} value={phone}>
+                                                    +91 {phone}
+                                                </option>
+                                            ))}
+                                        </select>
+                                    </div>
+                                    {selectedAutoDriver && (
+                                        <a 
+                                            href={`tel:${selectedAutoDriver}`} 
+                                            className="flex items-center justify-center gap-2 w-full p-4 rounded-xl bg-indigo-500/20 hover:bg-indigo-500/30 border border-indigo-500/30 text-white font-bold transition-all group mb-3"
+                                        >
+                                            <Phone size={18} />
+                                            Call +91 {selectedAutoDriver}
+                                        </a>
+                                    )}
+                                    <div className="text-xs text-zinc-500 text-center mt-2">
+                                        Or select from dropdown above
+                                    </div>
+                                </>
+                            ) : (
+                                <div className="grid grid-cols-1 gap-3">
+                                    {data.autoDrivers?.map((phone, i) => (
+                                        <a key={i} href={`tel:${phone}`} className="flex items-center justify-between p-4 rounded-xl bg-white/5 hover:bg-white/10 border border-white/5 transition-all group">
+                                            <span className="text-sm text-zinc-400 font-bold uppercase tracking-wider">+91 {phone}</span>
+                                            <Phone size={16} className="text-zinc-500 group-hover:text-white" />
+                                        </a>
+                                    ))}
+                                </div>
+                            )}
                         </GlassCard>
                     </div>
 
@@ -360,15 +412,21 @@ const OutletsView = ({ data }: { data: CampusData }) => {
 const MapView = ({ data }: { data: CampusData }) => {
   const [activeLoc, setActiveLoc] = useState(data.locations[0]);
   const [isListOpen, setListOpen] = useState(true);
-  const [isMobile, setIsMobile] = useState(false);
+  const isMobile = useIsMobile();
+  const prefersReducedMotion = useReducedMotion();
+  const [mapLoaded, setMapLoaded] = useState(false);
 
-  // Detect mobile screen for animation direction
+  // Lazy load map on mobile after initial render to improve performance
   useEffect(() => {
-    const checkMobile = () => setIsMobile(window.innerWidth < 768);
-    checkMobile();
-    window.addEventListener('resize', checkMobile);
-    return () => window.removeEventListener('resize', checkMobile);
-  }, []);
+    if (isMobile) {
+      // Delay map loading on mobile to reduce initial lag
+      const timer = setTimeout(() => setMapLoaded(true), 500);
+      return () => clearTimeout(timer);
+    } else {
+      // Load immediately on desktop
+      setMapLoaded(true);
+    }
+  }, [isMobile]);
 
   // Goa maps are not ready yet; show a placeholder instead of the interactive map
   if (data.slug === 'goa' ) {
@@ -407,30 +465,42 @@ const MapView = ({ data }: { data: CampusData }) => {
 
   return (
     <div className="relative h-[80vh] md:h-[75vh] w-full rounded-[40px] overflow-hidden border border-white/10 shadow-2xl bg-zinc-950">
-       <MapContainer
+      {mapLoaded ? (
+        <MapContainer
           center={[activeLoc.lat, activeLoc.lng]}
           zoom={17}
           zoomControl={false}
           className="h-full w-full bg-zinc-950"
+          preferCanvas={isMobile} // Use canvas renderer on mobile for better performance
         >
           <TileLayer
             className="map-tiles-dark"
             url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+            maxZoom={19}
+            minZoom={10}
           />
           <Marker position={[activeLoc.lat, activeLoc.lng]}>
-             <Popup className="custom-popup">{activeLoc.name}</Popup>
+            <Popup className="custom-popup">{activeLoc.name}</Popup>
           </Marker>
           <FlyToLocation center={[activeLoc.lat, activeLoc.lng]} />
         </MapContainer>
+      ) : (
+        <div className="h-full w-full bg-zinc-950 flex items-center justify-center">
+          <div className="text-zinc-500">Loading map...</div>
+        </div>
+      )}
 
         <motion.div 
            initial={false}
-           animate={{ 
+           animate={prefersReducedMotion ? {
+             opacity: isListOpen ? 1 : 0,
+             display: isListOpen ? 'flex' : 'none'
+           } : {
              x: !isMobile ? (isListOpen ? 0 : -350) : 0, 
              y: isMobile ? (isListOpen ? 0 : '100%') : 0,
              opacity: 1
            }}
-           transition={{ type: "spring", damping: 20, stiffness: 100 }}
+           transition={prefersReducedMotion ? { duration: 0.2 } : { type: "spring", damping: 20, stiffness: 100 }}
            className="absolute z-[500] bg-zinc-900/95 backdrop-blur-xl border border-white/10 flex flex-col transition-all bottom-0 left-0 right-0 w-full h-[45vh] rounded-t-3xl border-b-0 md:top-4 md:left-4 md:bottom-4 md:w-80 md:h-auto md:rounded-3xl md:border-b"
         >
            <div 
@@ -645,7 +715,7 @@ const CampusPage: React.FC<{ campusData: CampusData }> = ({ campusData }) => {
       <div className="fixed inset-0 pointer-events-none">
         <div className="absolute top-[-10%] left-[-10%] w-[40%] h-[40%] bg-indigo-500/10 rounded-full blur-[120px] animate-pulse" />
         <div className="absolute bottom-[-10%] right-[-10%] w-[40%] h-[40%] bg-rose-500/10 rounded-full blur-[120px]" />
-        <div className="absolute inset-0 bg-[url('https://grainy-gradients.vercel.app/noise.svg')] opacity-[0.05]" />
+        <div className="absolute inset-0 bg-[url('https://grainy-gradients.vercel.app/noise.svg')] opacity-[0.05]" style={{ willChange: 'auto' }} />
       </div>
 
       <nav className="fixed top-0 w-full z-40 bg-black/50 backdrop-blur-xl border-b border-white/5">
@@ -665,32 +735,32 @@ const CampusPage: React.FC<{ campusData: CampusData }> = ({ campusData }) => {
       <main className="relative z-10 pt-32 px-6 max-w-7xl mx-auto min-h-screen">
         <AnimatePresence mode="wait">
           {tab === 'home' && (
-            <motion.div key="home" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} transition={{ duration: 0.3 }}>
+            <motion.div key="home" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} transition={{ duration: 0.2 }}>
               <HomeView data={campusData} setTab={setTab} />
             </motion.div>
           )}
           {tab === 'transport' && (
-            <motion.div key="transport" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} transition={{ duration: 0.3 }}>
+            <motion.div key="transport" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} transition={{ duration: 0.2 }}>
               <TransportView data={campusData} />
             </motion.div>
           )}
           {tab === 'outlets' && (
-            <motion.div key="outlets" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} transition={{ duration: 0.3 }}>
+            <motion.div key="outlets" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} transition={{ duration: 0.2 }}>
               <OutletsView data={campusData} />
             </motion.div>
           )}
           {tab === 'map' && (
-            <motion.div key="map" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} transition={{ duration: 0.3 }}>
+            <motion.div key="map" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} transition={{ duration: 0.2 }}>
               <MapView data={campusData} />
             </motion.div>
           )}
           {tab === 'directory' && (
-             <motion.div key="directory" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} transition={{ duration: 0.3 }}>
+             <motion.div key="directory" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} transition={{ duration: 0.2 }}>
                <DirectoryView data={campusData} />
              </motion.div>
           )}
           {tab === 'about' && (
-             <motion.div key="about" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} transition={{ duration: 0.3 }}>
+             <motion.div key="about" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} transition={{ duration: 0.2 }}>
                <AboutView />
              </motion.div>
           )}
