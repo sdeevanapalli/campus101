@@ -170,6 +170,8 @@ export const ProductCard = ({
           src={product.thumbnail}
           className="object-cover absolute h-full w-full inset-0 transition-transform duration-700 group-hover/product:scale-110"
           alt={product.title}
+          loading="lazy"
+          decoding="async"
         />
         
         <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/20 to-transparent opacity-0 group-hover/product:opacity-100 transition-opacity duration-500 pointer-events-none" />

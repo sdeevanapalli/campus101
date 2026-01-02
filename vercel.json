@@ -1,16 +1,90 @@
 {
   "rewrites": [
-    { "source": "/(.*)", "destination": "/index.html" }
+    {
+      "source": "/(.*)",
+      "destination": "/index.html"
+    }
   ],
   "headers": [
+    {
+      "source": "/assets/(.*)",
+      "headers": [
+        {
+          "key": "Cache-Control",
+          "value": "public, max-age=31536000, immutable"
+        }
+      ]
+    },
+    {
+      "source": "/(.*\\.(jpg|jpeg|png|gif|webp|svg|ico|woff|woff2|ttf|eot))",
+      "headers": [
+        {
+          "key": "Cache-Control",
+          "value": "public, max-age=31536000, immutable"
+        }
+      ]
+    },
     {
       "source": "/(.*)",
       "headers": [
         {
+          "key": "X-Content-Type-Options",
+          "value": "nosniff"
+        },
+        {
+          "key": "X-Frame-Options",
+          "value": "DENY"
+        },
+        {
+          "key": "X-XSS-Protection",
+          "value": "1; mode=block"
+        },
+        {
+          "key": "Referrer-Policy",
+          "value": "strict-origin-when-cross-origin"
+        },
+        {
+          "key": "Permissions-Policy",
+          "value": "camera=(), microphone=(), geolocation=()"
+        },
+        {
           "key": "Cache-Control",
-          "value": "no-cache, no-store, must-revalidate"
+          "value": "public, max-age=0, must-revalidate"
         }
       ]
     }
   ]
 }
+
+/**
+ * ============================================
+ * VERCEL CONFIGURATION EXPLANATION
+ * ============================================
+ * 
+ * REWRITES:
+ * - SPA routing: All routes redirect to index.html for client-side routing
+ * 
+ * HEADERS:
+ * 
+ * CACHE CONTROL:
+ * - Static assets (JS/CSS/images): Cached for 1 year (immutable)
+ * - HTML files: No cache (always fresh)
+ * - This ensures users get updates immediately while assets are cached
+ * 
+ * SECURITY HEADERS:
+ * - X-Content-Type-Options: Prevents MIME type sniffing
+ * - X-Frame-Options: Prevents clickjacking attacks
+ * - X-XSS-Protection: Enables XSS filtering in older browsers
+ * - Referrer-Policy: Controls referrer information
+ * - Permissions-Policy: Restricts browser features (camera, mic, etc.)
+ * 
+ * OPTIONAL: ADD CONTENT SECURITY POLICY (CSP)
+ * Add this header if you want stricter security (adjust sources as needed):
+ * 
+ * {
+ *   "key": "Content-Security-Policy",
+ *   "value": "default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://www.googletagmanager.com https://www.google-analytics.com; style-src 'self' 'unsafe-inline'; img-src 'self' data: https:; font-src 'self' data:; connect-src 'self' https://www.google-analytics.com https://vitals.vercel-analytics.com;"
+ * }
+ * 
+ * Note: CSP requires careful configuration to avoid breaking functionality
+ */

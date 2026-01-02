@@ -1,0 +1,33 @@
+# ============================================
+# ROBOTS.TXT CONFIGURATION
+# ============================================
+# 
+# This file tells search engines which parts of your site to crawl
+# 
+# SETUP:
+# - Allow all: Keep as is (recommended for public sites)
+# - Disallow specific paths: Add "Disallow: /path" lines
+# - Block all: Change "Allow:" to "Disallow: /"
+# 
+# TEST YOUR ROBOTS.TXT:
+# - Google: https://www.google.com/webmasters/tools/robots-testing-tool
+# - Validate: https://validator.w3.org/check?uri=robots.txt
+
+User-agent: *
+Allow: /
+
+# Sitemap location (uncomment and update with your actual sitemap URL)
+# Sitemap: https://campus101.vercel.app/sitemap.xml
+
+# Example: Disallow specific paths (uncomment if needed)
+# Disallow: /admin/
+# Disallow: /private/
+# Disallow: /api/
+
+# Allow specific bots (optional)
+# User-agent: Googlebot
+# Allow: /
+
+# User-agent: Bingbot
+# Allow: /
+

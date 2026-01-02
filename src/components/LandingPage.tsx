@@ -166,7 +166,9 @@ const LandingPage = () => {
                         <img
                           src={campus.image}
                           className="h-full w-full object-cover grayscale-[30%] group-hover/card:grayscale-0 group-hover/card:scale-105 transition-all duration-700 ease-out"
-                          alt={campus.name}
+                          alt={`${campus.fullName} - ${campus.description}`}
+                          loading="lazy"
+                          decoding="async"
                         />
                       </CardItem>
 
@@ -228,7 +230,9 @@ const LandingPage = () => {
                       <img
                         src={campus.image}
                         className="h-full w-full object-cover grayscale-[30%] group-hover/card:grayscale-0 transition-all duration-700 ease-out"
-                        alt={campus.name}
+                        alt={`${campus.fullName} - ${campus.description}`}
+                        loading="lazy"
+                        decoding="async"
                       />
                     </div>
 
