@@ -1,6 +1,6 @@
-const CACHE_NAME = 'campus101-v5'; // bump version for updates
-const STATIC_CACHE_NAME = 'campus101-static-v5';
-const DYNAMIC_CACHE_NAME = 'campus101-dynamic-v5';
+const CACHE_NAME = 'campus101-v6'; // bump version for updates
+const STATIC_CACHE_NAME = 'campus101-static-v6';
+const DYNAMIC_CACHE_NAME = 'campus101-dynamic-v6';
 
 // Assets to cache on install
 const urlsToCache = [
