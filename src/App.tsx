@@ -7,6 +7,7 @@ import Hyderabad from './pages/Hyderabad';
 import Goa from './pages/Goa';
 import Pilani from './pages/Pilani';
 import ScrollToTop from './components/ScrollToTop';
+import { useServiceWorker } from './hooks/useServiceWorker';
 
 /**
  * ============================================
@@ -103,6 +104,7 @@ function usePageview() {
  */
 function App() {
   usePageview();
+  useServiceWorker(); // Register service worker for PWA support
   
   return (
     <>
