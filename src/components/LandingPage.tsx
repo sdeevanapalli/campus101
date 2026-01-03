@@ -282,11 +282,11 @@ const LandingPage = () => {
           </p>
           <div className="flex gap-6 text-sm text-neutral-500">
             <a href="https://www.linkedin.com/in/sdeevanapalli" className="hover:text-white transition-colors">
-              Shriniketh D.
+              Shriniketh Deevanapalli
             </a>
             <span>&</span>
             <a href="https://www.linkedin.com/in/kushagra-singh47/" className="hover:text-white transition-colors">
-              Kushagra S.
+              Kushagra Singh
             </a>
           </div>
         </div>

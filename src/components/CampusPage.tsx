@@ -688,7 +688,7 @@ const AboutView = () => (
                  </div>
                  <div>
                     <p className="text-[10px] font-bold uppercase tracking-widest text-zinc-500">Developed By</p>
-                    <a href="https://linkedin.com/in/sdeevanapalli" target="_blank" rel="noreferrer" className="text-lg font-bold text-white hover:text-indigo-400 transition-colors">Shriniketh D.</a>
+                    <a href="https://linkedin.com/in/sdeevanapalli" target="_blank" rel="noreferrer" className="text-lg font-bold text-white hover:text-indigo-400 transition-colors">Shriniketh Deevanapalli</a>
                     <br></br>
                     <a href="mailto:f20230414@hyderabad.bits-pilani.ac.in"  target="_blank" rel="noreferrer" className="text-white hover:text-indigo-400 transition-colors">f20230414@hyderabad.bits-pilani.ac.in</a>
                  </div>
@@ -699,7 +699,7 @@ const AboutView = () => (
                  </div>
                  <div>
                     <p className="text-[10px] font-bold uppercase tracking-widest text-zinc-500">Co-Developed By</p>
-                    <a href="https://linkedin.com/in/kushagra-singh47" target="_blank" rel="noreferrer" className="text-lg font-bold text-white hover:text-indigo-400 transition-colors">Kushagra S.</a>
+                    <a href="https://linkedin.com/in/kushagra-singh47" target="_blank" rel="noreferrer" className="text-lg font-bold text-white hover:text-indigo-400 transition-colors">Kushagra Singh</a>
                     <br></br>
                     <a href="mailto:f20231210@goa.bits-pilani.ac.in"  target="_blank" rel="noreferrer" className="text-white hover:text-indigo-400 transition-colors">f20231210@goa.bits-pilani.ac.in</a>
                  </div>

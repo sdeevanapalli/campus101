@@ -127,11 +127,11 @@ export const Header = () => {
          <div className="flex gap-3 text-sm font-mono text-neutral-500">
             <span className="text-neutral-600">By</span>
             <a href="https://www.linkedin.com/in/sdeevanapalli" className="text-neutral-400 hover:text-white transition-colors">
-              Shriniketh
+              Shriniketh D.
             </a>
             <span className="text-neutral-700">&</span>
             <a href="https://www.linkedin.com/in/kushagra-singh47/" className="text-neutral-400 hover:text-white transition-colors">
-              Kushagra
+              Kushagra S.
             </a>
          </div>
       </div>
