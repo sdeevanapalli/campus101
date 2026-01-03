@@ -1,10 +1,4 @@
 {
-  "rewrites": [
-    {
-      "source": "/(.*)",
-      "destination": "/index.html"
-    }
-  ],
   "headers": [
     {
       "source": "/assets/(.*)",
@@ -52,6 +46,12 @@
           "value": "public, max-age=0, must-revalidate"
         }
       ]
+    }
+  ],
+  "rewrites": [
+    {
+      "source": "/((?!assets/|.*\\.(?:jpg|jpeg|png|gif|webp|svg|ico|woff|woff2|ttf|eot)).*)",
+      "destination": "/index.html"
     }
   ]
 }
