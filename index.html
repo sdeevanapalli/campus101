@@ -3,26 +3,189 @@
   <head>
     <meta charset="UTF-8" />
     <link rel="icon" type="image/png" href="/vite.png" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0" />
-    <meta name="description" content="Complete guide to BITS Pilani campuses with interactive maps, facility timings, transport information, and student resources for Hyderabad, Goa, and Pilani campuses." />
-    <meta name="keywords" content="BITS Pilani, Campus Guide, Hyderabad, Goa, Pilani, BITS, Student Resources" />
-    <meta name="theme-color" content="#1e293b" />
-    <title>Campus101 - BITS Pilani Campus Guide</title>
     
-    <!-- Open Graph Meta Tags for Link Embeds -->
-    <meta property="og:title" content="Campus101 - BITS Pilani" />
-    <meta property="og:description" content="Discover information about BITS Pilani campuses across India. Explore Pilani, Goa, and Hyderabad." />
+    <!-- 
+      ============================================
+      VIEWPORT & PERFORMANCE META TAGS
+      ============================================
+      Optimized viewport for mobile devices with maximum scale limit
+      to prevent zoom issues while maintaining accessibility
+    -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, viewport-fit=cover" />
+    
+    <!-- 
+      ============================================
+      SEO META TAGS
+      ============================================
+      Primary meta tags for search engine optimization
+      Update description and keywords based on your content strategy
+    -->
+    <meta name="description" content="Complete guide to BITS Pilani campuses with interactive maps, facility timings, transport information, and student resources for Hyderabad, Goa, and Pilani campuses." />
+    <meta name="keywords" content="BITS Pilani, Campus Guide, Hyderabad, Goa, Pilani, BITS, Student Resources, Campus Map, Transport, Facilities, BITSian" />
+    <meta name="author" content="Campus101 Team" />
+    <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" />
+    <meta name="language" content="English" />
+    <meta name="revisit-after" content="7 days" />
+    <meta name="theme-color" content="#1e293b" />
+    <meta name="color-scheme" content="dark" />
+    
+    <!-- 
+      ============================================
+      PERFORMANCE & SECURITY META TAGS
+      ============================================
+    -->
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="format-detection" content="telephone=yes" />
+    
+    <title>Campus101 - BITS Pilani Campus Guide | Interactive Maps, Transport & Facilities</title>
+    
+    <!-- 
+      ============================================
+      OPEN GRAPH META TAGS (Social Media Sharing)
+      ============================================
+      These tags control how your site appears when shared on social media
+      Update og:url with your production domain
+    -->
+    <meta property="og:title" content="Campus101 - BITS Pilani Campus Guide" />
+    <meta property="og:description" content="Discover information about BITS Pilani campuses across India. Explore Pilani, Goa, and Hyderabad with interactive maps, transport schedules, and facility information." />
     <meta property="og:type" content="website" />
     <meta property="og:url" content="https://campus101.vercel.app" />
-    <meta property="og:image" content="/og.png" />
+    <meta property="og:image" content="https://campus101.vercel.app/og.png" />
+    <meta property="og:image:secure_url" content="https://campus101.vercel.app/og.png" />
     <meta property="og:image:width" content="1200" />
     <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content="Campus101 - BITS Pilani Campus Guide" />
+    <meta property="og:site_name" content="Campus101" />
+    <meta property="og:locale" content="en_US" />
     
-    <!-- Twitter Card Tags -->
+    <!-- 
+      ============================================
+      TWITTER CARD TAGS
+      ============================================
+      Optimized for Twitter sharing - uses large image card format
+    -->
     <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:title" content="Campus101 - BITS Pilani" />
-    <meta name="twitter:description" content="Discover information about BITS Pilani campuses across India." />
-    <meta name="twitter:image" content="/og.png" />
+    <meta name="twitter:title" content="Campus101 - BITS Pilani Campus Guide" />
+    <meta name="twitter:description" content="Discover information about BITS Pilani campuses across India. Interactive maps, transport schedules, and more." />
+    <meta name="twitter:image" content="https://campus101.vercel.app/og.png" />
+    <meta name="twitter:image:alt" content="Campus101 - BITS Pilani Campus Guide" />
+    <!-- Uncomment and add your Twitter handle if you have one -->
+    <!-- <meta name="twitter:site" content="@your_twitter_handle" /> -->
+    <!-- <meta name="twitter:creator" content="@your_twitter_handle" /> -->
+    
+    <!-- 
+      ============================================
+      STRUCTURED DATA (JSON-LD)
+      ============================================
+      Helps search engines understand your content better
+      Update with your actual organization details
+      Validate at: https://search.google.com/test/rich-results
+    -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "WebApplication",
+      "name": "Campus101",
+      "description": "Complete guide to BITS Pilani campuses with interactive maps, facility timings, transport information, and student resources",
+      "url": "https://campus101.vercel.app",
+      "applicationCategory": "EducationalApplication",
+      "operatingSystem": "Web",
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "USD"
+      },
+      "provider": {
+        "@type": "Organization",
+        "name": "Campus101",
+        "url": "https://campus101.vercel.app"
+      },
+      "educationalUse": "Student Resource",
+      "audience": {
+        "@type": "EducationalAudience",
+        "educationalRole": "student"
+      }
+    }
+    </script>
+    
+    <!-- 
+      ============================================
+      GOOGLE ANALYTICS (GA4)
+      ============================================
+      SETUP INSTRUCTIONS:
+      1. Create a GA4 property at https://analytics.google.com
+      2. Get your Measurement ID (format: G-XXXXXXXXXX)
+      3. Add it to your environment variables as VITE_GA_ID
+      4. The script is loaded in App.tsx via react-ga4
+      5. Alternatively, uncomment the Global Site Tag below and replace G-XXXXXXXXXX with your ID
+      
+      For better performance, we're using the react-ga4 library instead of direct script injection
+      which allows for better code splitting and lazy loading
+    -->
+    <!-- 
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-XXXXXXXXXX');
+    </script>
+    -->
+    
+    <!-- 
+      ============================================
+      FACEBOOK PIXEL (Optional)
+      ============================================
+      SETUP INSTRUCTIONS:
+      1. Create a Facebook Pixel at https://business.facebook.com
+      2. Get your Pixel ID
+      3. Uncomment and replace YOUR_PIXEL_ID with your actual ID
+      4. Add it to environment variables for better security
+    -->
+    <!-- 
+    <script>
+      !function(f,b,e,v,n,t,s)
+      {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+      n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+      if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+      n.queue=[];t=b.createElement(e);t.async=!0;
+      t.src=v;s=b.getElementsByTagName(e)[0];
+      s.parentNode.insertBefore(t,s)}(window, document,'script',
+      'https://connect.facebook.net/en_US/fbevents.js');
+      fbq('init', 'YOUR_PIXEL_ID');
+      fbq('track', 'PageView');
+    </script>
+    <noscript><img height="1" width="1" style="display:none"
+      src="https://www.facebook.com/tr?id=YOUR_PIXEL_ID&ev=PageView&noscript=1"
+    /></noscript>
+    -->
+    
+    <!-- 
+      ============================================
+      OTHER ANALYTICS OPTIONS
+      ============================================
+      - Microsoft Clarity: https://clarity.microsoft.com
+      - Hotjar: https://www.hotjar.com
+      - Plausible Analytics: https://plausible.io (Privacy-focused)
+      - PostHog: https://posthog.com
+      
+      Add these scripts here if you want to use them, or load them via
+      environment variables and conditional rendering in React components
+    -->
+    
+    <!-- Preconnect to external domains for performance -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="dns-prefetch" href="https://www.googletagmanager.com" />
+    <link rel="dns-prefetch" href="https://www.google-analytics.com" />
+    
+    <!-- 
+      ============================================
+      PWA MANIFEST
+      ============================================
+      Progressive Web App configuration
+      Update manifest.json with your icon paths
+    -->
+    <link rel="manifest" href="/manifest.json" />
   </head>
   <body>
     <div id="root"></div>
