@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import { useEffect } from 'react';
 import { Routes, Route, useLocation } from 'react-router-dom';
 import { Analytics } from '@vercel/analytics/react';
 
@@ -70,7 +70,9 @@ function usePageview() {
   useEffect(() => {
     // Check if gtag is available (script loaded from index.html)
     if (typeof window !== 'undefined' && window.gtag) {
-      window.gtag('event', 'page_view', {
+      // Use config method to send page_view event for GA4
+      // This is the recommended way to track page views in SPAs
+      window.gtag('config', 'G-P9TQQ0MB81', {
         page_path: location.pathname + location.search,
         page_title: document.title,
       });
