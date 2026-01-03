@@ -118,17 +118,24 @@
     </script>
     <!-- 
       ============================================
-      GOOGLE ANALYTICS (GA4)
+      GOOGLE ANALYTICS (GA4) - DIRECT SCRIPT
       ============================================
-      SETUP INSTRUCTIONS:
-      1. Create a GA4 property at https://analytics.google.com
-      2. Get your Measurement ID (format: G-XXXXXXXXXX)
-      3. Add it to your environment variables as VITE_GA_ID
-      4. The script is loaded in App.tsx via react-ga4
-      5. Alternatively, uncomment the Global Site Tag below and replace G-XXXXXXXXXX with your ID
       
-      For better performance, we're using the react-ga4 library instead of direct script injection
-      which allows for better code splitting and lazy loading
+      CURRENT SETUP:
+      Google Analytics is configured using the direct gtag.js script (above).
+      This approach loads GA immediately and tracks page views automatically.
+      
+      SPA ROUTE TRACKING:
+      Page views on route changes are tracked automatically via usePageview hook in App.tsx
+      
+      TO UPDATE YOUR GA4 ID:
+      Replace G-P9TQQ0MB81 with your Measurement ID in the script above
+      
+      ALTERNATIVE APPROACH (react-ga4):
+      If you prefer using react-ga4 library instead, you can:
+      1. Remove the gtag.js scripts above
+      2. Use VITE_GA_ID environment variable
+      3. The code in App.tsx can be switched back to use ReactGA
     -->
     <!-- 
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"></script>

@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { MapContainer, TileLayer, Marker, Popup, useMap } from 'react-leaflet';
-import { Link } from 'react-router-dom';
+import { Link, useParams, useNavigate, useLocation } from 'react-router-dom';
 import { motion, AnimatePresence, useReducedMotion } from 'framer-motion';
 import {
   Map as MapIcon,
@@ -134,7 +134,9 @@ const FlyToLocation = ({ center }: { center: [number, number] }) => {
   return null;
 };
 
-const HomeView = ({ data, setTab }: { data: CampusData, setTab: any }) => {
+const HomeView = ({ data, campusSlug }: { data: CampusData, campusSlug: string }) => {
+  const navigate = useNavigate();
+  
   return (
     <div className="space-y-6 pb-32">
       <SectionHeader title={`Hello, BITSian`} subtitle={`Welcome to ${data.name}`} />
@@ -147,13 +149,13 @@ const HomeView = ({ data, setTab }: { data: CampusData, setTab: any }) => {
              <p className="text-zinc-400">Navigate campus life with ease.</p>
            </div>
            <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mt-8">
-              <button onClick={() => setTab('transport')} className="w-full py-4 px-4 rounded-xl bg-white/5 hover:bg-white/10 border border-white/5 text-sm font-bold uppercase tracking-wider transition-all flex flex-col items-center gap-2">
+              <button onClick={() => navigate(`/${campusSlug}/transport`)} className="w-full py-4 px-4 rounded-xl bg-white/5 hover:bg-white/10 border border-white/5 text-sm font-bold uppercase tracking-wider transition-all flex flex-col items-center gap-2">
                  <Bus size={20} className="text-rose-400" /> Transport
               </button>
-              <button onClick={() => setTab('outlets')} className="w-full py-4 px-4 rounded-xl bg-white/5 hover:bg-white/10 border border-white/5 text-sm font-bold uppercase tracking-wider transition-all flex flex-col items-center gap-2">
+              <button onClick={() => navigate(`/${campusSlug}/outlets`)} className="w-full py-4 px-4 rounded-xl bg-white/5 hover:bg-white/10 border border-white/5 text-sm font-bold uppercase tracking-wider transition-all flex flex-col items-center gap-2">
                  <Utensils size={20} className="text-orange-400" /> Campus Outlets
               </button>
-              <button onClick={() => setTab('directory')} className="w-full py-4 px-4 rounded-xl bg-white/5 hover:bg-white/10 border border-white/5 text-sm font-bold uppercase tracking-wider transition-all flex flex-col items-center gap-2">
+              <button onClick={() => navigate(`/${campusSlug}/directory`)} className="w-full py-4 px-4 rounded-xl bg-white/5 hover:bg-white/10 border border-white/5 text-sm font-bold uppercase tracking-wider transition-all flex flex-col items-center gap-2">
                  <Users size={20} className="text-blue-400" /> Wardens
               </button>
            </div>
@@ -707,7 +709,26 @@ const AboutView = () => (
 );
 
 const CampusPage: React.FC<{ campusData: CampusData }> = ({ campusData }) => {
-  const [tab, setTab] = useState<'home' | 'transport' | 'outlets' | 'map' | 'directory' | 'about'>('home');
+  const location = useLocation();
+  const navigate = useNavigate();
+  
+  // Extract section from URL path (e.g., /hyderabad/transport -> 'transport')
+  // Default to 'home' if no section is specified
+  const pathParts = location.pathname.split('/').filter(Boolean);
+  const campusSlug = pathParts[0] || campusData.slug;
+  const section = pathParts[1] || 'home';
+  
+  // Valid sections
+  const validSections: Array<'home' | 'transport' | 'outlets' | 'map' | 'directory' | 'about'> = 
+    ['home', 'transport', 'outlets', 'map', 'directory', 'about'];
+  const currentSection = validSections.includes(section as any) ? section as any : 'home';
+  
+  // Redirect to /campus/home if just /campus is accessed
+  useEffect(() => {
+    if (pathParts.length === 1) {
+      navigate(`/${campusSlug}/home`, { replace: true });
+    }
+  }, [campusSlug, navigate, pathParts.length]);
 
   return (
     <div className="min-h-screen bg-black text-white font-sans selection:bg-indigo-500/30 overflow-x-hidden">
@@ -734,32 +755,32 @@ const CampusPage: React.FC<{ campusData: CampusData }> = ({ campusData }) => {
 
       <main className="relative z-10 pt-32 px-6 max-w-7xl mx-auto min-h-screen">
         <AnimatePresence mode="wait">
-          {tab === 'home' && (
+          {currentSection === 'home' && (
             <motion.div key="home" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} transition={{ duration: 0.2 }}>
-              <HomeView data={campusData} setTab={setTab} />
+              <HomeView data={campusData} campusSlug={campusSlug} />
             </motion.div>
           )}
-          {tab === 'transport' && (
+          {currentSection === 'transport' && (
             <motion.div key="transport" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} transition={{ duration: 0.2 }}>
               <TransportView data={campusData} />
             </motion.div>
           )}
-          {tab === 'outlets' && (
+          {currentSection === 'outlets' && (
             <motion.div key="outlets" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} transition={{ duration: 0.2 }}>
               <OutletsView data={campusData} />
             </motion.div>
           )}
-          {tab === 'map' && (
+          {currentSection === 'map' && (
             <motion.div key="map" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} transition={{ duration: 0.2 }}>
               <MapView data={campusData} />
             </motion.div>
           )}
-          {tab === 'directory' && (
+          {currentSection === 'directory' && (
              <motion.div key="directory" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} transition={{ duration: 0.2 }}>
                <DirectoryView data={campusData} />
              </motion.div>
           )}
-          {tab === 'about' && (
+          {currentSection === 'about' && (
              <motion.div key="about" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} transition={{ duration: 0.2 }}>
                <AboutView />
              </motion.div>
@@ -777,16 +798,16 @@ const CampusPage: React.FC<{ campusData: CampusData }> = ({ campusData }) => {
              { id: 'directory', icon: Users, label: 'Wardens' },
              { id: 'about', icon: Info, label: 'About' }
            ].map((item) => (
-             <button
+             <Link
                key={item.id}
-               onClick={() => setTab(item.id as any)}
+               to={`/${campusSlug}/${item.id}`}
                className={`
                  relative px-3 sm:px-4 py-3 rounded-full flex items-center gap-2 transition-all duration-300
-                 ${tab === item.id ? 'bg-white text-black' : 'text-zinc-500 hover:text-zinc-300'}
+                 ${currentSection === item.id ? 'bg-white text-black' : 'text-zinc-500 hover:text-zinc-300'}
                `}
              >
-               <item.icon size={20} className={tab === item.id ? 'stroke-[2.5px]' : 'stroke-2'} />
-               {tab === item.id && (
+               <item.icon size={20} className={currentSection === item.id ? 'stroke-[2.5px]' : 'stroke-2'} />
+               {currentSection === item.id && (
                  <motion.span 
                    initial={{ width: 0, opacity: 0 }} 
                    animate={{ width: 'auto', opacity: 1 }} 
@@ -795,7 +816,7 @@ const CampusPage: React.FC<{ campusData: CampusData }> = ({ campusData }) => {
                    {item.label}
                  </motion.span>
                )}
-             </button>
+             </Link>
            ))}
         </div>
       </div>

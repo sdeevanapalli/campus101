@@ -1,7 +1,6 @@
 import React, { useEffect } from 'react';
 import { Routes, Route, useLocation } from 'react-router-dom';
 import { Analytics } from '@vercel/analytics/react';
-import ReactGA from "react-ga4";
 
 import LandingPage from './components/LandingPage';
 import Hyderabad from './pages/Hyderabad';
@@ -14,68 +13,67 @@ import ScrollToTop from './components/ScrollToTop';
  * GOOGLE ANALYTICS 4 (GA4) CONFIGURATION
  * ============================================
  * 
- * SETUP INSTRUCTIONS:
- * 1. Create a GA4 property at https://analytics.google.com
- * 2. Get your Measurement ID (format: G-XXXXXXXXXX)
- * 3. Add it to your .env file or deployment environment variables:
- *    VITE_GA_ID=G-XXXXXXXXXX
- * 4. The analytics will automatically initialize when the ID is present
+ * SETUP:
+ * Google Analytics is configured via the direct gtag.js script in index.html
+ * This hook tracks page views on route changes for SPA navigation
+ * 
+ * The gtag script is loaded in index.html:
+ * <script async src="https://www.googletagmanager.com/gtag/js?id=G-P9TQQ0MB81"></script>
  * 
  * FEATURES:
  * - Tracks page views on route changes (SPA navigation)
  * - Automatically tracks page path and search params
- * - Only initializes if VITE_GA_ID is set (no errors in development)
  * 
  * ADDITIONAL TRACKING:
- * To track custom events, use ReactGA.event() anywhere in your components:
+ * To track custom events, use gtag() anywhere in your components:
  * 
- *   ReactGA.event({
- *     category: 'User Interaction',
- *     action: 'Button Click',
- *     label: 'Campus Card Clicked',
- *     value: 1
- *   });
+ *   if (typeof window !== 'undefined' && (window as any).gtag) {
+ *     (window as any).gtag('event', 'button_click', {
+ *       event_category: 'User Interaction',
+ *       event_label: 'Campus Card Clicked',
+ *       value: 1
+ *     });
+ *   }
  * 
  * To track exceptions:
  * 
- *   ReactGA.event({
- *     category: 'Error',
- *     action: 'Exception',
- *     label: error.message
- *   });
+ *   if (typeof window !== 'undefined' && (window as any).gtag) {
+ *     (window as any).gtag('event', 'exception', {
+ *       description: error.message,
+ *       fatal: false
+ *     });
+ *   }
  * 
- * DOCUMENTATION: https://github.com/PriceRunner/react-ga4
+ * DOCUMENTATION: https://developers.google.com/analytics/devguides/collection/ga4
  */
 
-const GA_ID = import.meta.env.VITE_GA_ID as string | undefined;
+// Declare gtag function type for TypeScript
+declare global {
+  interface Window {
+    gtag: (
+      command: 'config' | 'event' | 'js' | 'set',
+      targetId: string | Date,
+      config?: Record<string, any>
+    ) => void;
+    dataLayer: any[];
+  }
+}
 
 /**
  * Custom hook to track page views with Google Analytics
- * Tracks route changes in the SPA automatically
+ * Tracks route changes in the SPA automatically using gtag
  */
 function usePageview() {
   const location = useLocation();
   
-  // Initialize GA4 once when the app loads
-  useEffect(() => {
-    if (GA_ID) {
-      ReactGA.initialize(GA_ID, {
-        // Optional: Configure GA4 options
-        // testMode: import.meta.env.DEV, // Enable test mode in development
-        // gtagOptions: {
-        //   send_page_view: false, // We're sending page views manually
-        // }
-      });
-      
-      // Track initial page view
-      ReactGA.send({ hitType: 'pageview', page: location.pathname + location.search });
-    }
-  }, []);
-  
   // Track page views on route changes
   useEffect(() => {
-    if (GA_ID) {
-      ReactGA.send({ hitType: 'pageview', page: location.pathname + location.search });
+    // Check if gtag is available (script loaded from index.html)
+    if (typeof window !== 'undefined' && window.gtag) {
+      window.gtag('event', 'page_view', {
+        page_path: location.pathname + location.search,
+        page_title: document.title,
+      });
     }
   }, [location.pathname, location.search]);
 }
@@ -109,9 +107,17 @@ function App() {
       <ScrollToTop />
       <Routes>
         <Route path="/" element={<LandingPage />} />
-        <Route path="/hyderabad" element={<Hyderabad />} />
-        <Route path="/goa" element={<Goa />} />
-        <Route path="/pilani" element={<Pilani />} />
+        
+        {/* 
+          Campus routes - each section now has its own URL for independent analytics tracking
+          Routes: /hyderabad, /hyderabad/home, /hyderabad/transport, /hyderabad/outlets, etc.
+          Same pattern for /goa and /pilani
+          
+          The CampusPage component handles the section routing internally based on URL path
+        */}
+        <Route path="/hyderabad/*" element={<Hyderabad />} />
+        <Route path="/goa/*" element={<Goa />} />
+        <Route path="/pilani/*" element={<Pilani />} />
       </Routes>
       
       {/* 
