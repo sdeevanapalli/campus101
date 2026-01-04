@@ -1454,7 +1454,7 @@ export const campusData: Record<string, CampusData> = {
 ],
 warden: [
   {
-    "name": "Dr. Sudeep Bajdha",
+    "name": "Dr. Sudeep Baudha",
     "phone": ["8871774354", "8956485930"],
     "email": "ch1warden@goa.bits-pilani.ac.in",
     "bhavan": "CH1"
