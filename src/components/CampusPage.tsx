@@ -346,12 +346,96 @@ return (
     );
 };
 
+const MenuModal = ({ outlet, isOpen, onClose }: { outlet: any; isOpen: boolean; onClose: () => void }) => {
+  if (!isOpen) return null;
+
+  return (
+    <AnimatePresence>
+      <motion.div
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        exit={{ opacity: 0 }}
+        className="fixed inset-0 bg-black/80 backdrop-blur-sm z-50 flex items-center justify-center p-4"
+        onClick={onClose}
+      >
+        <motion.div
+          initial={{ opacity: 0, scale: 0.95 }}
+          animate={{ opacity: 1, scale: 1 }}
+          exit={{ opacity: 0, scale: 0.95 }}
+          transition={{ duration: 0.2 }}
+          className="relative max-w-2xl w-full max-h-[80vh] rounded-[32px] overflow-hidden bg-zinc-900 border border-white/10"
+          onClick={(e) => e.stopPropagation()}
+        >
+          <button
+            onClick={onClose}
+            className="absolute top-4 right-4 z-10 p-2 rounded-full bg-zinc-800/80 hover:bg-zinc-700 transition-colors"
+          >
+            <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+            </svg>
+          </button>
+          
+          <div className="relative h-[60vh] overflow-y-auto">
+            {outlet.menuImage ? (
+              <img
+                src={outlet.menuImage}
+                alt={`${outlet.name} menu`}
+                className="w-full h-full object-contain"
+                onError={(e) => {
+                  (e.target as HTMLImageElement).src = 'https://images.unsplash.com/photo-1495521821757-a1efb6729352?w=600&h=800&fit=crop';
+                }}
+              />
+            ) : (
+              <div className="w-full h-full flex items-center justify-center text-zinc-400">
+                <div className="text-center">
+                  <Utensils size={48} className="mx-auto mb-4 text-zinc-600" />
+                  <p>No menu image available</p>
+                </div>
+              </div>
+            )}
+          </div>
+
+          <div className="p-6 border-t border-white/10 bg-zinc-900/95">
+            <h3 className="text-2xl font-bold text-white mb-2">{outlet.name}</h3>
+            <div className="flex items-center gap-2 mb-3">
+              <Clock size={14} className={outlet.closed ? 'text-rose-400' : 'text-emerald-400'} />
+              <span className={`text-sm font-medium ${outlet.closed ? 'text-rose-400' : 'text-emerald-400'}`}>
+                {outlet.timing}
+              </span>
+            </div>
+            {outlet.rating && (
+              <div className="flex items-center gap-2">
+                <span className="text-yellow-400">★</span>
+                <span className="text-sm text-zinc-300">{outlet.rating} ({outlet.reviews} reviews)</span>
+              </div>
+            )}
+          </div>
+        </motion.div>
+      </motion.div>
+    </AnimatePresence>
+  );
+};
+
 const OutletsView = ({ data }: { data: CampusData }) => {
     const [outletSearch, setOutletSearch] = useState('');
+    const [selectedOutlet, setSelectedOutlet] = useState<any>(null);
+    const [isModalOpen, setIsModalOpen] = useState(false);
     
     const filteredOutlets = data.outlets.filter(outlet => 
       outlet.name.toLowerCase().includes(outletSearch.toLowerCase())
     );
+
+    const handleOutletClick = (outlet: any) => {
+      if (outlet.menuImage || outlet.category === 'food') {
+        setSelectedOutlet(outlet);
+        setIsModalOpen(true);
+      }
+    };
+
+    const handleCloseModal = () => {
+      setIsModalOpen(false);
+      setTimeout(() => setSelectedOutlet(null), 300);
+    };
   
     // Pilani outlets: show in-progress placeholder
     if (data.slug === 'pilani') {
@@ -389,17 +473,33 @@ const OutletsView = ({ data }: { data: CampusData }) => {
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
             {filteredOutlets.length > 0 ? (
                 filteredOutlets.map((outlet, i) => (
-                    <GlassCard key={i} delay={i} className="p-5 flex items-center justify-between group hover:border-orange-500/30">
-                        <div>
-                            <h3 className="text-lg font-bold text-zinc-200 group-hover:text-white transition-colors">{outlet.name}</h3>
-                            <div className="flex items-center gap-2 mt-2">
-                                <Clock size={12} className={outlet.closed ? 'text-rose-400' : 'text-emerald-400'} />
-                                <span className={`text-xs font-medium ${outlet.closed ? 'text-rose-400' : 'text-emerald-400'}`}>
-                                    {outlet.timing}
-                                </span>
-                            </div>
+                    <motion.button
+                      key={i}
+                      whileHover={outlet.menuImage ? { scale: 1.02 } : {}}
+                      whileTap={outlet.menuImage ? { scale: 0.98 } : {}}
+                      onClick={() => handleOutletClick(outlet)}
+                      className={`relative text-left transition-all ${outlet.menuImage ? 'cursor-pointer' : 'cursor-default'}`}
+                    >
+                      <GlassCard 
+                        delay={i} 
+                        className={`p-5 flex items-center justify-between group ${outlet.menuImage ? 'hover:border-orange-500/50 hover:shadow-lg hover:shadow-orange-500/20' : 'hover:border-orange-500/30'}`}
+                      >
+                        <div className="flex-1">
+                          <h3 className="text-lg font-bold text-zinc-200 group-hover:text-white transition-colors">{outlet.name}</h3>
+                          <div className="flex items-center gap-2 mt-2">
+                              <Clock size={12} className={outlet.closed ? 'text-rose-400' : 'text-emerald-400'} />
+                              <span className={`text-xs font-medium ${outlet.closed ? 'text-rose-400' : 'text-emerald-400'}`}>
+                                  {outlet.timing}
+                              </span>
+                          </div>
                         </div>
-                    </GlassCard>
+                        {outlet.menuImage && (
+                          <div className="ml-3 p-2 rounded-lg bg-orange-500/10 text-orange-400">
+                            <Utensils size={16} />
+                          </div>
+                        )}
+                      </GlassCard>
+                    </motion.button>
                 ))
             ) : (
                 <div className="col-span-full py-20 text-center text-zinc-500">
@@ -407,6 +507,10 @@ const OutletsView = ({ data }: { data: CampusData }) => {
                 </div>
             )}
         </div>
+
+        {selectedOutlet && (
+          <MenuModal outlet={selectedOutlet} isOpen={isModalOpen} onClose={handleCloseModal} />
+        )}
       </div>
     );
 };
