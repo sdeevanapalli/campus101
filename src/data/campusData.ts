@@ -19,6 +19,7 @@ export interface Outlet {
   category: 'food' | 'stationery' | 'services' | 'shopping';
   popular?: boolean;
   description?: string;
+  menuImage?: string;
 }
 
 export interface Event {
@@ -1072,7 +1073,8 @@ export const campusData: Record<string, CampusData> = {
     rating: 4.0,
     reviews: 50,
     popular: false,
-    description: 'Local business'
+    description: 'Local business',
+    menuImage: 'https://images.unsplash.com/photo-1495521821757-a1efb6729352?w=600&h=800&fit=crop'
   },
   {
     name: 'Shetty and sons(IC)',
@@ -1153,7 +1155,8 @@ export const campusData: Record<string, CampusData> = {
     rating: 4.0,
     reviews: 50,
     popular: false,
-    description: 'Local business'
+    description: 'Local business',
+    menuImage: '/bitsg_dome.webp'
   },
   {
     name: 'Laxmi laundry',
@@ -1180,7 +1183,8 @@ export const campusData: Record<string, CampusData> = {
     rating: 4.0,
     reviews: 50,
     popular: false,
-    description: 'Local business'
+    description: 'Local business',
+    menuImage: 'https://images.unsplash.com/photo-1568901346375-23c9450c58cd?w=600&h=800&fit=crop'
   },
   {
     name: 'Tailor(Malakar)',
@@ -1225,7 +1229,8 @@ export const campusData: Record<string, CampusData> = {
     rating: 4.0,
     reviews: 50,
     popular: false,
-    description: 'Local business'
+    description: 'Local business',
+    menuImage: 'https://images.unsplash.com/photo-1555939594-58d7cb561ad1?w=600&h=800&fit=crop'
   },
   {
     name: 'Dominos',
@@ -1234,7 +1239,8 @@ export const campusData: Record<string, CampusData> = {
     rating: 4.0,
     reviews: 50,
     popular: false,
-    description: 'Local business'
+    description: 'Local business',
+    menuImage: 'https://images.unsplash.com/photo-1628840042765-356cda07f4ee?w=600&h=800&fit=crop'
   }
     ],
     outletPhones: [
