@@ -1268,7 +1268,7 @@ export const campusData: Record<string, CampusData> = {
         id: '1',
         locationId: 'beach',
         rating: 5,
-        comment: 'Amazing beach access! Perfect for evening walks and sunset photography.',
+        comment: 'Amazing beach access! Perfect for evening walks and sunset photography. ',
         author: 'Maria G.',
         date: '2024-01-20'
       }
