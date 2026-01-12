@@ -5,20 +5,7 @@ import './index.css'
 import App from './App';
 import ErrorBoundary from './components/ErrorBoundary';
 
-/**
- * ============================================
- * APPLICATION ENTRY POINT
- * ============================================
- * 
- * SETUP:
- * - React StrictMode: Helps identify problems during development
- * - BrowserRouter: Enables client-side routing
- * - ErrorBoundary: Catches and handles React errors gracefully
- * 
- * PERFORMANCE:
- * - Uses createRoot API (React 18+) for better performance
- * - Error boundary prevents entire app crash
- */
+// app entry with routing, error boundary, and strict mode
 
 const rootElement = document.getElementById('root');
 

@@ -4,19 +4,7 @@ import { HeroParallax } from './ui/hero-parallax';
 import { CardContainer, CardBody, CardItem } from './ui/3d-card';
 import { heroImages } from '../data/campusData';
 import { ArrowUpRight, Users, Layers, Trophy } from 'lucide-react';
-import { useState, useEffect } from 'react';
-
-// Hook to detect mobile devices
-const useIsMobile = () => {
-  const [isMobile, setIsMobile] = useState(false);
-  useEffect(() => {
-    const checkMobile = () => setIsMobile(window.innerWidth < 768);
-    checkMobile();
-    window.addEventListener('resize', checkMobile);
-    return () => window.removeEventListener('resize', checkMobile);
-  }, []);
-  return isMobile;
-};
+import { useIsMobile } from '../hooks/useIsMobile';
 
 const LandingPage = () => {
   const isMobile = useIsMobile();

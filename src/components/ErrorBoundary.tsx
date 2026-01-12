@@ -1,39 +1,6 @@
 import React, { Component, ErrorInfo, ReactNode } from 'react';
 
-/**
- * ============================================
- * ERROR BOUNDARY COMPONENT
- * ============================================
- * 
- * PURPOSE:
- * Catches JavaScript errors anywhere in the child component tree,
- * logs those errors, and displays a fallback UI instead of crashing
- * the entire application.
- * 
- * USAGE:
- * Wrap your app or specific routes with <ErrorBoundary>:
- * 
- *   <ErrorBoundary>
- *     <App />
- *   </ErrorBoundary>
- * 
- * OPTIONAL: INTEGRATE WITH ANALYTICS
- * To track errors in your analytics service, add tracking in componentDidCatch:
- * 
- *   componentDidCatch(error: Error, errorInfo: ErrorInfo) {
- *     // Track in Google Analytics
- *     if (window.gtag) {
- *       window.gtag('event', 'exception', {
- *         description: error.toString(),
- *         fatal: false
- *       });
- *     }
- *     
- *     // Track in other services
- *     // Sentry.captureException(error);
- *     // LogRocket.captureException(error);
- *   }
- */
+// catches react errors and displays fallback ui
 
 interface Props {
   children: ReactNode;
@@ -63,42 +30,10 @@ class ErrorBoundary extends Component<Props, State> {
   }
 
   componentDidCatch(error: Error, errorInfo: ErrorInfo) {
-    // Log error to console in development
+    // log errors in dev for debugging
     if (import.meta.env.DEV) {
       console.error('ErrorBoundary caught an error:', error, errorInfo);
     }
-
-    // TODO: Integrate with error tracking service
-    // 
-    // EXAMPLES:
-    // 
-    // Google Analytics:
-    // if (typeof window !== 'undefined' && (window as any).gtag) {
-    //   (window as any).gtag('event', 'exception', {
-    //     description: error.toString(),
-    //     fatal: false,
-    //     errorInfo: errorInfo.componentStack
-    //   });
-    // }
-    // 
-    // Sentry:
-    // import * as Sentry from '@sentry/react';
-    // Sentry.captureException(error, {
-    //   contexts: {
-    //     react: {
-    //       componentStack: errorInfo.componentStack,
-    //     },
-    //   },
-    // });
-    // 
-    // LogRocket:
-    // LogRocket.captureException(error);
-    // 
-    // Custom error logging:
-    // fetch('/api/log-error', {
-    //   method: 'POST',
-    //   body: JSON.stringify({ error: error.toString(), errorInfo }),
-    // });
   }
 
   handleReset = () => {
