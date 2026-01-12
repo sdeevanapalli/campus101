@@ -533,6 +533,7 @@ export const campusData: Record<string, CampusData> = {
       {
         id: '1',
         locationId: 'SAC',
+        rating: 5,
         comment: 'Best place to hang out with friends! Great atmosphere and facilities.',
         author: 'Rahul K.',
         date: '2024-01-15'
@@ -540,6 +541,7 @@ export const campusData: Record<string, CampusData> = {
       {
         id: '2',
         locationId: 'mess1',
+        rating: 4,
         comment: 'Good food and great place to meet people. Can get crowded during peak hours.',
         author: 'Priya S.',
         date: '2024-01-10'
@@ -547,6 +549,7 @@ export const campusData: Record<string, CampusData> = {
       {
         id: '3',
         locationId: 'lib',
+        rating: 5,
         comment: 'Perfect study environment with AC and good lighting. Open till late!',
         author: 'Amit R.',
         date: '2024-01-08'
@@ -1121,6 +1124,7 @@ export const campusData: Record<string, CampusData> = {
       {
         id: '1',
         locationId: 'beach',
+        rating: 5,
         comment: 'Amazing beach access! Perfect for evening walks and sunset photography.',
         author: 'Maria G.',
         date: '2024-01-20'
@@ -1532,6 +1536,7 @@ warden: [
       {
         id: '1',
         locationId: 'main',
+        rating: 5,
         comment: 'Historic and beautiful campus with amazing architecture!',
         author: 'Vikram S.',
         date: '2024-01-25'

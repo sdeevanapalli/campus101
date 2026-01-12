@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { MapContainer, TileLayer, Marker, Popup, useMap } from 'react-leaflet';
-import { Link, useParams, useNavigate, useLocation } from 'react-router-dom';
+import { Link, useNavigate, useLocation } from 'react-router-dom';
 import { motion, AnimatePresence, useReducedMotion } from 'framer-motion';
 import {
   Map as MapIcon,
@@ -22,10 +22,7 @@ import {
   AlertTriangle,
   ArrowRight,
   ArrowLeft,
-  Mail,
-  Book,
-  PersonStandingIcon,
-  PersonStanding
+  Mail
 } from 'lucide-react';
 import 'leaflet/dist/leaflet.css';
 import { CampusData } from '../data/campusData';
@@ -190,7 +187,6 @@ const HomeView = ({ data, campusSlug }: { data: CampusData, campusSlug: string }
 
 const TransportView = ({ data }: { data: CampusData }) => {
     const [selectedAutoDriver, setSelectedAutoDriver] = useState<string>('');
-    const isMobile = useIsMobile();
     
     // Static Data for BITS Hyd
     const shuttleToCity = ['7:50 AM', '8:50 AM', '12:45 PM', '4:00 PM', '5:00 PM'];
@@ -461,7 +457,7 @@ const MenuModal = ({ outlet, isOpen, onClose }: { outlet: any; isOpen: boolean; 
             {/* Image Thumbnails */}
             {hasMultipleImages && (
               <div className="flex gap-2 mt-4 overflow-x-auto pb-1">
-                {images.map((img, idx) => (
+                {images.map((img: string, idx: number) => (
                   <button
                     key={idx}
                     onClick={() => setCurrentImageIndex(idx)}
@@ -527,7 +523,7 @@ const OutletsView = ({ data }: { data: CampusData }) => {
         <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-8 px-2">
             <div>
                 <h2 className="text-4xl md:text-5xl font-bold text-white tracking-tighter mb-2">Outlets</h2>
-                <p className="text-zinc-400 text-sm">Click on food outlets to view menu images. Data is crowdsourced and may not be accurate.</p>
+                <p className="text-zinc-400 text-sm">Click on select outlets to view menu images. Data is crowdsourced and may not be accurate.</p>
                 <div className="flex items-center gap-2">
                 </div>
             </div>
