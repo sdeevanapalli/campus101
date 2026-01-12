@@ -924,14 +924,22 @@ export const campusData: Record<string, CampusData> = {
     timing: '9:30 AM - 1:00 AM',
     category: 'shopping',
     popular: false,
-    description: 'Local business'
+    description: 'Local business',
+    menuImages: [
+      '/menu/FK1.webp',
+      '/menu/FK2.webp'
+    ]
   },
   {
     name: 'Subspot',
     timing: '9:30 AM - 1:00 AM',
     category: 'shopping',
     popular: false,
-    description: 'Local business'
+    description: 'Local business',
+    menuImages: [
+      '/menu/SUB1.webp',
+      '/menu/SUB2.webp'
+    ]
   },
   {
     name: 'Amul',
@@ -947,8 +955,9 @@ export const campusData: Record<string, CampusData> = {
     popular: false,
     description: 'Local business',
     menuImages: [
-      'https://images.unsplash.com/photo-1495521821757-a1efb6729352?w=600&h=800&fit=crop',
-      'https://images.unsplash.com/photo-1509042239860-f550ce710b93?w=600&h=800&fit=crop'
+      '/menu/NESCAFE1.webp',
+      '/menu/NESCAFE2.webp',
+      '/menu/NESCAFE3.webp'
     ]
   },
   {
@@ -970,7 +979,13 @@ export const campusData: Record<string, CampusData> = {
     timing: '11:00 AM - 1:30 AM',
     category: 'shopping',
     popular: false,
-    description: 'Local business'
+    description: 'Local business',
+    menuImages: [
+      '/menu/INS1.webp',
+      '/menu/INS2.webp',
+      '/menu/INS3.webp',
+      '/menu/INS4.webp'
+    ]
   },
   {
     name: 'A side laundromat',
@@ -984,7 +999,10 @@ export const campusData: Record<string, CampusData> = {
     timing: '12:30 PM - 7:30 PM',
     category: 'shopping',
     popular: false,
-    description: 'Local business'
+    description: 'Local business',
+    menuImages: [
+      '/menu/GAJA.webp'
+    ]
   },
   {
     name: 'JV Shetty mega mart',
@@ -1012,10 +1030,7 @@ export const campusData: Record<string, CampusData> = {
     timing: '11:30 AM - 9:30 PM',
     category: 'food',
     popular: false,
-    description: 'Local business',
-    menuImages: [
-      'https://images.unsplash.com/photo-1488459716781-6918f33e3b4c?w=600&h=800&fit=crop'
-    ]
+    description: 'Local business'
   },
   {
     name: 'Laxmi laundry',
@@ -1036,12 +1051,7 @@ export const campusData: Record<string, CampusData> = {
     timing: '11:30 AM - 3:00 PM and 6:30 PM - 11:30 PM',
     category: 'food',
     popular: false,
-    description: 'Local business',
-    menuImages: [
-      'https://images.unsplash.com/photo-1568901346375-23c9450c58cd?w=600&h=800&fit=crop',
-      'https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?w=600&h=800&fit=crop',
-      'https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=600&h=800&fit=crop'
-    ]
+    description: 'Local business'
   },
   {
     name: 'Tailor(Malakar)',
@@ -1078,8 +1088,7 @@ export const campusData: Record<string, CampusData> = {
     popular: false,
     description: 'Local business',
     menuImages: [
-      'https://images.unsplash.com/photo-1555939594-58d7cb561ad1?w=600&h=800&fit=crop',
-      'https://images.unsplash.com/photo-1529006557810-274b9b2fc783?w=600&h=800&fit=crop'
+      '/menu/D_SIDE.webp'
     ]
   },
   {
@@ -1087,11 +1096,7 @@ export const campusData: Record<string, CampusData> = {
     timing: '11:00 AM - 3:00 AM',
     category: 'food',
     popular: false,
-    description: 'Local business',
-    menuImages: [
-      'https://images.unsplash.com/photo-1628840042765-356cda07f4ee?w=600&h=800&fit=crop',
-      'https://images.unsplash.com/photo-1513104890138-7c749659a591?w=600&h=800&fit=crop'
-    ]
+    description: 'Local business'
   }
     ],
     outletPhones: [
@@ -1100,7 +1105,7 @@ export const campusData: Record<string, CampusData> = {
       { name: 'Amul', phone: 'TBD' },
       { name: 'Nescafé', phone: 'TBD' }
     ],
-    autoDrivers: [
+    autoDrivers: [ //placeholders
       'Goa Driver 1 - 9876543210',
       'Goa Driver 2 - 9876543211'
     ],

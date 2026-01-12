@@ -386,7 +386,7 @@ const MenuModal = ({ outlet, isOpen, onClose }: { outlet: any; isOpen: boolean; 
           </button>
           
           {/* Image Display */}
-          <div className="relative h-[55vh] bg-zinc-950 flex items-center justify-center">
+          <div className="relative h-[55vh] bg-zinc-950 overflow-y-auto">
             {images.length > 0 ? (
               <AnimatePresence mode="wait">
                 <motion.img
@@ -397,7 +397,7 @@ const MenuModal = ({ outlet, isOpen, onClose }: { outlet: any; isOpen: boolean; 
                   transition={{ duration: 0.3 }}
                   src={images[currentImageIndex]}
                   alt={`${outlet.name} menu ${currentImageIndex + 1}`}
-                  className="w-full h-full object-contain"
+                  className="w-full h-auto object-contain"
                   onError={(e) => {
                     (e.target as HTMLImageElement).src = 'https://images.unsplash.com/photo-1495521821757-a1efb6729352?w=600&h=800&fit=crop';
                   }}
