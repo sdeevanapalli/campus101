@@ -1143,16 +1143,8 @@ export const campusData: Record<string, CampusData> = {
     ]
     }
     ],
-    outletPhones: [
-      { name: 'FK', phone: 'TBD' },
-      { name: 'Subspot', phone: 'TBD' },
-      { name: 'Amul', phone: 'TBD' },
-      { name: 'Nescafé', phone: 'TBD' }
-    ],
-    autoDrivers: [ //placeholders
-      'Goa Driver 1 - 9876543210',
-      'Goa Driver 2 - 9876543211'
-    ],
+    outletPhones: [],
+    autoDrivers: [],
     busRoutes: [
       { route: 'Campus to Panaji', times: ['7:00 AM', '5:00 PM'] },
       { route: 'Campus to Margao', times: ['8:00 AM', '6:00 PM'] }
@@ -1556,15 +1548,8 @@ warden: [
         description: 'Popular hangout spot with great food'
       }
     ],
-    // Placeholder phone numbers for Pilani outlets — replace with actual numbers when available
-    outletPhones: [
-      { name: 'Pilani Store', phone: 'TBD' },
-      { name: 'Campus Cafe', phone: 'TBD' }
-    ],
-    autoDrivers: [
-      'Pilani Driver 1 - 9876543210',
-      'Pilani Driver 2 - 9876543211'
-    ],
+    outletPhones: [],
+    autoDrivers: [],
     busRoutes: [
       { route: 'Campus to Jaipur', times: ['6:00 AM', '4:00 PM'] },
       { route: 'Campus to Delhi', times: ['7:00 AM', '5:00 PM'] }

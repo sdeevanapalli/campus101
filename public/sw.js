@@ -16,20 +16,16 @@ self.addEventListener('install', event => {
   console.log('[Service Worker] Installing...');
   event.waitUntil(
     caches.open(STATIC_CACHE_NAME)
-      .then(cache => {
-        console.log('[Service Worker] Caching static assets');
-        return cache.addAll(urlsToCache);
-      })
-      .then(() => self.skipWaiting()) // Activate immediately
+      .then(cache => cache.addAll(urlsToCache))
+      .then(() => self.skipWaiting())
       .catch(error => {
-        console.error('[Service Worker] Cache install failed:', error);
+        console.error('[SW] Cache install failed:', error);
       })
   );
 });
 
 // Activate event: clean up old caches
 self.addEventListener('activate', event => {
-  console.log('[Service Worker] Activating...');
   event.waitUntil(
     caches.keys()
       .then(cacheNames => {
@@ -38,13 +34,12 @@ self.addEventListener('activate', event => {
             if (cacheName !== STATIC_CACHE_NAME && 
                 cacheName !== DYNAMIC_CACHE_NAME &&
                 cacheName.startsWith('campus101-')) {
-              console.log('[Service Worker] Deleting old cache:', cacheName);
               return caches.delete(cacheName);
             }
           })
         );
       })
-      .then(() => self.clients.claim()) // Take control of all pages immediately
+      .then(() => self.clients.claim())
   );
 });
 
@@ -100,15 +95,13 @@ self.addEventListener('fetch', event => {
   );
 });
 
-// Handle background sync (for offline actions)
+// background sync event
 self.addEventListener('sync', event => {
-  console.log('[Service Worker] Background sync:', event.tag);
-  // Implement background sync logic here if needed
+  // implement background sync logic here if needed
 });
 
-// Handle push notifications (for future use)
+// push notification event
 self.addEventListener('push', event => {
-  console.log('[Service Worker] Push notification received');
-  // Implement push notification logic here if needed
+  // implement push notification logic here if needed
 });
 

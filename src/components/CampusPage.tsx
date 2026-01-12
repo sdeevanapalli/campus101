@@ -26,6 +26,7 @@ import {
 } from 'lucide-react';
 import 'leaflet/dist/leaflet.css';
 import { CampusData } from '../data/campusData';
+import { useIsMobile } from '../hooks/useIsMobile';
 
 import L from 'leaflet';
 
@@ -33,7 +34,7 @@ import markerIcon2x from 'leaflet/dist/images/marker-icon-2x.png';
 import markerIcon from 'leaflet/dist/images/marker-icon.png';
 import markerShadow from 'leaflet/dist/images/marker-shadow.png';
 
-// leaflet needs this otherwise markers break in prod
+// leaflet needs this fix or markers break in production
 // @ts-ignore
 delete L.Icon.Default.prototype._getIconUrl;
 
@@ -42,18 +43,6 @@ L.Icon.Default.mergeOptions({
   iconRetinaUrl: typeof markerIcon2x === 'string' ? markerIcon2x : (markerIcon2x as any).src,
   shadowUrl: typeof markerShadow === 'string' ? markerShadow : (markerShadow as any).src,
 });
-
-// Hook to detect mobile and reduced motion preference
-const useIsMobile = () => {
-  const [isMobile, setIsMobile] = useState(false);
-  useEffect(() => {
-    const checkMobile = () => setIsMobile(window.innerWidth < 768);
-    checkMobile();
-    window.addEventListener('resize', checkMobile);
-    return () => window.removeEventListener('resize', checkMobile);
-  }, []);
-  return isMobile;
-};
 
 const GlassCard = ({ children, className, onClick, delay = 0 }: any) => {
   const prefersReducedMotion = useReducedMotion();
@@ -125,7 +114,7 @@ const FlyToLocation = ({ center }: { center: [number, number] }) => {
   const map = useMap();
   const isMobile = useIsMobile();
   useEffect(() => {
-    // Use faster animation on mobile, smoother on desktop
+    // faster animation on mobile, smoother on desktop
     map.flyTo(center, 17, { duration: isMobile ? 0.8 : 1.5 });
   }, [center, map, isMobile]);
   return null;
