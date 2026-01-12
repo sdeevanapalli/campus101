@@ -983,8 +983,7 @@ export const campusData: Record<string, CampusData> = {
     menuImages: [
       '/menu/INS1.webp',
       '/menu/INS2.webp',
-      '/menu/INS3.webp',
-      '/menu/INS4.webp'
+      '/menu/INS3.webp'
     ]
   },
   {
@@ -1010,6 +1009,17 @@ export const campusData: Record<string, CampusData> = {
     category: 'shopping',
     popular: false,
     description: 'Local business'
+  },
+  {
+    name: 'JV Shetty IC',
+    timing: '09:00 AM - 06:30 PM',
+    category: 'shopping',
+    popular: false,
+    description: 'Local business',
+    menuImages: [
+      '/menu/JVIC1.webp',
+      '/menu/JVIC2.webp'
+    ]
   },
   {
     name: 'Pragati stationary(Malakar)',
@@ -1097,7 +1107,41 @@ export const campusData: Record<string, CampusData> = {
     category: 'food',
     popular: false,
     description: 'Local business'
-  }
+  },
+    {
+    name: 'ANC',
+    timing: '11:00 PM - 01:30 AM',
+    category: 'food',
+    popular: false,
+    description: 'A Mess',
+    menuImages: [
+      '/menu/ANC1.webp',
+      '/menu/ANC2.webp'
+    ]
+  },
+    {
+    name: 'CNC',
+    timing: '11:00 PM - 02:00 AM',
+    category: 'food',
+    popular: false,
+    description: 'C Mess',
+    menuImages: [
+      '/menu/CNC1.webp',
+      '/menu/CNC2.webp',
+      '/menu/CNC3.webp',
+      '/menu/CNC4.webp'
+    ]
+    },
+    {
+    name: 'DNC',
+    timing: '11:00 PM - 01:30 AM',
+    category: 'food',
+    popular: false,
+    description: 'D Mess',
+    menuImages: [
+      '/menu/DNC.webp'
+    ]
+    }
     ],
     outletPhones: [
       { name: 'FK', phone: 'TBD' },
