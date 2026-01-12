@@ -14,12 +14,10 @@ export interface Outlet {
   name: string;
   timing: string;
   closed?: boolean;
-  rating?: number;
-  reviews?: number;
   category: 'food' | 'stationery' | 'services' | 'shopping';
   popular?: boolean;
   description?: string;
-  menuImage?: string;
+  menuImages?: string[];
 }
 
 export interface Event {
@@ -95,8 +93,6 @@ export const campusData: Record<string, CampusData> = {
         lng: 78.57527103665713, 
         desc: "The Student Activities Centre (SAC) hosts club rooms, a dance room, gym, and space for practice and meetings. Great place for rehearsals or chilling.",
         category: 'recreation',
-        rating: 4.5,
-        reviews: 127,
         popular: true
       },
       { 
@@ -106,8 +102,6 @@ export const campusData: Record<string, CampusData> = {
         lng: 78.57383333595718, 
         desc: "Mess 1 is the hotspot on campus. It's where most students eat, meet, and chill after classes. You'll often find music and friends hanging around here.",
         category: 'food',
-        rating: 4.2,
-        reviews: 89,
         popular: true
       },
       { 
@@ -117,8 +111,6 @@ export const campusData: Record<string, CampusData> = {
         lng: 78.57519539689511, 
         desc: "Mess 2 is across the old hockey ground sits Mess 2. It's quieter, more spacious, and a good place if you want a peaceful meal.",
         category: 'food',
-        rating: 4.0,
-        reviews: 67
       },
       { 
         id: 'lib', 
@@ -127,8 +119,6 @@ export const campusData: Record<string, CampusData> = {
         lng: 78.57150321231636, 
         desc: "The campus library is a sanctuary for studying or finding reference books. It's open till late and has AC – major bonus during summers.",
         category: 'academic',
-        rating: 4.7,
-        reviews: 156,
         popular: true
       },
       { 
@@ -138,8 +128,6 @@ export const campusData: Record<string, CampusData> = {
         lng: 78.57087843149998, 
         desc: "The main auditorium for events, talks, and presentations. A key venue for cultural events and academic seminars.",
         category: 'facilities',
-        rating: 4.3,
-        reviews: 78
       },
       { 
         id: 'cp', 
@@ -148,8 +136,6 @@ export const campusData: Record<string, CampusData> = {
         lng: 78.57576688860827, 
         desc: "Connaught Place is a central hub area on campus, popular for gatherings and social activities.",
         category: 'recreation',
-        rating: 4.4,
-        reviews: 92,
         popular: true
       },
       { 
@@ -159,8 +145,6 @@ export const campusData: Record<string, CampusData> = {
         lng: 78.57212431161547, 
         desc: "A scenic fountain area that's perfect for evening walks and photo sessions. A peaceful spot on campus.",
         category: 'recreation',
-        rating: 4.6,
-        reviews: 45
       },
       { 
         id: 'll', 
@@ -169,8 +153,6 @@ export const campusData: Record<string, CampusData> = {
         lng: 78.57298386645695, 
         desc: "A romantic walkway popular among couples and friends for evening strolls and quiet conversations.",
         category: 'recreation',
-        rating: 4.8,
-        reviews: 203,
         popular: true
       },
       { 
@@ -180,8 +162,6 @@ export const campusData: Record<string, CampusData> = {
         lng: 78.57403043467615, 
         desc: "A scenic pathway that's perfect for contemplative walks and enjoying nature on campus. (The real Lover's Lane IYKYK)",
         category: 'recreation',
-        rating: 4.7,
-        reviews: 89
       },
       { 
         id: 'swmg', 
@@ -190,8 +170,6 @@ export const campusData: Record<string, CampusData> = {
         lng: 78.57677623770725, 
         desc: "Campus swimming pool facility for recreation and fitness. A great place to cool off and stay active.",
         category: 'sports',
-        rating: 4.1,
-        reviews: 56
       },
       { 
         id: 'rocks', 
@@ -200,8 +178,6 @@ export const campusData: Record<string, CampusData> = {
         lng: 78.5730200932779, 
         desc: "A beautifully landscaped rock garden area, perfect for relaxation and enjoying the natural beauty of campus.",
         category: 'recreation',
-        rating: 4.3,
-        reviews: 34
       },
       { 
         id: 'direc', 
@@ -210,8 +186,6 @@ export const campusData: Record<string, CampusData> = {
         lng: 78.57651452810894, 
         desc: "The residential area for the campus director and administrative offices.",
         category: 'facilities',
-        rating: 3.8,
-        reviews: 12
       },
       { 
         id: 'mc', 
@@ -220,8 +194,6 @@ export const campusData: Record<string, CampusData> = {
         lng: 78.57645388966053, 
         desc: "Campus medical facility providing healthcare services to students and staff. Emergency and routine medical care available.",
         category: 'facilities',
-        rating: 4.4,
-        reviews: 67
       },
       { 
         id: 'ofg', 
@@ -230,8 +202,6 @@ export const campusData: Record<string, CampusData> = {
         lng: 78.57499151300111, 
         desc: "Comes alive at night. Great spot for chill, impromptu matches and kicking back with the gang.",
         category: 'sports',
-        rating: 4.5,
-        reviews: 78,
         popular: true
       },
       { 
@@ -241,8 +211,6 @@ export const campusData: Record<string, CampusData> = {
         lng: 78.57617359351049, 
         desc: "The fancier turf where official matches take place during fests. Still open for casual games when it is free; mix of pro vibes and chill scenes.",
         category: 'sports',
-        rating: 4.6,
-        reviews: 45
       },
       { 
         id: 'cg', 
@@ -251,8 +219,6 @@ export const campusData: Record<string, CampusData> = {
         lng: 78.57731941388154, 
         desc: "Classic spot for gully-style cricket or full-blown matches. Always buzzing in the evenings with bat, ball, and banter.",
         category: 'sports',
-        rating: 4.4,
-        reviews: 89
       },
       { 
         id: 'vg', 
@@ -261,8 +227,6 @@ export const campusData: Record<string, CampusData> = {
         lng: 78.57538012811001, 
         desc: "Volleyball Ground right beside kabaddi and Amul. A solid combo of action and refreshment.",
         category: 'sports',
-        rating: 4.2,
-        reviews: 34
       },
       { 
         id: 'nab', 
@@ -271,8 +235,6 @@ export const campusData: Record<string, CampusData> = {
         lng: 78.5695917200961, 
         desc: "New Academic Block is where a forgotten chess courtyard and a lone eatery quietly coexist.",
         category: 'academic',
-        rating: 4.0,
-        reviews: 56
       },
       { 
         id: 'oab', 
@@ -281,8 +243,6 @@ export const campusData: Record<string, CampusData> = {
         lng: 78.57116941506344, 
         desc: "Old Academic Block is where things actually happen louder busier and way more alive than its newer sleepy sibling.",
         category: 'academic',
-        rating: 4.3,
-        reviews: 78
       },
       { 
         id: 'valmiki', 
@@ -290,8 +250,6 @@ export const campusData: Record<string, CampusData> = {
         lat: 17.545872952669946, 
         lng: 78.57470692913476,
         category: 'residential',
-        rating: 4.1,
-        reviews: 45
       },
       { 
         id: 'gautam', 
@@ -299,8 +257,6 @@ export const campusData: Record<string, CampusData> = {
         lat: 17.541604563227047, 
         lng: 78.5751704189681,
         category: 'residential',
-        rating: 4.2,
-        reviews: 52
       },
       { 
         id: 'krishnaram', 
@@ -308,8 +264,6 @@ export const campusData: Record<string, CampusData> = {
         lat: 17.542746061934633, 
         lng: 78.57393606166247,
         category: 'residential',
-        rating: 4.0,
-        reviews: 38
       },
       { 
         id: 'gandhibudh', 
@@ -317,8 +271,6 @@ export const campusData: Record<string, CampusData> = {
         lat: 17.542578448925582, 
         lng: 78.57427698469752,
         category: 'residential',
-        rating: 4.1,
-        reviews: 41
       },
       { 
         id: 'vk', 
@@ -326,8 +278,6 @@ export const campusData: Record<string, CampusData> = {
         lat: 17.54497398734834, 
         lng: 78.57644535482906,
         category: 'residential',
-        rating: 4.3,
-        reviews: 47
       },
       { 
         id: 'shankar', 
@@ -335,8 +285,6 @@ export const campusData: Record<string, CampusData> = {
         lat: 17.544722406131818, 
         lng: 78.57494826204248,
         category: 'residential',
-        rating: 4.0,
-        reviews: 39
       },
       { 
         id: 'vyas', 
@@ -344,8 +292,6 @@ export const campusData: Record<string, CampusData> = {
         lat: 17.54450090499368, 
         lng: 78.57535551716839,
         category: 'residential',
-        rating: 4.2,
-        reviews: 43
       },
       { 
         id: 'malviya', 
@@ -353,8 +299,6 @@ export const campusData: Record<string, CampusData> = {
         lat: 17.540998514798122, 
         lng: 78.57482350258248,
         category: 'residential',
-        rating: 4.1,
-        reviews: 40
       },
       { 
         id: 'meera', 
@@ -362,8 +306,6 @@ export const campusData: Record<string, CampusData> = {
         lat: 17.54163340476832, 
         lng: 78.57402955343612,
         category: 'residential',
-        rating: 4.0,
-        reviews: 37
       },
       { 
         id: 'ganga', 
@@ -371,8 +313,6 @@ export const campusData: Record<string, CampusData> = {
         lat: 17.541954864432526, 
         lng: 78.57339341827591,
         category: 'residential',
-        rating: 4.2,
-        reviews: 44
       }
     ],
     outlets: [
@@ -380,16 +320,12 @@ export const campusData: Record<string, CampusData> = {
         name: 'Heritage Stationery', 
         timing: '10:00 AM - 7:00 PM (Sunday closed)', 
         category: 'stationery',
-        rating: 4.3,
-        reviews: 67,
         description: 'Complete stationery needs for students'
       },
       { 
         name: 'Agarwal Supermarket', 
         timing: '9:00 AM - 9:00 PM', 
         category: 'shopping',
-        rating: 4.5,
-        reviews: 89,
         popular: true,
         description: 'One-stop shop for all daily needs'
       },
@@ -397,24 +333,18 @@ export const campusData: Record<string, CampusData> = {
         name: 'Sri Sai Laundry', 
         timing: '9:00 AM - 9:00 PM (On Monday 9AM to 5PM)', 
         category: 'services',
-        rating: 4.1,
-        reviews: 45,
         description: 'Professional laundry services'
       },
       { 
         name: 'Pleasant', 
         timing: '12:30PM - 03:30PM & 07:00 PM - 11:00 PM',
         category: 'food',
-        rating: 4.2,
-        reviews: 78,
         description: 'Popular food outlet'
       },
       { 
         name: 'Protein Isle', 
         timing: '04:00 PM - 10:00 PM', 
         category: 'food',
-        rating: 4.4,
-        reviews: 56,
         popular: true,
         description: 'Healthy protein shakes and snacks'
       },
@@ -422,56 +352,42 @@ export const campusData: Record<string, CampusData> = {
         name: 'Agra Chat', 
         timing: '04:00 PM - 10:00 PM',
         category: 'food',
-        rating: 4.0,
-        reviews: 34,
         description: 'Delicious street food and chaat'
       },
       { 
         name: 'Tea Time', 
         timing: '09:30 AM - 10:30 PM', 
         category: 'food',
-        rating: 4.3,
-        reviews: 67,
         description: 'Best tea and snacks on campus'
       },
       { 
         name: 'Karturi Stationery', 
         timing: '5:00 PM - 8:00 PM', 
         category: 'stationery',
-        rating: 4.0,
-        reviews: 23,
         description: 'Evening stationery shop'
       },
       { 
         name: 'Vijay Laxmi Enterprises', 
         timing: '09:00 AM - 09:00 PM', 
         category: 'stationery',
-        rating: 4.0,
-        reviews: 23,
         description: 'Evening stationery shop'
       },
       { 
         name: 'CP05 VVS Stores', 
         timing: '12:00 PM - 10:00 PM', 
         category: 'shopping',
-        rating: 4.2,
-        reviews: 45,
         description: 'General store with snacks'
       },
       { 
         name: 'Vegetable Shop', 
         timing: '10:30 AM - 9:00 PM', 
         category: 'shopping',
-        rating: 4.1,
-        reviews: 38,
         description: 'Fresh vegetables and fruits'
       },
       { 
         name: 'Amul', 
         timing: '1:00 PM - 10:00 PM', 
         category: 'food',
-        rating: 4.6,
-        reviews: 89,
         popular: true,
         description: 'Ice cream and dairy products'
       },
@@ -479,24 +395,18 @@ export const campusData: Record<string, CampusData> = {
         name: 'Vijay Vahini', 
         timing: '08:30 AM - 02:00 AM', 
         category: 'food',
-        rating: 4.3,
-        reviews: 56,
         description: 'South Indian food and snacks'
       },
       { 
         name: 'Thickshake', 
         timing: '09:30 AM - 11:30 PM', 
         category: 'food',
-        rating: 4.4,
-        reviews: 67,
         description: 'Delicious milkshakes and beverages'
       },
       { 
         name: "Yummpy's", 
         timing: '08:00 AM - 02:00 AM', 
         category: 'food',
-        rating: 4.5,
-        reviews: 78,
         popular: true,
         description: 'Late night food and snacks'
       },
@@ -504,88 +414,66 @@ export const campusData: Record<string, CampusData> = {
         name: 'Hotspot', 
         timing: '09:00 AM - 03:20 AM', 
         category: 'food',
-        rating: 4.2,
-        reviews: 45,
         description: 'Popular hangout spot with food'
       },
       { 
         name: 'Fruitful', 
         timing: '04:00 PM - 10:30 PM', 
         category: 'food',
-        rating: 4.2,
-        reviews: 45,
         description: 'Popular hangout spot with food'
       },
       { 
         name: 'Wich Please', 
         timing: '05:00 PM - 01:45 AM', 
         category: 'food',
-        rating: 4.1,
-        reviews: 34,
         description: 'Sandwiches and fast food'
       },
       { 
         name: 'SFC', 
         timing: '03:00 PM - 01:45 AM', 
         category: 'food',
-        rating: 4.1,
-        reviews: 34,
         description: 'Sandwiches and fast food'
       },
       { 
         name: 'Nescafe', 
         timing: '02:00 PM - 02:00 AM', 
         category: 'food',
-        rating: 4.3,
-        reviews: 56,
         description: 'Coffee and beverages'
       },
       { 
         name: 'Cafeteria', 
         timing: '8:00 AM - 8:00 PM', 
         category: 'food',
-        rating: 4.0,
-        reviews: 67,
         description: 'Main campus cafeteria'
       },
       { 
         name: 'Domino\'s Pizza', 
         timing: '11:00 AM - 11:00 PM', 
         category: 'food',
-        rating: 4.0,
-        reviews: 67,
         description: 'Main campus cafeteria'
       },
       { 
         name: 'C3', 
         timing: '03:00 PM - 02:00 AM', 
         category: 'food',
-        rating: 4.0,
-        reviews: 67,
         description: 'Main campus cafeteria'
       },
       { 
         name: 'Campus Kitchen', 
         timing: '08:00 AM - 07:30 PM', 
         category: 'food',
-        rating: 4.0,
-        reviews: 67,
         description: 'Main campus cafeteria'
       },
       { 
         name: 'Cafe Coffee Day', 
         timing: '09:00 AM - 05:30 PM', 
         category: 'food',
-        rating: 4.0,
-        reviews: 67,
         description: 'Main campus cafeteria'
       },
       { 
         name: 'Goutham Cafe', 
         timing: '08:00 AM - 07:00 PM', 
         category: 'food',
-        rating: 4.0,
-        reviews: 67,
         description: 'Main campus cafeteria'
       }
     ],
@@ -645,7 +533,6 @@ export const campusData: Record<string, CampusData> = {
       {
         id: '1',
         locationId: 'SAC',
-        rating: 5,
         comment: 'Best place to hang out with friends! Great atmosphere and facilities.',
         author: 'Rahul K.',
         date: '2024-01-15'
@@ -653,7 +540,6 @@ export const campusData: Record<string, CampusData> = {
       {
         id: '2',
         locationId: 'mess1',
-        rating: 4,
         comment: 'Good food and great place to meet people. Can get crowded during peak hours.',
         author: 'Priya S.',
         date: '2024-01-10'
@@ -661,7 +547,6 @@ export const campusData: Record<string, CampusData> = {
       {
         id: '3',
         locationId: 'lib',
-        rating: 5,
         comment: 'Perfect study environment with AC and good lighting. Open till late!',
         author: 'Amit R.',
         date: '2024-01-08'
@@ -1002,8 +887,6 @@ export const campusData: Record<string, CampusData> = {
         lng: 73.9872, 
         desc: "Private beach access for students. Perfect for evening walks, sunset views, and beach activities.",
         category: 'recreation',
-        rating: 4.9,
-        reviews: 234,
         popular: true
       },
       { 
@@ -1013,8 +896,6 @@ export const campusData: Record<string, CampusData> = {
         lng: 73.9880, 
         desc: "Modern library with extensive collection and study spaces with ocean views.",
         category: 'academic',
-        rating: 4.6,
-        reviews: 145,
         popular: true
       },
       { 
@@ -1024,8 +905,6 @@ export const campusData: Record<string, CampusData> = {
         lng: 73.9870, 
         desc: "Multi-cuisine mess with both vegetarian and non-vegetarian options. Great variety and quality.",
         category: 'food',
-        rating: 4.3,
-        reviews: 89
       },
       { 
         id: 'sports', 
@@ -1034,8 +913,6 @@ export const campusData: Record<string, CampusData> = {
         lng: 73.9860, 
         desc: "State-of-the-art sports facilities including indoor and outdoor courts.",
         category: 'sports',
-        rating: 4.5,
-        reviews: 67
       }
     ],
     outlets: [
@@ -1043,8 +920,6 @@ export const campusData: Record<string, CampusData> = {
     name: 'FK',
     timing: '9:30 AM - 1:00 AM',
     category: 'shopping',
-    rating: 4.0,
-    reviews: 50,
     popular: false,
     description: 'Local business'
   },
@@ -1052,8 +927,6 @@ export const campusData: Record<string, CampusData> = {
     name: 'Subspot',
     timing: '9:30 AM - 1:00 AM',
     category: 'shopping',
-    rating: 4.0,
-    reviews: 50,
     popular: false,
     description: 'Local business'
   },
@@ -1061,8 +934,6 @@ export const campusData: Record<string, CampusData> = {
     name: 'Amul',
     timing: '08:30 AM - 03:30 AM',
     category: 'shopping',
-    rating: 4.0,
-    reviews: 50,
     popular: false,
     description: 'Local business'
   },
@@ -1070,18 +941,17 @@ export const campusData: Record<string, CampusData> = {
     name: 'Nescafé',
     timing: '8:00 AM - 7:30 PM',
     category: 'food',
-    rating: 4.0,
-    reviews: 50,
     popular: false,
     description: 'Local business',
-    menuImage: 'https://images.unsplash.com/photo-1495521821757-a1efb6729352?w=600&h=800&fit=crop'
+    menuImages: [
+      'https://images.unsplash.com/photo-1495521821757-a1efb6729352?w=600&h=800&fit=crop',
+      'https://images.unsplash.com/photo-1509042239860-f550ce710b93?w=600&h=800&fit=crop'
+    ]
   },
   {
     name: 'Shetty and sons(IC)',
     timing: '8:00 AM - 7:30 PM',
     category: 'shopping',
-    rating: 4.0,
-    reviews: 50,
     popular: false,
     description: 'Local business'
   },
@@ -1089,8 +959,6 @@ export const campusData: Record<string, CampusData> = {
     name: 'Bdome(pragati)',
     timing: '9:00 AM - 9:00 PM',
     category: 'shopping',
-    rating: 4.0,
-    reviews: 50,
     popular: false,
     description: 'Local business'
   },
@@ -1098,8 +966,6 @@ export const campusData: Record<string, CampusData> = {
     name: 'INS',
     timing: '11:00 AM - 1:30 AM',
     category: 'shopping',
-    rating: 4.0,
-    reviews: 50,
     popular: false,
     description: 'Local business'
   },
@@ -1107,8 +973,6 @@ export const campusData: Record<string, CampusData> = {
     name: 'A side laundromat',
     timing: '9:00 AM - 8:00 PM',
     category: 'services',
-    rating: 4.0,
-    reviews: 50,
     popular: false,
     description: 'Local business'
   },
@@ -1116,8 +980,6 @@ export const campusData: Record<string, CampusData> = {
     name: 'Gaja',
     timing: '12:30 PM - 7:30 PM',
     category: 'shopping',
-    rating: 4.0,
-    reviews: 50,
     popular: false,
     description: 'Local business'
   },
@@ -1125,8 +987,6 @@ export const campusData: Record<string, CampusData> = {
     name: 'JV Shetty mega mart',
     timing: '8:00 AM - 9:30 PM',
     category: 'shopping',
-    rating: 4.0,
-    reviews: 50,
     popular: false,
     description: 'Local business'
   },
@@ -1134,8 +994,6 @@ export const campusData: Record<string, CampusData> = {
     name: 'Pragati stationary(Malakar)',
     timing: '9:00 AM - 9:00 PM',
     category: 'stationery',
-    rating: 4.0,
-    reviews: 50,
     popular: false,
     description: 'Local business'
   },
@@ -1143,8 +1001,6 @@ export const campusData: Record<string, CampusData> = {
     name: 'Silva laundry',
     timing: '2:00 PM - 8:30 PM',
     category: 'services',
-    rating: 4.0,
-    reviews: 50,
     popular: false,
     description: 'Local business'
   },
@@ -1152,18 +1008,16 @@ export const campusData: Record<string, CampusData> = {
     name: 'Fruit and vegetable (Malakar)',
     timing: '11:30 AM - 9:30 PM',
     category: 'food',
-    rating: 4.0,
-    reviews: 50,
     popular: false,
     description: 'Local business',
-    menuImage: '/bitsg_dome.webp'
+    menuImages: [
+      'https://images.unsplash.com/photo-1488459716781-6918f33e3b4c?w=600&h=800&fit=crop'
+    ]
   },
   {
     name: 'Laxmi laundry',
     timing: '10:00 AM - 9:00 PM',
     category: 'services',
-    rating: 4.0,
-    reviews: 50,
     popular: false,
     description: 'Local business'
   },
@@ -1171,8 +1025,6 @@ export const campusData: Record<string, CampusData> = {
     name: 'SBI bank',
     timing: '10:00 AM - 4:00 PM (Monday to Saturday)',
     category: 'services',
-    rating: 4.0,
-    reviews: 50,
     popular: false,
     description: 'Local business'
   },
@@ -1180,18 +1032,18 @@ export const campusData: Record<string, CampusData> = {
     name: 'RC Restaurant',
     timing: '11:30 AM - 3:00 PM and 6:30 PM - 11:30 PM',
     category: 'food',
-    rating: 4.0,
-    reviews: 50,
     popular: false,
     description: 'Local business',
-    menuImage: 'https://images.unsplash.com/photo-1568901346375-23c9450c58cd?w=600&h=800&fit=crop'
+    menuImages: [
+      'https://images.unsplash.com/photo-1568901346375-23c9450c58cd?w=600&h=800&fit=crop',
+      'https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?w=600&h=800&fit=crop',
+      'https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=600&h=800&fit=crop'
+    ]
   },
   {
     name: 'Tailor(Malakar)',
     timing: '7:00 PM - 9:00 PM',
     category: 'services',
-    rating: 4.0,
-    reviews: 50,
     popular: false,
     description: 'Local business'
   },
@@ -1199,8 +1051,6 @@ export const campusData: Record<string, CampusData> = {
     name: 'Kheteshwar Electronics',
     timing: '4:00 PM - 8:00 PM',
     category: 'shopping',
-    rating: 4.0,
-    reviews: 50,
     popular: false,
     description: 'Local business'
   },
@@ -1208,8 +1058,6 @@ export const campusData: Record<string, CampusData> = {
     name: 'Barber shop',
     timing: '11:00 AM - 8:00 PM (Tuesdays closed)',
     category: 'services',
-    rating: 4.0,
-    reviews: 50,
     popular: false,
     description: 'Local business'
   },
@@ -1217,8 +1065,6 @@ export const campusData: Record<string, CampusData> = {
     name: 'Facial shop',
     timing: '10:30 AM - 7:00 PM (2:00 PM - 3:00 PM lunch break, Monday to Saturday)',
     category: 'services',
-    rating: 4.0,
-    reviews: 50,
     popular: false,
     description: 'Local business'
   },
@@ -1226,21 +1072,23 @@ export const campusData: Record<string, CampusData> = {
     name: 'D side food truck',
     timing: '9:30 AM - 2:00 AM',
     category: 'food',
-    rating: 4.0,
-    reviews: 50,
     popular: false,
     description: 'Local business',
-    menuImage: 'https://images.unsplash.com/photo-1555939594-58d7cb561ad1?w=600&h=800&fit=crop'
+    menuImages: [
+      'https://images.unsplash.com/photo-1555939594-58d7cb561ad1?w=600&h=800&fit=crop',
+      'https://images.unsplash.com/photo-1529006557810-274b9b2fc783?w=600&h=800&fit=crop'
+    ]
   },
   {
     name: 'Dominos',
     timing: '11:00 AM - 3:00 AM',
     category: 'food',
-    rating: 4.0,
-    reviews: 50,
     popular: false,
     description: 'Local business',
-    menuImage: 'https://images.unsplash.com/photo-1628840042765-356cda07f4ee?w=600&h=800&fit=crop'
+    menuImages: [
+      'https://images.unsplash.com/photo-1628840042765-356cda07f4ee?w=600&h=800&fit=crop',
+      'https://images.unsplash.com/photo-1513104890138-7c749659a591?w=600&h=800&fit=crop'
+    ]
   }
     ],
     outletPhones: [
@@ -1273,7 +1121,6 @@ export const campusData: Record<string, CampusData> = {
       {
         id: '1',
         locationId: 'beach',
-        rating: 5,
         comment: 'Amazing beach access! Perfect for evening walks and sunset photography.',
         author: 'Maria G.',
         date: '2024-01-20'
@@ -1621,8 +1468,6 @@ warden: [
         lng: 75.5880, 
         desc: "Historic main building with administrative offices and lecture halls.",
         category: 'academic',
-        rating: 4.7,
-        reviews: 189,
         popular: true
       },
       { 
@@ -1632,8 +1477,6 @@ warden: [
         lng: 75.5870, 
         desc: "Extensive library collection with rare books and manuscripts.",
         category: 'academic',
-        rating: 4.8,
-        reviews: 156,
         popular: true
       },
       { 
@@ -1643,8 +1486,6 @@ warden: [
         lng: 75.5890, 
         desc: "Traditional mess serving authentic Rajasthani and North Indian cuisine.",
         category: 'food',
-        rating: 4.4,
-        reviews: 98
       }
     ],
     outlets: [
@@ -1652,16 +1493,12 @@ warden: [
         name: 'Pilani Store', 
         timing: '8:00 AM - 9:00 PM', 
         category: 'shopping',
-        rating: 4.3,
-        reviews: 67,
         description: 'Complete store for all student needs'
       },
       { 
         name: 'Campus Cafe', 
         timing: '9:00 AM - 11:00 PM', 
         category: 'food',
-        rating: 4.5,
-        reviews: 89,
         popular: true,
         description: 'Popular hangout spot with great food'
       }
@@ -1695,7 +1532,6 @@ warden: [
       {
         id: '1',
         locationId: 'main',
-        rating: 5,
         comment: 'Historic and beautiful campus with amazing architecture!',
         author: 'Vikram S.',
         date: '2024-01-25'
