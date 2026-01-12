@@ -325,12 +325,6 @@ If you cannot open a PR, send patches or suggestions to:
 
 ---
 
-## License
-
-[Add your license here if applicable]
-
----
-
 ## Acknowledgments
 
 Built with ❤️ for the BITS Pilani community.
